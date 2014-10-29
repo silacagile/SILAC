@@ -6,7 +6,10 @@
 package vista;
 
 import dao.EnsayoDAO;
+import dao.PacienteDAO;
 import dao.PostgresEnsayoDAO;
+import dao.PostgresPacienteDAO;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -17,9 +20,12 @@ import java.awt.print.PrinterJob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import modelo.Ensayo;
+import modelo.Paciente;
 
 /**
  *
@@ -27,25 +33,168 @@ import modelo.Ensayo;
  */
 public class RegistrarResultado extends JFrame implements Printable {
 
-
     /**
      * Creates new form RegistrarResultado
      */
     public RegistrarResultado() {
         initComponents();
-        initDatos();
+
+        disableComponents();
+
+        addButtonFocus();
     }
 
-    public void initDatos() {
-        this.setLocationRelativeTo(null);
-        cmb_tipoMuestra.setEnabled(false);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = new Date();
+    private void enableIDPaciente() {
+        txtF_idPaciente.setEnabled(true);
+        btn_buscarPaciente.setEnabled(true);
+    }
 
-        String[] nombres = {"Juan", "Pepe", "Pedro", "Julio", "Rosita", "Alejandro", "Veymar", "Daniel", "Marcelo", "Jorge"};
-        String[] dir = {"Calle Sucre", "Calle Bolivar", "Av. Heroinas", "Av.Ayacucho", "Av. Simon Lopex", "Av. Oquendo", "Av. Juan Pablo", "Calle Jordan", "Calle Calame", "Calle Pasteur"};
-        String[] telefonos = {"45136", "85544", "89645", "13210", "7056632", "425993", "4852299", "4855216", "70252265", "60956666"};
-        
+    private void disableIDPaciente() {
+        txtF_idPaciente.setEnabled(false);
+        btn_buscarPaciente.setEnabled(false);
+    }
+
+    private void enableIDMuestra() {
+        txtF_codMuestra.setEnabled(true);
+        btn_buscarMuestra.setEnabled(true);
+    }
+
+    private void disableIDMuestra() {
+        txtF_codMuestra.setEnabled(false);
+        btn_buscarMuestra.setEnabled(false);
+    }
+
+    private void enableMuestra() {
+        txtF_codMuestra.setEnabled(true);
+        btn_buscarMuestra.setEnabled(true);
+        btn_cambiarMuestra.setEnabled(true);
+        cmb_tipoMuestra.setEnabled(true);
+        cmb_solBuffer.setEnabled(true);
+        cmb_instrumento.setEnabled(true);
+        cmb_tipoTest.setEnabled(true);
+        txtF_volumenMuestra.setEnabled(true);
+        txtA_observaciones.setEnabled(true);
+        btn_guardarMuestra.setEnabled(true);
+    }
+
+    private void disableMuestra() {
+        txtF_codMuestra.setEnabled(false);
+        btn_buscarMuestra.setEnabled(false);
+        btn_cambiarMuestra.setEnabled(false);
+        cmb_tipoMuestra.setEnabled(false);
+        cmb_solBuffer.setEnabled(false);
+        cmb_instrumento.setEnabled(false);
+        cmb_tipoTest.setEnabled(false);
+        txtF_volumenMuestra.setEnabled(false);
+        txtA_observaciones.setEnabled(false);
+        btn_guardarMuestra.setEnabled(false);
+    }
+
+    private void enableEnsayos() {
+        rbtn_ensayo1.setEnabled(true);
+        rbtn_ensayo2.setEnabled(true);
+        rbtn_ensayo3.setEnabled(true);
+        rbtn_ensayo4.setEnabled(true);
+        rbtn_ensayo5.setEnabled(true);
+        txtF_numExtraccion.setEnabled(true);
+        txtF_Resultado.setEnabled(true);
+        txtF_fechaExtraccion.setEnabled(true);
+        txtF_tipoExtraccion.setEnabled(true);
+        txtF_fechaGel.setEnabled(true);
+        txtF_tipoGel.setEnabled(true);
+        txtF_tipoExtraccion.setEnabled(true);
+        txtF_resultadoFinal.setEnabled(true);
+        btn_guardarEnsayo.setEnabled(true);
+    }
+
+    private void cleanEnsayos() {
+
+        txtF_numExtraccion.setText("");
+        txtF_Resultado.setText("");
+        txtF_fechaExtraccion.setText("");
+        txtF_tipoExtraccion.setText("");
+        txtF_fechaGel.setText("");
+        txtF_tipoGel.setText("");
+        txtF_tipoExtraccion.setText("");
+        txtF_resultadoFinal.setText("");
+    }
+
+    private void cleanMuestras() {
+        txtF_codMuestra.setText("");
+        txtF_volumenMuestra.setText("");
+        txtA_observaciones.setText("");
+    }
+
+    private void disableEnsayos() {
+        rbtn_ensayo1.setEnabled(false);
+        rbtn_ensayo2.setEnabled(false);
+        rbtn_ensayo3.setEnabled(false);
+        rbtn_ensayo4.setEnabled(false);
+        rbtn_ensayo5.setEnabled(false);
+        txtF_numExtraccion.setEnabled(false);
+        txtF_Resultado.setEnabled(false);
+        txtF_fechaExtraccion.setEnabled(false);
+        txtF_tipoExtraccion.setEnabled(false);
+        txtF_fechaGel.setEnabled(false);
+        txtF_tipoGel.setEnabled(false);
+        txtF_tipoExtraccion.setEnabled(false);
+        txtF_resultadoFinal.setEnabled(false);
+        btn_guardarEnsayo.setEnabled(false);
+    }
+
+    private void enableComponents() {
+        txtF_codMuestra.setEnabled(true);
+        cmb_tipoMuestra.setEnabled(true);
+        cmb_solBuffer.setEnabled(true);
+        cmb_instrumento.setEnabled(true);
+        cmb_tipoTest.setEnabled(true);
+        txtF_volumenMuestra.setEnabled(true);
+        rbtn_ensayo1.setEnabled(true);
+        rbtn_ensayo2.setEnabled(true);
+        rbtn_ensayo3.setEnabled(true);
+        rbtn_ensayo4.setEnabled(true);
+        rbtn_ensayo5.setEnabled(true);
+        txtF_numExtraccion.setEnabled(true);
+        txtF_Resultado.setEnabled(true);
+        txtF_fechaExtraccion.setEnabled(true);
+        txtF_tipoExtraccion.setEnabled(true);
+        txtF_fechaGel.setEnabled(true);
+        txtF_tipoGel.setEnabled(true);
+        txtF_tipoExtraccion.setEnabled(true);
+        txtF_resultadoFinal.setEnabled(true);
+        btn_guardarEnsayo.setEnabled(true);
+        txtA_observaciones.setEnabled(true);
+        btn_guardarMuestra.setEnabled(true);
+    }
+
+    /**
+     * Desabilita todos los componentes de la interfaz
+     */
+    public void disableComponents() {
+        txtF_codMuestra.setEnabled(false);
+        btn_buscarMuestra.setEnabled(false);
+        btn_cambiarMuestra.setEnabled(false);
+        cmb_tipoMuestra.setEnabled(false);
+        cmb_solBuffer.setEnabled(false);
+        cmb_instrumento.setEnabled(false);
+        cmb_tipoTest.setEnabled(false);
+        txtF_volumenMuestra.setEnabled(false);
+        rbtn_ensayo1.setEnabled(false);
+        rbtn_ensayo2.setEnabled(false);
+        rbtn_ensayo3.setEnabled(false);
+        rbtn_ensayo4.setEnabled(false);
+        rbtn_ensayo5.setEnabled(false);
+        txtF_numExtraccion.setEnabled(false);
+        txtF_Resultado.setEnabled(false);
+        txtF_fechaExtraccion.setEnabled(false);
+        txtF_tipoExtraccion.setEnabled(false);
+        txtF_fechaGel.setEnabled(false);
+        txtF_tipoGel.setEnabled(false);
+        txtF_tipoExtraccion.setEnabled(false);
+        txtF_resultadoFinal.setEnabled(false);
+        btn_guardarEnsayo.setEnabled(false);
+        txtA_observaciones.setEnabled(false);
+        btn_guardarMuestra.setEnabled(false);
     }
 
     /**
@@ -94,7 +243,7 @@ public class RegistrarResultado extends JFrame implements Printable {
         txtF_fechaGel = new javax.swing.JTextField();
         label_fecha = new javax.swing.JLabel();
         label_tipo = new javax.swing.JLabel();
-        txtF_gelTipo = new javax.swing.JTextField();
+        txtF_tipoGel = new javax.swing.JTextField();
         txtF_tipoExtraccion = new javax.swing.JTextField();
         btn_guardarEnsayo = new javax.swing.JButton();
         label_Resultado = new javax.swing.JLabel();
@@ -102,10 +251,13 @@ public class RegistrarResultado extends JFrame implements Printable {
         jScrollPane4 = new javax.swing.JScrollPane();
         txtA_observaciones = new javax.swing.JTextArea();
         btn_guardarMuestra = new javax.swing.JButton();
-        btn_imprimir = new javax.swing.JButton();
         label_idPaciente = new javax.swing.JLabel();
         txtF_idPaciente = new javax.swing.JTextField();
         btn_buscarPaciente = new javax.swing.JButton();
+        btn_buscarMuestra = new javax.swing.JButton();
+        btn_cambiarPaciente = new javax.swing.JButton();
+        btn_cambiarMuestra = new javax.swing.JButton();
+        label_pacienteControl = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -295,7 +447,7 @@ public class RegistrarResultado extends JFrame implements Printable {
                                     .addComponent(txtF_fechaExtraccion))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtF_gelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtF_tipoGel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtF_tipoExtraccion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(43, 43, 43))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -327,7 +479,7 @@ public class RegistrarResultado extends JFrame implements Printable {
                         .addGap(12, 12, 12)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtF_fechaGel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtF_gelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtF_tipoGel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label_gel)))
                     .addComponent(txtF_numExtraccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
@@ -343,13 +495,6 @@ public class RegistrarResultado extends JFrame implements Printable {
         btn_guardarMuestra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_guardarMuestraActionPerformed(evt);
-            }
-        });
-
-        btn_imprimir.setText("Imprimir");
-        btn_imprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_imprimirActionPerformed(evt);
             }
         });
 
@@ -374,6 +519,29 @@ public class RegistrarResultado extends JFrame implements Printable {
             }
         });
 
+        btn_buscarMuestra.setText("Buscar");
+        btn_buscarMuestra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarMuestraActionPerformed(evt);
+            }
+        });
+
+        btn_cambiarPaciente.setText("Cambiar Paciente");
+        btn_cambiarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cambiarPacienteActionPerformed(evt);
+            }
+        });
+
+        btn_cambiarMuestra.setText("Cambiar Muestra");
+        btn_cambiarMuestra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cambiarMuestraActionPerformed(evt);
+            }
+        });
+
+        label_pacienteControl.setText("Introduzca ID Paciente");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -381,45 +549,9 @@ public class RegistrarResultado extends JFrame implements Printable {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(label_tipoTest)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmb_tipoTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label_codMuestra)
-                                    .addComponent(label_solBuffer))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmb_solBuffer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtF_codMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(txtF_idPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btn_buscarPaciente)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label_tipoMuestra)
-                                    .addComponent(label_volumen))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtF_volumenMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmb_tipoMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmb_instrumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(label_instrumento)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane4)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label_ensayos)
-                            .addComponent(label_observaciones)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
@@ -432,15 +564,63 @@ public class RegistrarResultado extends JFrame implements Printable {
                                             .addComponent(rbtn_ensayo5)))
                                     .addComponent(txtF_resultadoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(32, 32, 32))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(label_ensayos, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label_observaciones, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(label_idPaciente)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_guardarMuestra)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(label_volumen)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtF_volumenMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btn_guardarMuestra)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_imprimir))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label_codMuestra)
+                            .addComponent(label_solBuffer)
+                            .addComponent(label_tipoTest)
+                            .addComponent(label_idPaciente))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmb_tipoTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmb_solBuffer, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(txtF_codMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_buscarMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(txtF_idPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_buscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label_tipoMuestra)
+                                    .addComponent(label_instrumento))
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(cmb_tipoMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(cmb_instrumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(btn_cambiarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(label_pacienteControl))
+                                    .addComponent(btn_cambiarMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap())))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -448,28 +628,41 @@ public class RegistrarResultado extends JFrame implements Printable {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_idPaciente)
                     .addComponent(txtF_idPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscarPaciente))
+                    .addComponent(btn_buscarPaciente)
+                    .addComponent(btn_cambiarPaciente)
+                    .addComponent(label_pacienteControl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_codMuestra)
                     .addComponent(txtF_codMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_tipoMuestra)
-                    .addComponent(cmb_tipoMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_buscarMuestra)
+                    .addComponent(btn_cambiarMuestra))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_solBuffer)
                         .addComponent(cmb_solBuffer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_instrumento)
-                        .addComponent(cmb_instrumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(label_tipoMuestra)
+                        .addComponent(cmb_tipoMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label_tipoTest)
                     .addComponent(cmb_tipoTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_instrumento)
+                        .addComponent(cmb_instrumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_volumen)
                     .addComponent(txtF_volumenMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label_observaciones)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_guardarMuestra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_ensayos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,27 +680,18 @@ public class RegistrarResultado extends JFrame implements Printable {
                         .addComponent(label_resultadoFinal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtF_resultadoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label_observaciones)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_guardarMuestra)
-                    .addComponent(btn_imprimir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -531,11 +715,11 @@ public class RegistrarResultado extends JFrame implements Printable {
     private void rbtn_ensayo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ensayo1ActionPerformed
         PostgresEnsayoDAO bd_ensayo = new PostgresEnsayoDAO();
         String id_ensayo = getId_Ensayo();
-        Ensayo ensayo = bd_ensayo.findEnsayo(txtF_idPaciente.getText(), txtF_codMuestra.getText(),id_ensayo);
-        
-        if(ensayo != null){
-            
-        }           
+        Ensayo ensayo = bd_ensayo.findEnsayo(txtF_idPaciente.getText(), txtF_codMuestra.getText(), id_ensayo);
+
+        if (ensayo != null) {
+
+        }
     }//GEN-LAST:event_rbtn_ensayo1ActionPerformed
 
     private void rbtn_ensayo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ensayo2ActionPerformed
@@ -551,49 +735,30 @@ public class RegistrarResultado extends JFrame implements Printable {
     }//GEN-LAST:event_txtF_fechaExtraccionActionPerformed
 
     private void btn_guardarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarMuestraActionPerformed
-        // TODO add your handling code here:
+        enableEnsayos();
     }//GEN-LAST:event_btn_guardarMuestraActionPerformed
 
-    
-    /**
-     * 
-     * @param evt 
-     */
-    private void btn_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_imprimirActionPerformed
-        this.dispose();
-        this.setUndecorated(true);
-        this.pack();
-        this.setVisible(true);
-        //Crea y devuelve un printerjob que se asocia con la impresora predeterminada
-        //del sistema, si no hay, retorna NULL
-
-        PrinterJob printerJob = PrinterJob.getPrinterJob();
-        //Se pasa la instancia del JFrame al PrinterJob
-        printerJob.setPrintable(this);
-        //muestra ventana de dialogo para imprimir
-        if (printerJob.printDialog()) {
-            try {
-                printerJob.print();
-            } catch (PrinterException ex) {
-                System.out.println("Error:" + ex);
-            }
-        }
-        this.dispose();
-        this.setUndecorated(false);
-        this.pack();
-        setVisible(true);
-        
-    }//GEN-LAST:event_btn_imprimirActionPerformed
 
     private void txtF_idPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_idPacienteActionPerformed
     }//GEN-LAST:event_txtF_idPacienteActionPerformed
 
     private void btn_buscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarPacienteActionPerformed
-        JOptionPane.showConfirmDialog(rootPane, "Esto es una prueba");
+        PacienteDAO pacienteDAO = new PostgresPacienteDAO();
+        Paciente paciente = pacienteDAO.findPaciente(txtF_idPaciente.getText());
+        if (paciente == null) {
+            label_pacienteControl.setText("No existe el paciente con el ID : " + txtF_idPaciente.getText());
+            label_pacienteControl.setForeground(Color.red);
+            disableComponents();
+        } else {
+            label_pacienteControl.setText("Paciente ID : " + txtF_idPaciente.getText());
+            label_pacienteControl.setForeground(Color.blue);
+            enableIDMuestra();
+            disableIDPaciente();
+        }
     }//GEN-LAST:event_btn_buscarPacienteActionPerformed
 
     private void cmb_tipoMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_tipoMuestraActionPerformed
-        
+
     }//GEN-LAST:event_cmb_tipoMuestraActionPerformed
 
     private void btn_guardarEnsayoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarEnsayoActionPerformed
@@ -601,11 +766,10 @@ public class RegistrarResultado extends JFrame implements Printable {
         String id_ensayo = getId_Ensayo();
         Ensayo ensayo = getEnsayo();
         ensayo.setIdEnsayo(id_ensayo);
-        if(bd_ensayo.findEnsayo(txtF_idPaciente.getText(), 
-                                txtF_codMuestra.getText(), id_ensayo) != null){
+        if (bd_ensayo.findEnsayo(txtF_idPaciente.getText(),
+                txtF_codMuestra.getText(), id_ensayo) != null) {
             bd_ensayo.updateEnsayo(ensayo);
-        }
-        else{
+        } else {
             bd_ensayo.insertEnsayo(ensayo);
         }
     }//GEN-LAST:event_btn_guardarEnsayoActionPerformed
@@ -621,6 +785,25 @@ public class RegistrarResultado extends JFrame implements Printable {
     private void rbtn_ensayo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ensayo5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtn_ensayo5ActionPerformed
+
+    private void btn_cambiarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarPacienteActionPerformed
+        disableComponents();
+        enableIDPaciente();
+    }//GEN-LAST:event_btn_cambiarPacienteActionPerformed
+
+    private void btn_cambiarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarMuestraActionPerformed
+        cleanEnsayos();
+        cleanMuestras();
+        disableEnsayos();
+        disableMuestra();
+        enableIDMuestra();
+    }//GEN-LAST:event_btn_cambiarMuestraActionPerformed
+
+    private void btn_buscarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarMuestraActionPerformed
+        disableIDMuestra();
+        enableMuestra();
+
+    }//GEN-LAST:event_btn_buscarMuestraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -659,10 +842,12 @@ public class RegistrarResultado extends JFrame implements Printable {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_buscarMuestra;
     private javax.swing.JButton btn_buscarPaciente;
+    private javax.swing.JButton btn_cambiarMuestra;
+    private javax.swing.JButton btn_cambiarPaciente;
     private javax.swing.JButton btn_guardarEnsayo;
     private javax.swing.JButton btn_guardarMuestra;
-    private javax.swing.JButton btn_imprimir;
     private javax.swing.ButtonGroup buttonGroupEnsayos;
     private javax.swing.JComboBox cmb_instrumento;
     private javax.swing.JComboBox cmb_solBuffer;
@@ -686,6 +871,7 @@ public class RegistrarResultado extends JFrame implements Printable {
     private javax.swing.JLabel label_idPaciente;
     private javax.swing.JLabel label_instrumento;
     private javax.swing.JLabel label_observaciones;
+    private javax.swing.JLabel label_pacienteControl;
     private javax.swing.JLabel label_resultadoFinal;
     private javax.swing.JLabel label_solBuffer;
     private javax.swing.JLabel label_tipo;
@@ -702,21 +888,21 @@ public class RegistrarResultado extends JFrame implements Printable {
     private javax.swing.JTextField txtF_codMuestra;
     private javax.swing.JTextField txtF_fechaExtraccion;
     private javax.swing.JTextField txtF_fechaGel;
-    private javax.swing.JTextField txtF_gelTipo;
     private javax.swing.JTextField txtF_idPaciente;
     private javax.swing.JTextField txtF_numExtraccion;
     private javax.swing.JTextField txtF_resultadoFinal;
     private javax.swing.JTextField txtF_tipoExtraccion;
+    private javax.swing.JTextField txtF_tipoGel;
     private javax.swing.JTextField txtF_volumenMuestra;
     // End of variables declaration//GEN-END:variables
 
     /**
-     * 
+     *
      * @param graphics
      * @param pageFormat
      * @param pageIndex
      * @return
-     * @throws PrinterException 
+     * @throws PrinterException
      */
     @Override
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
@@ -729,20 +915,26 @@ public class RegistrarResultado extends JFrame implements Printable {
             return NO_SUCH_PAGE;
         }
     }
+
     /**
-     * Devuelve  el id del ensayo que esta seleccionado en el radiobutton
-     * @return 
+     * Devuelve el id del ensayo que esta seleccionado en el radiobutton
+     *
+     * @return
      */
     private String getId_Ensayo() {
         String res = "1";
-        if(rbtn_ensayo2.isSelected())
+        if (rbtn_ensayo2.isSelected()) {
             res = "2";
-        if(rbtn_ensayo3.isSelected())
+        }
+        if (rbtn_ensayo3.isSelected()) {
             res = "3";
-        if(rbtn_ensayo4.isSelected())
+        }
+        if (rbtn_ensayo4.isSelected()) {
             res = "4";
-        if(rbtn_ensayo5.isSelected())
+        }
+        if (rbtn_ensayo5.isSelected()) {
             res = "5";
+        }
         return res;
     }
 
@@ -754,8 +946,71 @@ public class RegistrarResultado extends JFrame implements Printable {
         res.setFechaGel(txtF_fechaGel.getText());
         res.setNumeroExtraccion(Integer.parseInt(txtF_numExtraccion.getText()));
         res.setTipoExtraccion(txtF_tipoExtraccion.getText());
-        res.setTipoGel(txtF_gelTipo.getText());
+        res.setTipoGel(txtF_tipoGel.getText());
         res.setResultado(txtF_resultadoFinal.getText());
         return res;
+    }
+
+    private void addButtonFocus() {
+        btn_buscarPaciente.registerKeyboardAction(btn_buscarPaciente.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                JComponent.WHEN_FOCUSED);
+
+        btn_buscarPaciente.registerKeyboardAction(btn_buscarPaciente.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                JComponent.WHEN_FOCUSED);
+
+        btn_guardarEnsayo.registerKeyboardAction(btn_guardarEnsayo.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                JComponent.WHEN_FOCUSED);
+
+        btn_guardarEnsayo.registerKeyboardAction(btn_guardarEnsayo.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                JComponent.WHEN_FOCUSED);
+
+        btn_guardarMuestra.registerKeyboardAction(btn_guardarMuestra.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                JComponent.WHEN_FOCUSED);
+
+        btn_guardarMuestra.registerKeyboardAction(btn_guardarMuestra.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                JComponent.WHEN_FOCUSED);
+        
+        btn_cambiarPaciente.registerKeyboardAction(btn_cambiarPaciente.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                JComponent.WHEN_FOCUSED);
+
+        btn_cambiarPaciente.registerKeyboardAction(btn_cambiarPaciente.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                JComponent.WHEN_FOCUSED);
+        
+        btn_buscarMuestra.registerKeyboardAction(btn_buscarMuestra.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                JComponent.WHEN_FOCUSED);
+
+        btn_buscarMuestra.registerKeyboardAction(btn_buscarMuestra.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                JComponent.WHEN_FOCUSED);
+        
+        btn_cambiarMuestra.registerKeyboardAction( btn_cambiarMuestra.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                JComponent.WHEN_FOCUSED);
+
+         btn_cambiarMuestra.registerKeyboardAction( btn_cambiarMuestra.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                JComponent.WHEN_FOCUSED);
+
     }
 }
