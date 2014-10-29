@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<easyDesigner>
+  <DataTypes default="INTEGER">
+    <DataType name="SMALLINT" group="numeric" description="A small integer. The signed range is -32768 to 32767. The unsigned &#xA;range is 0 to 65535.">
+      <Parameters paramsRequired="false">
+        <Parameter name="length" />
+      </Parameters>
+      <Options>
+        <Option name="UNSIGNED" checked="true" />
+        <Option name="ZEROFILL" checked="false" />
+      </Options>
+    </DataType>
+    <DataType name="INTEGER" group="numeric" description="A normal-size integer. The signed range is -2147483648 to &#xA;2147483647. The unsigned range is 0 to 4294967295.">
+      <Parameters paramsRequired="false">
+        <Parameter name="length" />
+      </Parameters>
+      <Options>
+        <Option name="UNSIGNED" checked="true" />
+        <Option name="ZEROFILL" checked="false" />
+      </Options>
+    </DataType>
+    <DataType name="BIGINT" group="numeric" description="A large integer. The signed range is -9223372036854775808 to &#xA;9223372036854775807. The unsigned range is 0 to &#xA;18446744073709551615.">
+      <Parameters paramsRequired="false">
+        <Parameter name="length" />
+      </Parameters>
+      <Options>
+        <Option name="UNSIGNED" checked="false" />
+        <Option name="ZEROFILL" checked="false" />
+      </Options>
+    </DataType>
+    <DataType name="FLOAT" group="numeric" description="A small (single-precision) floating-point number. Cannot be unsigned. &#xA;Allowable values are -3.402823466E+38 to -1.175494351E-38, 0, and &#xA;1.175494351E-38 to 3.402823466E+38.">
+      <Parameters paramsRequired="false">
+        <Parameter name="length" />
+        <Parameter name="decimals" />
+      </Parameters>
+      <Options>
+        <Option name="ZEROFILL" checked="false" />
+      </Options>
+    </DataType>
+    <DataType name="DOUBLE" group="numeric" description="A normal-size (double-precision) floating-point number. Cannot be &#xA;unsigned. Allowable values are -1.7976931348623157E+308 to &#xA;-2.2250738585072014E-308, 0, and 2.2250738585072014E-308 to &#xA;1.7976931348623157E+308.">
+      <Parameters paramsRequired="false">
+        <Parameter name="length" />
+        <Parameter name="decimals" />
+      </Parameters>
+      <Options>
+        <Option name="ZEROFILL" checked="false" />
+      </Options>
+    </DataType>
+    <DataType name="DECIMAL" group="numeric" description="An unpacked floating-point number. Cannot be unsigned. Behaves like &#xA;a CHAR column.">
+      <Parameters paramsRequired="false">
+        <Parameter name="length" />
+        <Parameter name="decimals" />
+      </Parameters>
+      <Options>
+        <Option name="ZEROFILL" checked="false" />
+      </Options>
+    </DataType>
+    <DataType name="NUMERIC" group="numeric" description="This is a synonym for DECIMAL.">
+      <Parameters paramsRequired="true">
+        <Parameter name="length" />
+        <Parameter name="decimals" />
+      </Parameters>
+      <Options>
+        <Option name="ZEROFILL" checked="false" />
+      </Options>
+    </DataType>
+    <DataType name="DATE" group="date_time" description="A date. The supported range is '1000-01-01' to '9999-12-31'.">
+      <Parameters paramsRequired="false" />
+      <Options />
+    </DataType>
+    <DataType name="DATETIME" group="date_time" description="A date and time combination. The supported range is '1000-01-01 &#xA;00:00:00' to '9999-12-31 23:59:59'.">
+      <Parameters paramsRequired="false" />
+      <Options />
+    </DataType>
+    <DataType name="TIMESTAMP" group="date_time" description="A timestamp. The range is '1970-01-01 00:00:00' to sometime in the &#xA;year 2037. The length can be 14 (or missing), 12, 10, 8, 6, 4, or 2 &#xA;representing YYYYMMDDHHMMSS, ... , YYYYMMDD, ... , YY formats.">
+      <Parameters paramsRequired="false">
+        <Parameter name="length" />
+      </Parameters>
+      <Options />
+    </DataType>
+    <DataType name="TIME" group="date_time" description="A time. The range is '-838:59:59' to '838:59:59'.">
+      <Parameters paramsRequired="false" />
+      <Options />
+    </DataType>
+    <DataType name="YEAR" group="date_time" description="A year in 2- or 4-digit format (default is 4-digit).">
+      <Parameters paramsRequired="false">
+        <Parameter name="length" />
+      </Parameters>
+      <Options />
+    </DataType>
+    <DataType name="CHAR" group="string" description="A fixed-length string (1 to 255 characters) that is always right-padded &#xA;with spaces to the specified length when stored. values are sorted and &#xA;compared in case-insensitive fashion according to the default character &#xA;set unless the BINARY keyword is given.">
+      <Parameters paramsRequired="true">
+        <Parameter name="length" />
+      </Parameters>
+      <Options>
+        <Option name="BINARY" checked="false" />
+      </Options>
+    </DataType>
+    <DataType name="VARCHAR" group="string" description="A variable-length string (1 to 255 characters). Values are sorted and &#xA;compared in case-sensitive fashion unless the BINARY keyword is &#xA;given.">
+      <Parameters paramsRequired="true">
+        <Parameter name="length" />
+      </Parameters>
+      <Options>
+        <Option name="BINARY" checked="false" />
+      </Options>
+    </DataType>
+    <DataType name="BIT" group="string" description="This is a synonym for CHAR(1).">
+      <Parameters paramsRequired="false" />
+      <Options />
+    </DataType>
+    <DataType name="BOOL" group="string" description="This is a synonym for CHAR(1).">
+      <Parameters paramsRequired="false" />
+      <Options />
+    </DataType>
+    <DataType name="BLOB" group="blob_text" description="A column maximum length of 65535 (2^16 - 1) characters. Values are &#xA;sorted and compared in case-sensitive fashion.">
+      <Parameters paramsRequired="false" />
+      <Options />
+    </DataType>
+    <DataType name="POLYGON" group="geographic" description="Geographic Datatype">
+      <Parameters paramsRequired="false" />
+      <Options />
+    </DataType>
+    <DataType name="KOPYTKO" group="user" description="Co mi tu Pan napisał?">
+      <Parameters paramsRequired="false" />
+      <Options />
+    </DataType>
+    <DataType name="VARCHAR(255)" group="user" description="">
+      <Parameters paramsRequired="false" />
+      <Options />
+    </DataType>
+  </DataTypes>
+  <Model>
+    <Tables>
+      <Table name="Paciente">
+        <Columns>
+          <Column name="id_Paciente" key="true" dataType="VARCHAR" notNull="true" autoIncrement="false" defaultValue="" />
+          <Column name="nombre" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="direccion" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="telefono" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="ap_paterno" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="ap_materno" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="ci" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="correo" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+        </Columns>
+        <ForeignKeys />
+        <Indexes />
+      </Table>
+      <Table name="Muestra">
+        <Columns>
+          <Column name="id_muestra" key="true" dataType="INTEGER" notNull="true" autoIncrement="false" defaultValue="" />
+          <Column name="tipo_muestra" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="solucion_buffer" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="instrumento" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="vol_muestra" key="false" dataType="DOUBLE" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="resultado_final" key="false" dataType="VARCHAR(255)" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="observaciones" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+        </Columns>
+        <ForeignKeys>
+          <ForeignKey table="Paciente" column="id_Paciente" notNull="true" defaultValue="" index="1" name="Paciente_id_Paciente" />
+        </ForeignKeys>
+        <Indexes />
+      </Table>
+      <Table name="ensayo">
+        <Columns>
+          <Column name="id_ensayo" key="true" dataType="INTEGER" notNull="true" autoIncrement="false" defaultValue="" />
+          <Column name="extraccion_fecha" key="false" dataType="DATE" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="extraccion_tipo" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="resultado" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="numero_extraccion" key="false" dataType="INTEGER" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="gel_tipo" key="false" dataType="VARCHAR" notNull="false" autoIncrement="false" defaultValue="" />
+          <Column name="get_fecha" key="false" dataType="DATE" notNull="false" autoIncrement="false" defaultValue="" />
+        </Columns>
+        <ForeignKeys>
+          <ForeignKey table="Muestra" column="id_muestra" notNull="true" defaultValue="" index="1" name="Muestra_id_muestra" />
+          <ForeignKey table="Muestra" column="Paciente_id_Paciente" notNull="true" defaultValue="" index="2" name="Muestra_Paciente_id_Paciente" />
+        </ForeignKeys>
+        <Indexes />
+      </Table>
+    </Tables>
+    <Relations>
+      <Relation name="Rel_2" source="Muestra" destination="ensayo" kind="1n" start="false" definition="true" delete="no_action" update="no_action" />
+      <Relation name="Rel_1" source="Paciente" destination="Muestra" kind="1n" start="false" definition="true" delete="no_action" update="no_action" />
+    </Relations>
+  </Model>
+  <Diagram>
+    <Shapes>
+      <Tables>
+        <Table table="Muestra" x="687" y="73" />
+        <Table table="ensayo" x="663" y="333" />
+        <Table table="Paciente" x="163" y="76" />
+      </Tables>
+      <Relations>
+        <Relation source="Muestra" destination="ensayo" division="0.5" />
+        <Relation source="Paciente" destination="Muestra" division="0.5" />
+      </Relations>
+      <Regions />
+    </Shapes>
+  </Diagram>
+  <Viewport zoom="1.0" x="0" y="28" />
+</easyDesigner>
+
