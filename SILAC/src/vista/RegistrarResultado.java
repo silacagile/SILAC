@@ -6,8 +6,10 @@
 package vista;
 
 import dao.EnsayoDAO;
+import dao.MuestraDAO;
 import dao.PacienteDAO;
 import dao.PostgresEnsayoDAO;
+import dao.PostgresMuestraDAO;
 import dao.PostgresPacienteDAO;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -20,8 +22,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import modelo.Ensayo;
+import modelo.Muestra;
 import modelo.Paciente;
 
 /**
@@ -29,6 +33,8 @@ import modelo.Paciente;
  * @author Machis
  */
 public class RegistrarResultado extends JFrame implements Printable {
+    
+    private boolean nuevaMuestra;
 
     /**
      * Creates new form RegistrarResultado
@@ -254,6 +260,7 @@ public class RegistrarResultado extends JFrame implements Printable {
         btn_cambiarPaciente = new javax.swing.JButton();
         btn_cambiarMuestra = new javax.swing.JButton();
         label_pacienteControl = new javax.swing.JLabel();
+        label_mensajeMuestra = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -648,6 +655,8 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
 
     label_pacienteControl.setText("Introduzca ID Paciente");
 
+    label_mensajeMuestra.setText("Introduzca Codigo Muesrta");
+
     javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
     jPanel3.setLayout(jPanel3Layout);
     jPanel3Layout.setHorizontalGroup(
@@ -705,7 +714,10 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                                     .addComponent(btn_cambiarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(label_pacienteControl))
-                                .addComponent(btn_cambiarMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(btn_cambiarMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(label_mensajeMuestra)))
                             .addContainerGap())
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGap(3, 3, 3)
@@ -744,7 +756,8 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                 .addComponent(label_codMuestra)
                 .addComponent(txtF_codMuestra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btn_buscarMuestra)
-                .addComponent(btn_cambiarMuestra))
+                .addComponent(btn_cambiarMuestra)
+                .addComponent(label_mensajeMuestra))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -835,8 +848,54 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_txtF_resultadoFinalActionPerformed
 
     private void btn_guardarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarMuestraActionPerformed
-        enableEnsayos();
+        if(validarCamposMuestra())
+        {
+            
+            MuestraDAO controladorMuestra = new PostgresMuestraDAO();
+            Muestra muestra = new Muestra();
+            
+            muestra.setIdPaciente(txtF_idPaciente.getText());
+            muestra.setIdMuestra(txtF_codMuestra.getText());
+            muestra.setTipoMuestra(cmb_tipoMuestra.getSelectedItem().toString());
+            muestra.setSolucionBuffer(cmb_solBuffer.getSelectedItem().toString());
+            muestra.setInstrumento(cmb_instrumento.getSelectedItem().toString());
+            muestra.setVolMuestra(Double.parseDouble(txtF_volumenMuestra.getText()));
+            muestra.setResultadoFinal(txtF_resultadoFinal.getText());
+            muestra.setObservaciones(txtA_observaciones.getText());
+            
+            if(nuevaMuestra)
+                controladorMuestra.insertMuestra(muestra);                
+            else
+                controladorMuestra.updateMuestra(muestra);
+            
+            JOptionPane.showMessageDialog(this,
+                    "Se ingreso la muestra correctamente!");
+            
+            enableEnsayos();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this,"Ingrese un valor válido\n!"
+                    + "en el campo de volumen de la muestra!",
+                    "ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        
+        nuevaMuestra = false;
     }//GEN-LAST:event_btn_guardarMuestraActionPerformed
+    
+        private boolean validarCamposMuestra()
+    {
+        boolean respuesta = true;
+        try {
+            double auxiliar = 
+                    Double.parseDouble(txtF_volumenMuestra.getText());
+            if(auxiliar<0)
+                respuesta = false;                
+            } catch (Exception e) {
+                respuesta = false; 
+            }
+        return respuesta;
+    }
 
 
     private void txtF_idPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_idPacienteActionPerformed
@@ -895,16 +954,78 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_btn_cambiarPacienteActionPerformed
 
     private void btn_cambiarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarMuestraActionPerformed
-        cleanEnsayos();
-        cleanMuestras();
-        disableEnsayos();
-        disableMuestra();
-        enableIDMuestra();
+        int opcion = JOptionPane.showConfirmDialog(this,
+                        "Si cambia la muestra los datos actuales no se\n"
+                        + "guardaran, desea continuar?\n"
+                        + "CONSEJO: Guarde los datos actuales de la "
+                        + "muestra.","ATENSION!",
+                        JOptionPane.YES_NO_OPTION);
+        if(opcion == JOptionPane.OK_OPTION)
+        {
+            cleanEnsayos();
+            cleanMuestras();
+            disableEnsayos();
+            disableMuestra();
+            enableIDMuestra();
+        }
     }//GEN-LAST:event_btn_cambiarMuestraActionPerformed
-
+    
+    
     private void btn_buscarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarMuestraActionPerformed
-        disableIDMuestra();
-        enableMuestra();
+        nuevaMuestra = true;
+        
+        if(txtF_codMuestra.getText().equals(""))
+        {
+            label_mensajeMuestra.setText("Ingrese un código válido!");
+            label_mensajeMuestra.setForeground(Color.red);
+        }else
+        {
+            MuestraDAO controlDeMuestra = new PostgresMuestraDAO();
+            Muestra muestra = controlDeMuestra.findMuestra(
+                    txtF_idPaciente.getText(), txtF_codMuestra.getText());
+            if(muestra == null)
+            {
+                int opcion = JOptionPane.showConfirmDialog(this,
+                        "El código no pertenece a ninguna muestra\n"
+                        + "desea crear una nueva muestra?","ERROR",
+                        JOptionPane.YES_NO_OPTION);
+                if(opcion == JOptionPane.OK_OPTION)
+                {                    
+                    enableMuestra();
+                    disableIDMuestra();
+                    label_mensajeMuestra.setText("Muestra Codigo: "+
+                            txtF_codMuestra.getText());
+                    label_mensajeMuestra.setForeground(Color.blue);
+                }
+                else                
+                {
+                    txtF_codMuestra.requestFocus();
+                    txtF_codMuestra.selectAll();
+                    label_mensajeMuestra.setText("Introduzca Código Muestra");
+                    label_mensajeMuestra.setForeground(Color.black);
+                }
+            }
+            else
+            {
+                nuevaMuestra = false;
+                
+                cmb_solBuffer.setSelectedItem(muestra.getSolucionBuffer());
+                cmb_tipoMuestra.setSelectedItem(muestra.getTipoMuestra());
+                cmb_instrumento.setSelectedItem(muestra.getInstrumento());
+                txtF_volumenMuestra.setText(Double.toString(muestra.getVolMuestra()));
+                txtF_resultadoFinal.setText(muestra.getResultadoFinal());
+                txtA_observaciones.setText(muestra.getObservaciones());
+                
+                enableMuestra();
+                disableIDMuestra();
+                label_mensajeMuestra.setText("Muestra Codigo: "+
+                        txtF_codMuestra.getText());
+                label_mensajeMuestra.setForeground(Color.blue);
+                
+                
+            }
+            
+        }
     }//GEN-LAST:event_btn_buscarMuestraActionPerformed
     int limit_ftxt = 0; //controla que el input sea max de 5 digitos
     private void ftxt_numExtraccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxt_numExtraccionKeyTyped
@@ -1006,6 +1127,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     private javax.swing.JLabel label_gel;
     private javax.swing.JLabel label_idPaciente;
     private javax.swing.JLabel label_instrumento;
+    private javax.swing.JLabel label_mensajeMuestra;
     private javax.swing.JLabel label_observaciones;
     private javax.swing.JLabel label_pacienteControl;
     private javax.swing.JLabel label_resultadoFinal;
