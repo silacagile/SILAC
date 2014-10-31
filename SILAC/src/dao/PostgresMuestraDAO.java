@@ -8,7 +8,6 @@ package dao;
 import java.sql.ResultSet;
 import java.util.*;
 import modelo.Muestra;
-import controlador.PostgresConn;
 import java.sql.SQLException;
 
 /**

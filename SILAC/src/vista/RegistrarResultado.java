@@ -12,6 +12,7 @@ import dao.PostgresEnsayoDAO;
 import dao.PostgresMuestraDAO;
 import dao.PostgresPacienteDAO;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -33,7 +34,7 @@ import modelo.Paciente;
  * @author Machis
  */
 public class RegistrarResultado extends JFrame implements Printable {
-    
+
     private boolean nuevaMuestra;
 
     /**
@@ -41,8 +42,8 @@ public class RegistrarResultado extends JFrame implements Printable {
      */
     public RegistrarResultado() {
         initComponents();
+        setLocationRelativeTo(null);
         disableComponents();
-
         addButtonFocus();
     }
 
@@ -425,38 +426,38 @@ public class RegistrarResultado extends JFrame implements Printable {
 
         date_extraccion.setCurrentView(new datechooser.view.appearance.AppearancesList("Dali",
             new datechooser.view.appearance.ViewAppearance("custom",
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(0, 0, 255),
                     true,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(0, 0, 255),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(128, 128, 128),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(255, 0, 0),
                     false,
                     false,
@@ -473,38 +474,38 @@ public class RegistrarResultado extends JFrame implements Printable {
 
     date_gel.setCurrentView(new datechooser.view.appearance.AppearancesList("Dali",
         new datechooser.view.appearance.ViewAppearance("custom",
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(0, 0, 0),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(222, 222, 222),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(0, 0, 0),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(222, 222, 222),
                 new java.awt.Color(0, 0, 255),
                 true,
                 true,
                 new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                 new java.awt.Color(0, 0, 255),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                 new java.awt.Color(128, 128, 128),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.LabelPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(0, 0, 0),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(222, 222, 222),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.LabelPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(0, 0, 0),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(222, 222, 222),
                 new java.awt.Color(255, 0, 0),
                 false,
                 false,
@@ -836,7 +837,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_cmb_instrumentoActionPerformed
 
     private void rbtn_ensayo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ensayo1ActionPerformed
-       updateVistaEnsayo();
+        updateVistaEnsayo();
     }//GEN-LAST:event_rbtn_ensayo1ActionPerformed
 
     private void rbtn_ensayo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ensayo2ActionPerformed
@@ -848,12 +849,11 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_txtF_resultadoFinalActionPerformed
 
     private void btn_guardarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarMuestraActionPerformed
-        if(validarCamposMuestra())
-        {
-            
+        if (validarCamposMuestra()) {
+
             MuestraDAO controladorMuestra = new PostgresMuestraDAO();
             Muestra muestra = new Muestra();
-            
+
             muestra.setIdPaciente(txtF_idPaciente.getText());
             muestra.setIdMuestra(txtF_codMuestra.getText());
             muestra.setTipoMuestra(cmb_tipoMuestra.getSelectedItem().toString());
@@ -862,38 +862,37 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             muestra.setVolMuestra(Double.parseDouble(txtF_volumenMuestra.getText()));
             muestra.setResultadoFinal(txtF_resultadoFinal.getText());
             muestra.setObservaciones(txtA_observaciones.getText());
-            
-            if(nuevaMuestra)
-                controladorMuestra.insertMuestra(muestra);                
-            else
+
+            if (nuevaMuestra) {
+                controladorMuestra.insertMuestra(muestra);
+            } else {
                 controladorMuestra.updateMuestra(muestra);
-            
+            }
+
             JOptionPane.showMessageDialog(this,
                     "Se ingreso la muestra correctamente!");
-            
+
             enableEnsayos();
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(this,"Ingrese un valor válido\n!"
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un valor válido\n!"
                     + "en el campo de volumen de la muestra!",
-                    "ERROR",JOptionPane.ERROR_MESSAGE);
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         nuevaMuestra = false;
     }//GEN-LAST:event_btn_guardarMuestraActionPerformed
-    
-        private boolean validarCamposMuestra()
-    {
+
+    private boolean validarCamposMuestra() {
         boolean respuesta = true;
         try {
-            double auxiliar = 
-                    Double.parseDouble(txtF_volumenMuestra.getText());
-            if(auxiliar<0)
-                respuesta = false;                
-            } catch (Exception e) {
-                respuesta = false; 
+            double auxiliar
+                    = Double.parseDouble(txtF_volumenMuestra.getText());
+            if (auxiliar < 0) {
+                respuesta = false;
             }
+        } catch (Exception e) {
+            respuesta = false;
+        }
         return respuesta;
     }
 
@@ -921,19 +920,23 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_cmb_tipoMuestraActionPerformed
 
     private void btn_guardarEnsayoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarEnsayoActionPerformed
+
         EnsayoDAO bd_ensayo = new PostgresEnsayoDAO();
         String id_ensayo = getId_Ensayo();
-        if(!camposEmpty()){
+        if (!camposEmpty()) {
             Ensayo ensayo = getEnsayo();
             ensayo.setIdEnsayo(id_ensayo);
             limit_ftxt = 0;
             if (bd_ensayo.findEnsayo(txtF_idPaciente.getText(),
                     txtF_codMuestra.getText(), id_ensayo) != null) {
                 bd_ensayo.updateEnsayo(ensayo);
+                JOptionPane.showMessageDialog(this, "Se ha actualizado el Ensayo : " + id_ensayo + "\ncorrectatmente");
             } else {
                 bd_ensayo.insertEnsayo(ensayo);
+                  JOptionPane.showMessageDialog(this, "Se ha guardado el Ensayo : " + id_ensayo +" \ncorrectamente");
             }
         }
+        else JOptionPane.showMessageDialog(this,"Por Favor ingrese todos los campos","Error de Formulario",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btn_guardarEnsayoActionPerformed
 
     private void rbtn_ensayo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ensayo3ActionPerformed
@@ -951,17 +954,17 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     private void btn_cambiarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarPacienteActionPerformed
         disableComponents();
         enableIDPaciente();
+        
     }//GEN-LAST:event_btn_cambiarPacienteActionPerformed
 
     private void btn_cambiarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarMuestraActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this,
-                        "Si cambia la muestra los datos actuales no se\n"
-                        + "guardaran, desea continuar?\n"
-                        + "CONSEJO: Guarde los datos actuales de la "
-                        + "muestra.","ATENSION!",
-                        JOptionPane.YES_NO_OPTION);
-        if(opcion == JOptionPane.OK_OPTION)
-        {
+                "Si cambia la muestra los datos actuales no se\n"
+                + "guardaran, desea continuar?\n"
+                + "CONSEJO: Guarde los datos actuales de la "
+                + "muestra.", "ATENSION!",
+                JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.OK_OPTION) {
             cleanEnsayos();
             cleanMuestras();
             disableEnsayos();
@@ -969,78 +972,70 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             enableIDMuestra();
         }
     }//GEN-LAST:event_btn_cambiarMuestraActionPerformed
-    
-    
+
+
     private void btn_buscarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarMuestraActionPerformed
         nuevaMuestra = true;
-        
-        if(txtF_codMuestra.getText().equals(""))
-        {
+
+        if (txtF_codMuestra.getText().equals("")) {
             label_mensajeMuestra.setText("Ingrese un código válido!");
             label_mensajeMuestra.setForeground(Color.red);
-        }else
-        {
+        } else {
             MuestraDAO controlDeMuestra = new PostgresMuestraDAO();
             Muestra muestra = controlDeMuestra.findMuestra(
                     txtF_idPaciente.getText(), txtF_codMuestra.getText());
-            if(muestra == null)
-            {
+            if (muestra == null) {
                 int opcion = JOptionPane.showConfirmDialog(this,
                         "El código no pertenece a ninguna muestra\n"
-                        + "desea crear una nueva muestra?","ERROR",
+                        + "desea crear una nueva muestra?", "ERROR",
                         JOptionPane.YES_NO_OPTION);
-                if(opcion == JOptionPane.OK_OPTION)
-                {                    
+                if (opcion == JOptionPane.OK_OPTION) {
                     enableMuestra();
                     disableIDMuestra();
-                    label_mensajeMuestra.setText("Muestra Codigo: "+
-                            txtF_codMuestra.getText());
+                    label_mensajeMuestra.setText("Muestra Codigo: "
+                            + txtF_codMuestra.getText());
                     label_mensajeMuestra.setForeground(Color.blue);
-                }
-                else                
-                {
+                } else {
                     txtF_codMuestra.requestFocus();
                     txtF_codMuestra.selectAll();
                     label_mensajeMuestra.setText("Introduzca Código Muestra");
                     label_mensajeMuestra.setForeground(Color.black);
                 }
-            }
-            else
-            {
+            } else {
                 nuevaMuestra = false;
-                
+                enableEnsayos();
                 cmb_solBuffer.setSelectedItem(muestra.getSolucionBuffer());
                 cmb_tipoMuestra.setSelectedItem(muestra.getTipoMuestra());
                 cmb_instrumento.setSelectedItem(muestra.getInstrumento());
                 txtF_volumenMuestra.setText(Double.toString(muestra.getVolMuestra()));
                 txtF_resultadoFinal.setText(muestra.getResultadoFinal());
                 txtA_observaciones.setText(muestra.getObservaciones());
-                
+
                 enableMuestra();
                 disableIDMuestra();
-                label_mensajeMuestra.setText("Muestra Codigo: "+
-                        txtF_codMuestra.getText());
+                label_mensajeMuestra.setText("Muestra Codigo: "
+                        + txtF_codMuestra.getText());
                 label_mensajeMuestra.setForeground(Color.blue);
-                
-                
+
             }
-            
+
         }
     }//GEN-LAST:event_btn_buscarMuestraActionPerformed
     int limit_ftxt = 0; //controla que el input sea max de 5 digitos
     private void ftxt_numExtraccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxt_numExtraccionKeyTyped
         limit_ftxt = ftxt_numExtraccion.getText().length();
-        if(!Character.isDigit(evt.getKeyChar()) || !(limit_ftxt < 5))
-        {
-             evt.consume();
-             return;
+        if (!Character.isDigit(evt.getKeyChar()) || !(limit_ftxt < 5)) {
+            evt.consume();
+            return;
         }
         limit_ftxt++;
     }//GEN-LAST:event_ftxt_numExtraccionKeyTyped
 
     private void ftxt_numExtraccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxt_numExtraccionKeyPressed
-        if(evt.getKeyCode() == 8 && limit_ftxt != 0) //el cod 8 es delete
+        if (evt.getKeyCode() == 8 && limit_ftxt != 0) //el cod 8 es delete
+        {
             limit_ftxt -= 1;
+        }
         ftxt_numExtraccion.setBackground(Color.white);
     }//GEN-LAST:event_ftxt_numExtraccionKeyPressed
 
@@ -1236,7 +1231,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
                 JComponent.WHEN_FOCUSED);
-        
+
         btn_cambiarPaciente.registerKeyboardAction(btn_cambiarPaciente.getActionForKeyStroke(
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
@@ -1246,7 +1241,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
                 JComponent.WHEN_FOCUSED);
-        
+
         btn_buscarMuestra.registerKeyboardAction(btn_buscarMuestra.getActionForKeyStroke(
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
@@ -1256,13 +1251,13 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
                 JComponent.WHEN_FOCUSED);
-        
-        btn_cambiarMuestra.registerKeyboardAction( btn_cambiarMuestra.getActionForKeyStroke(
+
+        btn_cambiarMuestra.registerKeyboardAction(btn_cambiarMuestra.getActionForKeyStroke(
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
                 JComponent.WHEN_FOCUSED);
 
-         btn_cambiarMuestra.registerKeyboardAction( btn_cambiarMuestra.getActionForKeyStroke(
+        btn_cambiarMuestra.registerKeyboardAction(btn_cambiarMuestra.getActionForKeyStroke(
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
                 JComponent.WHEN_FOCUSED);
@@ -1291,26 +1286,26 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             cal.set(año, mes - 1, dia);
             date_gel.setSelectedDate(cal);
             txtF_tipoGel.setText(ensayo.getTipoGel());
-        }
-        else
+        } else {
             cleanEnsayos();
+        }
     }
 
     private boolean camposEmpty() {
         boolean res = false;
-        if(ftxt_numExtraccion.getText().trim().isEmpty()){
+        if (ftxt_numExtraccion.getText().trim().isEmpty()) {
             res = true;
             ftxt_numExtraccion.setBackground(Color.red);
         }
-        if(txtF_Resultado.getText().trim().isEmpty()){
+        if (txtF_Resultado.getText().trim().isEmpty()) {
             res = true;
             txtF_Resultado.setBackground(Color.red);
         }
-        if(txtF_tipoExtraccion.getText().trim().isEmpty()){
+        if (txtF_tipoExtraccion.getText().trim().isEmpty()) {
             res = true;
             txtF_tipoExtraccion.setBackground(Color.red);
         }
-        if(txtF_tipoGel.getText().trim().isEmpty()){
+        if (txtF_tipoGel.getText().trim().isEmpty()) {
             res = true;
             txtF_tipoGel.setBackground(Color.red);
         }
