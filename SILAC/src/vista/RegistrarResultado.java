@@ -6,11 +6,13 @@
 package vista;
 
 import dao.EnsayoDAO;
+import dao.Factory.DAOFactory;
+import dao.Factory.PostgresDAOFactory;
 import dao.MuestraDAO;
 import dao.PacienteDAO;
-import dao.PostgresEnsayoDAO;
-import dao.PostgresMuestraDAO;
-import dao.PostgresPacienteDAO;
+import dao.PostgresDAO.PostgresEnsayoDAO;
+import dao.PostgresDAO.PostgresMuestraDAO;
+import dao.PostgresDAO.PostgresPacienteDAO;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -19,8 +21,14 @@ import java.awt.event.KeyEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -36,6 +44,7 @@ import modelo.Paciente;
 public class RegistrarResultado extends JFrame implements Printable {
 
     private boolean nuevaMuestra;
+    private static final int DBMS = DAOFactory.SQLITE;
 
     /**
      * Creates new form RegistrarResultado
@@ -45,6 +54,7 @@ public class RegistrarResultado extends JFrame implements Printable {
         setLocationRelativeTo(null);
         disableComponents();
         addButtonFocus();
+
     }
 
     private void enableIDPaciente() {
@@ -850,13 +860,14 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
 
     private void btn_guardarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarMuestraActionPerformed
         if (validarCamposMuestra()) {
-
-            MuestraDAO controladorMuestra = new PostgresMuestraDAO();
+            DAOFactory factory = DAOFactory.getDAOFactory(DBMS);
+            MuestraDAO controladorMuestra = factory.getMuestraDAO();
             Muestra muestra = new Muestra();
 
             muestra.setIdPaciente(txtF_idPaciente.getText());
             muestra.setIdMuestra(txtF_codMuestra.getText());
             muestra.setTipoMuestra(cmb_tipoMuestra.getSelectedItem().toString());
+            muestra.setTipoTest(cmb_tipoTest.getSelectedItem().toString());
             muestra.setSolucionBuffer(cmb_solBuffer.getSelectedItem().toString());
             muestra.setInstrumento(cmb_instrumento.getSelectedItem().toString());
             muestra.setVolMuestra(Double.parseDouble(txtF_volumenMuestra.getText()));
@@ -864,8 +875,10 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             muestra.setObservaciones(txtA_observaciones.getText());
 
             if (nuevaMuestra) {
+                System.out.println("Antes de entrar al insert Nueva Muestra");
                 controladorMuestra.insertMuestra(muestra);
             } else {
+                System.out.println("Antes de entrar al insert Existe Muestra");
                 controladorMuestra.updateMuestra(muestra);
             }
 
@@ -901,7 +914,8 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_txtF_idPacienteActionPerformed
 
     private void btn_buscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarPacienteActionPerformed
-        PacienteDAO pacienteDAO = new PostgresPacienteDAO();
+        DAOFactory factory = DAOFactory.getDAOFactory(DBMS);
+        PacienteDAO pacienteDAO = factory.getPacienteDAO();
         Paciente paciente = pacienteDAO.findPaciente(txtF_idPaciente.getText());
         if (paciente == null) {
             label_pacienteControl.setText("No existe el paciente con el ID : " + txtF_idPaciente.getText());
@@ -920,8 +934,8 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_cmb_tipoMuestraActionPerformed
 
     private void btn_guardarEnsayoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarEnsayoActionPerformed
-
-        EnsayoDAO bd_ensayo = new PostgresEnsayoDAO();
+        DAOFactory factory = DAOFactory.getDAOFactory(DBMS);
+        EnsayoDAO bd_ensayo = factory.getEnsayoDAO();
         String id_ensayo = getId_Ensayo();
         if (!camposEmpty()) {
             Ensayo ensayo = getEnsayo();
@@ -933,10 +947,11 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                 JOptionPane.showMessageDialog(this, "Se ha actualizado el Ensayo : " + id_ensayo + "\ncorrectatmente");
             } else {
                 bd_ensayo.insertEnsayo(ensayo);
-                  JOptionPane.showMessageDialog(this, "Se ha guardado el Ensayo : " + id_ensayo +" \ncorrectamente");
+                JOptionPane.showMessageDialog(this, "Se ha guardado el Ensayo : " + id_ensayo + " \ncorrectamente");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por Favor ingrese todos los campos", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
         }
-        else JOptionPane.showMessageDialog(this,"Por Favor ingrese todos los campos","Error de Formulario",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btn_guardarEnsayoActionPerformed
 
     private void rbtn_ensayo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ensayo3ActionPerformed
@@ -954,7 +969,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     private void btn_cambiarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarPacienteActionPerformed
         disableComponents();
         enableIDPaciente();
-        
+
     }//GEN-LAST:event_btn_cambiarPacienteActionPerformed
 
     private void btn_cambiarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarMuestraActionPerformed
@@ -981,7 +996,8 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             label_mensajeMuestra.setText("Ingrese un código válido!");
             label_mensajeMuestra.setForeground(Color.red);
         } else {
-            MuestraDAO controlDeMuestra = new PostgresMuestraDAO();
+            DAOFactory factory = DAOFactory.getDAOFactory(DBMS);
+            MuestraDAO controlDeMuestra = factory.getMuestraDAO();
             Muestra muestra = controlDeMuestra.findMuestra(
                     txtF_idPaciente.getText(), txtF_codMuestra.getText());
             if (muestra == null) {
@@ -1006,6 +1022,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                 enableEnsayos();
                 cmb_solBuffer.setSelectedItem(muestra.getSolucionBuffer());
                 cmb_tipoMuestra.setSelectedItem(muestra.getTipoMuestra());
+                cmb_tipoTest.setSelectedItem(muestra.getTipoTest());
                 cmb_instrumento.setSelectedItem(muestra.getInstrumento());
                 txtF_volumenMuestra.setText(Double.toString(muestra.getVolMuestra()));
                 txtF_resultadoFinal.setText(muestra.getResultadoFinal());
@@ -1265,7 +1282,9 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }
 
     private void updateVistaEnsayo() {
-        EnsayoDAO bd_ensayo = new PostgresEnsayoDAO();
+        DAOFactory factory = DAOFactory.getDAOFactory(DBMS);
+        EnsayoDAO bd_ensayo = factory.getEnsayoDAO();
+
         setBackgroundCampos();
         String id_ensayo = getId_Ensayo();
         Ensayo ensayo = bd_ensayo.findEnsayo(txtF_idPaciente.getText(), txtF_codMuestra.getText(), id_ensayo);
@@ -1273,19 +1292,21 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
         if (ensayo != null) {
             ftxt_numExtraccion.setText(String.valueOf(ensayo.getNumeroExtraccion()));
             txtF_Resultado.setText(ensayo.getResultado());
-            Calendar cal = new GregorianCalendar();
-            int año = Integer.parseInt(ensayo.getFechaExtraccion().substring(0, 4));
-            int mes = Integer.parseInt(ensayo.getFechaExtraccion().substring(5, 7));
-            int dia = Integer.parseInt(ensayo.getFechaExtraccion().substring(8));
-            cal.set(año, mes - 1, dia);
-            date_extraccion.setSelectedDate(cal);
-            txtF_tipoExtraccion.setText(ensayo.getTipoExtraccion());
-            año = Integer.parseInt(ensayo.getFechaGel().substring(0, 4));
-            mes = Integer.parseInt(ensayo.getFechaGel().substring(5, 7));
-            dia = Integer.parseInt(ensayo.getFechaGel().substring(8));
-            cal.set(año, mes - 1, dia);
-            date_gel.setSelectedDate(cal);
             txtF_tipoGel.setText(ensayo.getTipoGel());
+            txtF_tipoExtraccion.setText(ensayo.getTipoExtraccion());
+            Calendar cal = new GregorianCalendar();
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date date = df.parse(ensayo.getFechaExtraccion());
+                cal.setTime(date);
+                date_extraccion.setSelectedDate(cal);
+                date = df.parse(ensayo.getFechaGel());
+                cal.setTime(date);
+                date_gel.setSelectedDate(cal);
+            } catch (ParseException ex) {
+                Logger.getLogger(RegistrarResultado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         } else {
             cleanEnsayos();
         }

@@ -25,6 +25,7 @@ CREATE TABLE "Muestra" (
   "id_muestra" VARCHAR NOT NULL,
   "id_Paciente" VARCHAR NOT NULL,
   "tipo_muestra" VARCHAR NULL,
+  "tipo_test" VARCHAR NULL,
   "solucion_buffer" VARCHAR NULL,
   "instrumento" VARCHAR NULL,
   "vol_muestra" NUMERIC NULL,

@@ -14,6 +14,7 @@ public class Muestra {
     private String idPaciente;
     private String idMuestra;
     private String tipoMuestra;
+    private String tipoTest;
     private String solucionBuffer;
     private String instrumento;
     private double volMuestra;
@@ -143,5 +144,19 @@ public class Muestra {
      */
     public void setIdPaciente(String idPaciente) {
         this.idPaciente = idPaciente;
+    }
+
+    /**
+     * @return the tipoTest
+     */
+    public String getTipoTest() {
+        return tipoTest;
+    }
+
+    /**
+     * @param tipoTest the tipoTest to set
+     */
+    public void setTipoTest(String tipoTest) {
+        this.tipoTest = tipoTest;
     }
 }
