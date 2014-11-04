@@ -3,7 +3,13 @@
 <project name="SILAC" default="default" basedir=".">
     <description>Builds, tests, and runs the project SILAC.</description>
     <import file="nbproject/build-impl.xml"/>
-    
+   
+    <property name="lib.dir"     value="lib"/>
+     
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar" />
+    </path>
+        
     <property name="src.dir"     value="src"/>
 
     <property name="build.dir"   value="build"/>
@@ -20,7 +26,8 @@
 
     <target name="compile">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" 
+            classpathref="classpath" />
     </target>
 
     <target name="jar" depends="compile">
@@ -33,7 +40,12 @@
     </target>
 
     <target name="run" depends="jar">
-        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+        <java fork="true" classname="${main-class}">
+            <classpath>
+                <path refid="classpath" />
+                <path location="${jar.dir}/${ant.project.name}.jar" />
+            </classpath>
+        </java>
     </target>
 
     <target name="clean-build" depends="clean,jar"/>
