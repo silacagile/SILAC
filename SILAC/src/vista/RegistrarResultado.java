@@ -14,7 +14,6 @@ import dao.PostgresDAO.PostgresEnsayoDAO;
 import dao.PostgresDAO.PostgresMuestraDAO;
 import dao.PostgresDAO.PostgresPacienteDAO;
 import java.awt.Color;
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -1292,6 +1291,21 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
         if (ensayo != null) {
             ftxt_numExtraccion.setText(String.valueOf(ensayo.getNumeroExtraccion()));
             txtF_Resultado.setText(ensayo.getResultado());
+<<<<<<< HEAD
+=======
+            Calendar cal = new GregorianCalendar();
+            int anio = Integer.parseInt(ensayo.getFechaExtraccion().substring(0, 4));
+            int mes = Integer.parseInt(ensayo.getFechaExtraccion().substring(5, 7));
+            int dia = Integer.parseInt(ensayo.getFechaExtraccion().substring(8));
+            cal.set(anio, mes - 1, dia);
+            date_extraccion.setSelectedDate(cal);
+            txtF_tipoExtraccion.setText(ensayo.getTipoExtraccion());
+            anio = Integer.parseInt(ensayo.getFechaGel().substring(0, 4));
+            mes = Integer.parseInt(ensayo.getFechaGel().substring(5, 7));
+            dia = Integer.parseInt(ensayo.getFechaGel().substring(8));
+            cal.set(anio, mes - 1, dia);
+            date_gel.setSelectedDate(cal);
+>>>>>>> 740904e61c9eecb7c2290852248a777b83c5764f
             txtF_tipoGel.setText(ensayo.getTipoGel());
             txtF_tipoExtraccion.setText(ensayo.getTipoExtraccion());
             Calendar cal = new GregorianCalendar();
