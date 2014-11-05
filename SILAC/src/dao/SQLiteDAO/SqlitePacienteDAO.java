@@ -6,12 +6,15 @@
 package dao.SQLiteDAO;
 
 import dao.Factory.SqliteDAOFactory;
+import static dao.Factory.SqliteDAOFactory.createConnection;
 import dao.PacienteDAO;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import modelo.Paciente;
-import java.util.ArrayList;
 
 /**
  *
@@ -49,18 +52,21 @@ public class SqlitePacienteDAO implements PacienteDAO {
         /**
          * Encontrar Paciente
          */
-       /* Paciente pac = p.findPaciente("P1");
+        /* Paciente pac = p.findPaciente("P1");
          System.out.println(pac);*/
-         
+
     }
 
     @Override
     public Paciente findPaciente(String id) {
         Paciente paciente = null;
         String sql = "SELECT * FROM Paciente where id_Paciente =" + "'" + id + "';";
-        ResultSet rs;
+        ResultSet rs = null;
+        Statement statement = null;
+        Connection connection = SqliteDAOFactory.createConnection();
         try {
-            rs = SqliteDAOFactory.consultar(sql);
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sql);
             while (rs.next()) {
                 paciente = new Paciente();
                 paciente.setIdPaciente(rs.getString("id_Paciente"));
@@ -73,14 +79,29 @@ public class SqlitePacienteDAO implements PacienteDAO {
                 paciente.setCorreo(rs.getString("correo"));
 
             }
-            SqliteDAOFactory.close();
         } catch (SQLException e) {
             System.out.println("Error");
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        } finally{
-           
-            SqliteDAOFactory.close();
+            
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
         }
         return paciente;
 
@@ -97,22 +118,79 @@ public class SqlitePacienteDAO implements PacienteDAO {
         String apMat = paciente.getApMaterno();
         String ci = paciente.getCi();
         String correo = paciente.getCorreo();
-
-        String sql = "INSERT INTO Paciente(id_Paciente,nombre,direccion,telefono,ap_paterno,ap_materno,ci,correo)"
-                + " values('" + id_Paciente + "','" + nombre + "','" + direccion + "','" + telefono
-                + "','" + apPat + "','" + apMat + "','" + ci + "','" + correo + "');";
-        res = SqliteDAOFactory.updateDB(sql);
-        SqliteDAOFactory.close();
+        ResultSet rs = null;
+        Statement statement = null;
+        Connection connection = SqliteDAOFactory.createConnection();
+        try {
+            String sql = "INSERT INTO Paciente(id_Paciente,nombre,direccion,telefono,ap_paterno,ap_materno,ci,correo)"
+                    + " values('" + id_Paciente + "','" + nombre + "','" + direccion + "','" + telefono
+                    + "','" + apPat + "','" + apMat + "','" + ci + "','" + correo + "');";
+            statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println("Error");
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            res = false;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
         return res;
+
     }
 
     @Override
     public boolean deletePaciente(String id) {
         boolean res = false;
-        String sql = "delete from Paciente where id_Paciente='" + id + "';";
-        res = SqliteDAOFactory.updateDB(sql);
-        SqliteDAOFactory.close();
+        ResultSet rs = null;
+        Statement statement = null;
+        Connection connection = SqliteDAOFactory.createConnection();
+        try {
+            String sql = "delete from Paciente where id_Paciente='" + id + "';";
+            statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println("Error");
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            res = false;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
         return res;
+
     }
 
     @Override
@@ -126,11 +204,39 @@ public class SqlitePacienteDAO implements PacienteDAO {
         String apMat = paciente.getApMaterno();
         String ci = paciente.getCi();
         String correo = paciente.getCorreo();
-        String sql = "update Paciente set nombre ='" + nombre + "',direccion='" + direccion + "',telefono='" + telefono
-                + "',ap_paterno='" + apPat + "',ap_materno='" + apMat + "',ci='" + ci + "',correo='" + correo
-                + "' where id_Paciente ='" + id_Paciente + "';";
-        res = SqliteDAOFactory.updateDB(sql);
-        SqliteDAOFactory.close();
+        ResultSet rs = null;
+        Statement statement = null;
+        Connection connection = SqliteDAOFactory.createConnection();
+        try {
+            String sql = "update Paciente set nombre ='" + nombre + "',direccion='" + direccion + "',telefono='" + telefono
+                    + "',ap_paterno='" + apPat + "',ap_materno='" + apMat + "',ci='" + ci + "',correo='" + correo
+                    + "' where id_Paciente ='" + id_Paciente + "';";
+            statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println("Error");
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            res = false;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
         return res;
     }
 
@@ -139,8 +245,12 @@ public class SqlitePacienteDAO implements PacienteDAO {
         List<Paciente> pacientes = new ArrayList<Paciente>();
         Paciente paciente;
         String sql = "select * from Paciente";
+        ResultSet rs = null;
+        Statement statement = null;
+        Connection connection = SqliteDAOFactory.createConnection();
         try {
-            ResultSet rs = SqliteDAOFactory.consultar(sql);
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sql);
             while (rs.next()) {
                 paciente = new Paciente();
                 paciente.setIdPaciente(rs.getString("id_Paciente"));
@@ -153,12 +263,31 @@ public class SqlitePacienteDAO implements PacienteDAO {
                 paciente.setCorreo(rs.getString("correo"));
                 pacientes.add(paciente);
             }
-            SqliteDAOFactory.close();
         } catch (SQLException e) {
+            System.out.println("Error");
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
+
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+
         }
         return pacientes;
     }
-
 }
