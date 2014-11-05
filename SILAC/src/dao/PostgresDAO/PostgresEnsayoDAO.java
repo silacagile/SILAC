@@ -28,7 +28,7 @@ public class PostgresEnsayoDAO implements EnsayoDAO {
         //en.updateEnsayo(new Ensayo("2", "P1", "1", "20/10/2013", "modif", "negative", 10, "notgelo", "20/10/2014"));
         //en.deleteEnsayo("1", "1", "P1");
         System.out.println(en.findEnsayo("P4", "2", "5"));
-       // for (Ensayo e : en.getAllEnsayos("P1", "1")) {
+        // for (Ensayo e : en.getAllEnsayos("P1", "1")) {
         //    System.out.println(e);
         //}
     }

@@ -5,16 +5,15 @@
  */
 package vista;
 
+import Utilitarios.Utils;
+import controlador.EnsayoCtrl;
+import controlador.MuestraCtrl;
+import controlador.PacienteCtrl;
 import dao.EnsayoDAO;
 import dao.Factory.DAOFactory;
-import dao.Factory.PostgresDAOFactory;
 import dao.MuestraDAO;
 import dao.PacienteDAO;
-import dao.PostgresDAO.PostgresEnsayoDAO;
-import dao.PostgresDAO.PostgresMuestraDAO;
-import dao.PostgresDAO.PostgresPacienteDAO;
 import java.awt.Color;
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -43,18 +42,22 @@ import modelo.Paciente;
  */
 public class RegistrarResultado extends JFrame implements Printable {
 
+    private final MuestraCtrl muestraCtrl;
+    private final PacienteCtrl pacienteCtrl;
+    private final EnsayoCtrl ensayoCtrl;
     private boolean nuevaMuestra;
-    private static final int DBMS = DAOFactory.SQLITE;
 
     /**
      * Creates new form RegistrarResultado
      */
     public RegistrarResultado() {
         initComponents();
+        muestraCtrl = new MuestraCtrl();
+        pacienteCtrl = new PacienteCtrl();
+        ensayoCtrl = new EnsayoCtrl();
         setLocationRelativeTo(null);
         disableComponents();
         addButtonFocus();
-
     }
 
     private void enableIDPaciente() {
@@ -860,8 +863,6 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
 
     private void btn_guardarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarMuestraActionPerformed
         if (validarCamposMuestra()) {
-            DAOFactory factory = DAOFactory.getDAOFactory(DBMS);
-            MuestraDAO controladorMuestra = factory.getMuestraDAO();
             Muestra muestra = new Muestra();
 
             muestra.setIdPaciente(txtF_idPaciente.getText());
@@ -876,10 +877,10 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
 
             if (nuevaMuestra) {
                 System.out.println("Antes de entrar al insert Nueva Muestra");
-                controladorMuestra.insertMuestra(muestra);
+                muestraCtrl.insertarMuestra(muestra);
             } else {
                 System.out.println("Antes de entrar al insert Existe Muestra");
-                controladorMuestra.updateMuestra(muestra);
+                muestraCtrl.updateMuestra(muestra);
             }
 
             JOptionPane.showMessageDialog(this,
@@ -896,17 +897,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_btn_guardarMuestraActionPerformed
 
     private boolean validarCamposMuestra() {
-        boolean respuesta = true;
-        try {
-            double auxiliar
-                    = Double.parseDouble(txtF_volumenMuestra.getText());
-            if (auxiliar < 0) {
-                respuesta = false;
-            }
-        } catch (Exception e) {
-            respuesta = false;
-        }
-        return respuesta;
+        return Utils.esDouble(txtF_volumenMuestra.getText());
     }
 
 
@@ -914,9 +905,8 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_txtF_idPacienteActionPerformed
 
     private void btn_buscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarPacienteActionPerformed
-        DAOFactory factory = DAOFactory.getDAOFactory(DBMS);
-        PacienteDAO pacienteDAO = factory.getPacienteDAO();
-        Paciente paciente = pacienteDAO.findPaciente(txtF_idPaciente.getText());
+
+        Paciente paciente = pacienteCtrl.buscarPaciente(txtF_idPaciente.getText());
         if (paciente == null) {
             label_pacienteControl.setText("No existe el paciente con el ID : " + txtF_idPaciente.getText());
             label_pacienteControl.setForeground(Color.red);
@@ -934,19 +924,18 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_cmb_tipoMuestraActionPerformed
 
     private void btn_guardarEnsayoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarEnsayoActionPerformed
-        DAOFactory factory = DAOFactory.getDAOFactory(DBMS);
-        EnsayoDAO bd_ensayo = factory.getEnsayoDAO();
+
         String id_ensayo = getId_Ensayo();
         if (!camposEmpty()) {
             Ensayo ensayo = getEnsayo();
             ensayo.setIdEnsayo(id_ensayo);
             limit_ftxt = 0;
-            if (bd_ensayo.findEnsayo(txtF_idPaciente.getText(),
+            if (ensayoCtrl.buscarEnsayo(txtF_idPaciente.getText(),
                     txtF_codMuestra.getText(), id_ensayo) != null) {
-                bd_ensayo.updateEnsayo(ensayo);
+                ensayoCtrl.updateEnsayo(ensayo);
                 JOptionPane.showMessageDialog(this, "Se ha actualizado el Ensayo : " + id_ensayo + "\ncorrectatmente");
             } else {
-                bd_ensayo.insertEnsayo(ensayo);
+                ensayoCtrl.insertarEnsayo(ensayo);
                 JOptionPane.showMessageDialog(this, "Se ha guardado el Ensayo : " + id_ensayo + " \ncorrectamente");
             }
         } else {
@@ -996,9 +985,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             label_mensajeMuestra.setText("Ingrese un código válido!");
             label_mensajeMuestra.setForeground(Color.red);
         } else {
-            DAOFactory factory = DAOFactory.getDAOFactory(DBMS);
-            MuestraDAO controlDeMuestra = factory.getMuestraDAO();
-            Muestra muestra = controlDeMuestra.findMuestra(
+            Muestra muestra = muestraCtrl.buscarMuestra(
                     txtF_idPaciente.getText(), txtF_codMuestra.getText());
             if (muestra == null) {
                 int opcion = JOptionPane.showConfirmDialog(this,
@@ -1282,31 +1269,20 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }
 
     private void updateVistaEnsayo() {
-        DAOFactory factory = DAOFactory.getDAOFactory(DBMS);
-        EnsayoDAO bd_ensayo = factory.getEnsayoDAO();
 
         setBackgroundCampos();
         String id_ensayo = getId_Ensayo();
-        Ensayo ensayo = bd_ensayo.findEnsayo(txtF_idPaciente.getText(), txtF_codMuestra.getText(), id_ensayo);
+        Ensayo ensayo = ensayoCtrl.buscarEnsayo(txtF_idPaciente.getText(),
+                txtF_codMuestra.getText(), id_ensayo);
         label_ensayoInfo.setText("Ensayo " + id_ensayo + ":");
         if (ensayo != null) {
             ftxt_numExtraccion.setText(String.valueOf(ensayo.getNumeroExtraccion()));
             txtF_Resultado.setText(ensayo.getResultado());
             txtF_tipoGel.setText(ensayo.getTipoGel());
             txtF_tipoExtraccion.setText(ensayo.getTipoExtraccion());
-            Calendar cal = new GregorianCalendar();
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                Date date = df.parse(ensayo.getFechaExtraccion());
-                cal.setTime(date);
-                date_extraccion.setSelectedDate(cal);
-                date = df.parse(ensayo.getFechaGel());
-                cal.setTime(date);
-                date_gel.setSelectedDate(cal);
-            } catch (ParseException ex) {
-                Logger.getLogger(RegistrarResultado.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+            date_extraccion.setSelectedDate(Utils.
+                    formatoFecha(ensayo.getFechaExtraccion()));
+            date_gel.setSelectedDate(Utils.formatoFecha(ensayo.getFechaGel()));
         } else {
             cleanEnsayos();
         }

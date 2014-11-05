@@ -36,7 +36,7 @@ public class SqliteMuestraDAO implements MuestraDAO {
 
         //p.insertMuestra(prueba);
         // p.deleteMuestra("P1", "M1");
-        for (Muestra m : p.getAllMuestras("P1")) {
+        for(Muestra m : p.getAllMuestras("P1")) {
             System.out.println(m);
         }
     }

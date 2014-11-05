@@ -5,8 +5,8 @@
  */
 package dao.Factory;
 
+import Utilitarios.Constantes;
 import dao.EnsayoDAO;
-import dao.Factory.DAOFactory;
 import dao.MuestraDAO;
 import dao.PacienteDAO;
 import dao.PostgresDAO.PostgresEnsayoDAO;
@@ -29,15 +29,16 @@ public class PostgresDAOFactory extends DAOFactory {
     private static Connection conexion;
     private static Statement sentencia;
 
-    public static final String DRIVER = "org.postgresql.Driver";
-    public static final String DBURL = "jdbc:postgresql://localhost:5432/Silac";
+    public static final String DRIVER = Constantes.POSTGRESQL_DRIVER;
+    public static final String DBURL = Constantes.POSTGRESQL_DBURL;
 
     public static Connection createConnection() {
         try {
             Class.forName(DRIVER);
             conexion = DriverManager
                     .getConnection(DBURL,
-                            "postgres", "postgres");
+                            Constantes.POSTGRESQL_USER,
+                            Constantes.POSTGRESQL_PASS);
 
             if (conexion != null) {
                 System.out.println("Conexion exitosa!");
@@ -46,7 +47,9 @@ public class PostgresDAOFactory extends DAOFactory {
             }
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            JOptionPane.showMessageDialog(new Frame(), "Error con la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new Frame(),
+                    "Error con la Base de Datos", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         return conexion;
