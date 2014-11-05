@@ -25,8 +25,6 @@ import javax.swing.JOptionPane;
  */
 public class SqliteDAOFactory extends DAOFactory {
 
-   
-
     public static final String DRIVER = "org.sqlite.JDBC";
     public static final String DBURL = "jdbc:sqlite:silac.db";
 
@@ -78,7 +76,6 @@ public class SqliteDAOFactory extends DAOFactory {
 //        }
 //        return true;
 //    }
-
     /**
      * Executes the given SQL statement, which is a Select statement
      *
@@ -99,7 +96,6 @@ public class SqliteDAOFactory extends DAOFactory {
 //        System.out.println("La consulta Fue Exitosa");
 //        return resultado;
 //    }
-
 //    public static void close(ResultSet resultSet) {
 //        if (conexion != null) {
 //            try {
@@ -120,9 +116,6 @@ public class SqliteDAOFactory extends DAOFactory {
 //            }
 //        }
 //    }
-
-
-
     @Override
     public EnsayoDAO getEnsayoDAO() {
         return new SqliteEnsayoDAO();

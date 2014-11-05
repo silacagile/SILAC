@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * Convention
@@ -14,7 +13,6 @@
  * @version drp20141810
  *
  */
-
 public class Convention {
 
     /**
@@ -25,8 +23,8 @@ public class Convention {
     }
 
     /**
-     * 
-     * @return Retorna 0 
+     *
+     * @return Retorna 0
      */
     public int method1() {
         return 0;
@@ -34,10 +32,10 @@ public class Convention {
     }
 
     /**
-     * 
+     *
      * @param a Variable que representa.....
      * @param b Variable b
-     * @return 
+     * @return
      */
     public String method2(int a, String b) {
         return "";

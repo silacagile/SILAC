@@ -17,11 +17,11 @@ import java.sql.SQLException;
  * @author Veymar Montaño Colqu
  */
 public class PostgresMuestraDAO implements MuestraDAO {
-    
+
     public static void main(String[] args) {
         PostgresMuestraDAO p = new PostgresMuestraDAO();
         Muestra prueba = new Muestra();
-        
+
         prueba.setIdPaciente("P1");
         prueba.setIdMuestra("1");
         prueba.setTipoTest("TEst");
@@ -31,14 +31,13 @@ public class PostgresMuestraDAO implements MuestraDAO {
         prueba.setResultadoFinal("res");
         prueba.setSolucionBuffer("buffer");
         prueba.setTipoMuestra("tipoM");
-        
+
         //p.insertMuestra(prueba);
-        
 //        for (Muestra m : p.getAllMuestras("P1")) {
 //            System.out.println(m);
 //        }
     }
-    
+
     @Override
     public List<Muestra> getAllMuestras(String idPaciente) {
         List<Muestra> muestras = new ArrayList<>();
@@ -46,7 +45,7 @@ public class PostgresMuestraDAO implements MuestraDAO {
         String sql = "SELECT *"
                 + "FROM \"Muestra\""
                 + "WHERE \"id_Paciente\" = '" + idPaciente + "';";
-        
+
         try {
             ResultSet rs = PostgresDAOFactory.consultar(sql);
             while (rs.next()) {
@@ -69,11 +68,11 @@ public class PostgresMuestraDAO implements MuestraDAO {
         System.out.println("All Records successfully");
         return muestras;
     }
-    
+
     @Override
     public Muestra findMuestra(String idPaciente, String idMuestra) {
         Muestra muestra = null;
-        
+
         String sql = "SELECT * FROM \"Muestra\" "
                 + "where \"id_Paciente\" =" + "'" + idPaciente + "' "
                 + "and \"id_muestra\" =" + "'" + idMuestra + "';";
@@ -97,7 +96,7 @@ public class PostgresMuestraDAO implements MuestraDAO {
         }
         return muestra;
     }
-    
+
     @Override
     public boolean updateMuestra(Muestra muestra) {
         boolean res = false;
@@ -114,7 +113,7 @@ public class PostgresMuestraDAO implements MuestraDAO {
         res = PostgresDAOFactory.updateDB(sql);
         return res;
     }
-    
+
     @Override
     public boolean deleteMuestra(String idPaciente, String idMuestra) {
         boolean res = false;
@@ -124,13 +123,12 @@ public class PostgresMuestraDAO implements MuestraDAO {
         res = PostgresDAOFactory.updateDB(sql);
         return res;
     }
-    
+
     @Override
     public boolean insertMuestra(Muestra muestra) {
         boolean res = false;
         String sql = "insert into \"Muestra\" (\"id_muestra\",\"id_Paciente\",\"tipo_muestra\",\"tipo_test\",\"solucion_buffer\""
                 + ",instrumento,\"vol_muestra\",\"resultado_final\",observaciones)"
-                
                 + " values('" + muestra.getIdMuestra()
                 + "','" + muestra.getIdPaciente()
                 + "','" + muestra.getTipoMuestra()

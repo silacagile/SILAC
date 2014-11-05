@@ -14,12 +14,14 @@ import dao.PacienteDAO;
  * @author Marcelo
  */
 public abstract class DAOFactory {
-    
+
     public static int POSTGRESQL = 1;
     public static int SQLITE = 2;
-    
+
     public abstract EnsayoDAO getEnsayoDAO();
+
     public abstract MuestraDAO getMuestraDAO();
+
     public abstract PacienteDAO getPacienteDAO();
 
     public static DAOFactory getDAOFactory(int factory) {

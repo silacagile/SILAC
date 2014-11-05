@@ -24,21 +24,21 @@ import javax.swing.JOptionPane;
  *
  * @author Daniel Rocha
  */
-public class PostgresDAOFactory extends DAOFactory{
-    
+public class PostgresDAOFactory extends DAOFactory {
+
     private static Connection conexion;
     private static Statement sentencia;
-    
-    public static final String DRIVER ="org.postgresql.Driver" ;
+
+    public static final String DRIVER = "org.postgresql.Driver";
     public static final String DBURL = "jdbc:postgresql://localhost:5432/Silac";
-    
-    public static Connection createConnection(){
+
+    public static Connection createConnection() {
         try {
             Class.forName(DRIVER);
             conexion = DriverManager
                     .getConnection(DBURL,
                             "postgres", "postgres");
-           
+
             if (conexion != null) {
                 System.out.println("Conexion exitosa!");
             } else {
@@ -51,11 +51,12 @@ public class PostgresDAOFactory extends DAOFactory{
         }
         return conexion;
     }
-    
+
     /**
-     * Executes the given SQL statement, which may be an INSERT, 
-     * UPDATE, or DELETE statement or an SQL statement that returns nothing, 
-     * such as an SQL DDL statement.
+     * Executes the given SQL statement, which may be an INSERT, UPDATE, or
+     * DELETE statement or an SQL statement that returns nothing, such as an SQL
+     * DDL statement.
+     *
      * @param sql
      * @return True if everything went well
      */
@@ -71,10 +72,12 @@ public class PostgresDAOFactory extends DAOFactory{
         }
         return true;
     }
+
     /**
      * Executes the given SQL statement, which is a Select statement
+     *
      * @param sql
-     * @return 
+     * @return
      */
     public static ResultSet consultar(String sql) {
         ResultSet resultado = null;
@@ -90,7 +93,7 @@ public class PostgresDAOFactory extends DAOFactory{
         System.out.println("La consulta Fue Exitosa");
         return resultado;
     }
-    
+
     public Connection getConexion() {
         return conexion;
     }

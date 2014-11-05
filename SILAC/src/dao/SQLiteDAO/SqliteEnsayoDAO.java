@@ -215,7 +215,7 @@ public class SqliteEnsayoDAO implements EnsayoDAO {
     public List<Ensayo> getAllEnsayos(String idPaciente, String idMuestra) {
         List<Ensayo> ensayos = new ArrayList<Ensayo>();
         Ensayo ensayo = new Ensayo();
-        
+
         //Recorre todos los ensayos posibles para una muestra y los agrega si es que existan
         for (int i = 1; i <= 5; i++) {
             ensayo = findEnsayo(idPaciente, idMuestra, Integer.toString(i));

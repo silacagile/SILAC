@@ -138,21 +138,21 @@ public class Paciente {
     }
 
     /**
-     * 
+     *
      * @return Descripción de la clase Paciente
      */
     @Override
     public String toString() {
-        String res = 
-                "*** Datos Paciente *** \n" +
-                "Id Paciente : " + getIdPaciente() + "\n"+
-                "Nombre : " + nombre + "\n"+
-                "Direccion : " + direccion + "\n"+
-                "Telefono : " + telefono + "\n"+
-                "Apellido Paterno : " + apPaterno + "\n"+
-                "Apellido Materno : " + apMaterno + "\n"+
-                "Ci : " + ci + "\n"+
-                "Correo : " + correo + "\n";
+        String res
+                = "*** Datos Paciente *** \n"
+                + "Id Paciente : " + getIdPaciente() + "\n"
+                + "Nombre : " + nombre + "\n"
+                + "Direccion : " + direccion + "\n"
+                + "Telefono : " + telefono + "\n"
+                + "Apellido Paterno : " + apPaterno + "\n"
+                + "Apellido Materno : " + apMaterno + "\n"
+                + "Ci : " + ci + "\n"
+                + "Correo : " + correo + "\n";
         return res;
     }
 

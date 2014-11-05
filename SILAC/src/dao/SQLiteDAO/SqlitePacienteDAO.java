@@ -82,7 +82,7 @@ public class SqlitePacienteDAO implements PacienteDAO {
         } catch (SQLException e) {
             System.out.println("Error");
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            
+
         } finally {
             if (connection != null) {
                 try {

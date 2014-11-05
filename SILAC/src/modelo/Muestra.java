@@ -10,7 +10,7 @@ package modelo;
  * @author Veymar Montaño Colqu
  */
 public class Muestra {
-    
+
     private String idPaciente;
     private String idMuestra;
     private String tipoMuestra;
@@ -118,17 +118,17 @@ public class Muestra {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
-    
+
     @Override
-    public String toString(){
-        String res = "Id Paciente : " + idPaciente + "\n" +
-                    "Id Muestra : " + idMuestra+ "\n"  +
-                    "Tipo de Muestra : " + tipoMuestra  + "\n" +
-                    "Solucion Buffer : " + solucionBuffer + "\n" +
-                    "Instrumento : " + instrumento + "\n" +
-                    "Volumen de la Muestra : " + volMuestra + "\n" +
-                    "Resultado Final : " + resultadoFinal + "\n" +
-                    "Observaciones : " + observaciones + "\n";
+    public String toString() {
+        String res = "Id Paciente : " + idPaciente + "\n"
+                + "Id Muestra : " + idMuestra + "\n"
+                + "Tipo de Muestra : " + tipoMuestra + "\n"
+                + "Solucion Buffer : " + solucionBuffer + "\n"
+                + "Instrumento : " + instrumento + "\n"
+                + "Volumen de la Muestra : " + volMuestra + "\n"
+                + "Resultado Final : " + resultadoFinal + "\n"
+                + "Observaciones : " + observaciones + "\n";
         return res;
     }
 

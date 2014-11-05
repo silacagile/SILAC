@@ -10,7 +10,7 @@ package modelo;
  * @author Daniel Rocha
  */
 public class Ensayo {
-    
+
     private String idEnsayo;
     private String idPaciente;
     private String idMuestra;
@@ -20,12 +20,15 @@ public class Ensayo {
     private int numeroExtraccion;
     private String tipoGel;
     private String fechaGel;
-    
-    public Ensayo(){};
 
-    public Ensayo(String idEnsayo, String idPaciente, String idMuestra, 
-                 String fechaExtraccion, String tipoExtraccion, String resultado, 
-                 int numeroExtraccion, String tipoGel, String fechaGel) {
+    public Ensayo() {
+    }
+
+    ;
+
+    public Ensayo(String idEnsayo, String idPaciente, String idMuestra,
+            String fechaExtraccion, String tipoExtraccion, String resultado,
+            int numeroExtraccion, String tipoGel, String fechaGel) {
         this.idEnsayo = idEnsayo;
         this.idPaciente = idPaciente;
         this.idMuestra = idMuestra;
@@ -108,19 +111,19 @@ public class Ensayo {
     public String getFechaGel() {
         return fechaGel;
     }
-    
+
     @Override
-    public String toString(){
-        String res ="*** ENSAYO ***\n" +
-                "Id Paciente: " + idPaciente + "\n" +
-                "Id Muestra: "  + idMuestra + "\n" +
-                "Id_Ensayo:  "  + idEnsayo  + "\n" +
-                "Fecha Extraccion " + fechaExtraccion + "\n" +
-                "Tipo Extraccion: " + tipoExtraccion + "\n" +
-                "Fecha Gel:" + fechaGel + "\n" +
-                "Numero Extraccion:" + numeroExtraccion + "\n" +
-                "Tipo Gel: " + tipoGel + "\n"+
-                "Resultado:" + resultado + "\n";
+    public String toString() {
+        String res = "*** ENSAYO ***\n"
+                + "Id Paciente: " + idPaciente + "\n"
+                + "Id Muestra: " + idMuestra + "\n"
+                + "Id_Ensayo:  " + idEnsayo + "\n"
+                + "Fecha Extraccion " + fechaExtraccion + "\n"
+                + "Tipo Extraccion: " + tipoExtraccion + "\n"
+                + "Fecha Gel:" + fechaGel + "\n"
+                + "Numero Extraccion:" + numeroExtraccion + "\n"
+                + "Tipo Gel: " + tipoGel + "\n"
+                + "Resultado:" + resultado + "\n";
         return res;
     }
 }

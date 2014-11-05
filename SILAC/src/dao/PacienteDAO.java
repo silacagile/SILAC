@@ -16,6 +16,7 @@ public interface PacienteDAO {
 
     /**
      * Retorna un paciente en base a su id.
+     *
      * @param id
      * @return Paciente si se encontró, null si no se encontró
      */
@@ -23,13 +24,15 @@ public interface PacienteDAO {
 
     /**
      * Añade un paciente nuevo.
+     *
      * @param paciente
-     * @return 
+     * @return
      */
     public boolean insertPaciente(Paciente paciente);
 
     /**
      * Elimina un paciente dado su id.
+     *
      * @param id
      * @return
      */
@@ -37,6 +40,7 @@ public interface PacienteDAO {
 
     /**
      * Edicion de un paciente dado.
+     *
      * @param paciente
      * @return
      */
@@ -44,6 +48,7 @@ public interface PacienteDAO {
 
     /**
      * Retorna todos los pacientes.
+     *
      * @return
      */
     public List<Paciente> getAllPacientes();

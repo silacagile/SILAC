@@ -19,7 +19,6 @@ import java.util.ArrayList;
  */
 public class PostgresPacienteDAO implements PacienteDAO {
 
-
     public static void main(String[] args) {
         PostgresPacienteDAO p = new PostgresPacienteDAO();
         Paciente paciente = new Paciente();
@@ -35,7 +34,7 @@ public class PostgresPacienteDAO implements PacienteDAO {
         /**
          * Insertar Paciente
          */
-       // p.insertPaciente(paciente);
+        // p.insertPaciente(paciente);
         /**
          * Eliminar Paciente
          */
