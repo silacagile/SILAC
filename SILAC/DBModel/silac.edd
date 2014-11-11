@@ -176,10 +176,28 @@
         </ForeignKeys>
         <Indexes />
       </Table>
+      <Table name="Usuario">
+        <Columns>
+          <Column name="login" key="true" dataType="VARCHAR(255)" notNull="true" autoIncrement="false" defaultValue="" />
+          <Column name="password" key="false" dataType="VARCHAR(255)" notNull="true" autoIncrement="false" defaultValue="" />
+          <Column name="Usuario_id_Rol" key="false" dataType="INTEGER" notNull="false" autoIncrement="false" defaultValue="" />
+        </Columns>
+        <ForeignKeys />
+        <Indexes />
+      </Table>
+      <Table name="Rol">
+        <Columns>
+          <Column name="id_Rol" key="false" dataType="INTEGER" notNull="true" autoIncrement="true" defaultValue="" />
+          <Column name="name" key="false" dataType="VARCHAR(255)" notNull="true" autoIncrement="false" defaultValue="" />
+        </Columns>
+        <ForeignKeys />
+        <Indexes />
+      </Table>
     </Tables>
     <Relations>
       <Relation name="Rel_2" source="Muestra" destination="ensayo" kind="1n" start="false" definition="true" delete="no_action" update="no_action" />
       <Relation name="Rel_1" source="Paciente" destination="Muestra" kind="1n" start="false" definition="true" delete="no_action" update="no_action" />
+      <Relation name="Rel_3" source="Rol" destination="Usuario" kind="1n_non_id" start="false" definition="true" delete="no_action" update="no_action" />
     </Relations>
   </Model>
   <Diagram>
@@ -188,14 +206,17 @@
         <Table table="Muestra" x="687" y="73" />
         <Table table="ensayo" x="663" y="333" />
         <Table table="Paciente" x="163" y="76" />
+        <Table table="Rol" x="208" y="560" />
+        <Table table="Usuario" x="528" y="544" />
       </Tables>
       <Relations>
         <Relation source="Muestra" destination="ensayo" division="0.5" />
         <Relation source="Paciente" destination="Muestra" division="0.5" />
+        <Relation source="Rol" destination="Usuario" division="0.5" />
       </Relations>
       <Regions />
     </Shapes>
   </Diagram>
-  <Viewport zoom="1.0" x="0" y="28" />
+  <Viewport zoom="1.0" x="140" y="51" />
 </easyDesigner>
 
