@@ -9,7 +9,11 @@ import java.util.List;
 import modelo.Ensayo;
 
 /**
- *
+ * eliminar estalinea
+ * ihfdisfdi
+ * sfojofs
+ * +sfojsofs
+ * osifsoif
  * @author Daniel Rocha
  */
 public interface EnsayoDAO {
