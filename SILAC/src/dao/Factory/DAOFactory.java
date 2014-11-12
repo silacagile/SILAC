@@ -5,6 +5,7 @@
  */
 package dao.Factory;
 
+import dao.AutentificacionDAO;
 import dao.EnsayoDAO;
 import dao.MuestraDAO;
 import dao.PacienteDAO;
@@ -23,6 +24,8 @@ public abstract class DAOFactory {
     public abstract MuestraDAO getMuestraDAO();
 
     public abstract PacienteDAO getPacienteDAO();
+    
+    public abstract AutentificacionDAO getAutentificacionDAO();
 
     public static DAOFactory getDAOFactory(int factory) {
         switch (factory) {

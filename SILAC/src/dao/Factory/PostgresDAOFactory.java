@@ -6,9 +6,11 @@
 package dao.Factory;
 
 import Utilitarios.Constantes;
+import dao.AutentificacionDAO;
 import dao.EnsayoDAO;
 import dao.MuestraDAO;
 import dao.PacienteDAO;
+import dao.PostgresDAO.PostgresAutentificacionDAO;
 import dao.PostgresDAO.PostgresEnsayoDAO;
 import dao.PostgresDAO.PostgresMuestraDAO;
 import dao.PostgresDAO.PostgresPacienteDAO;
@@ -114,5 +116,10 @@ public class PostgresDAOFactory extends DAOFactory {
     @Override
     public PacienteDAO getPacienteDAO() {
         return new PostgresPacienteDAO();
+    }
+
+    @Override
+    public AutentificacionDAO getAutentificacionDAO() {
+        return new PostgresAutentificacionDAO();
     }
 }

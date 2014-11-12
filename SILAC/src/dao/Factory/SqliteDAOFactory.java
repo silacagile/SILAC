@@ -6,9 +6,11 @@
 package dao.Factory;
 
 import Utilitarios.Constantes;
+import dao.AutentificacionDAO;
 import dao.EnsayoDAO;
 import dao.MuestraDAO;
 import dao.PacienteDAO;
+import dao.SQLiteDAO.SqliteAutentificacionDAO;
 import dao.SQLiteDAO.SqliteEnsayoDAO;
 import dao.SQLiteDAO.SqliteMuestraDAO;
 import dao.SQLiteDAO.SqlitePacienteDAO;
@@ -61,5 +63,10 @@ public class SqliteDAOFactory extends DAOFactory {
     @Override
     public PacienteDAO getPacienteDAO() {
         return new SqlitePacienteDAO();
+    }
+
+    @Override
+    public AutentificacionDAO getAutentificacionDAO() {
+        return new SqliteAutentificacionDAO();
     }
 }
