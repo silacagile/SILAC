@@ -7,6 +7,8 @@
     <property environment="env" />
     <property name="base"            value ="" />
     <property name="lib.dir"         value="lib" />
+    <property name="test.src.dir"    value="test" />
+    <property name="test.build.dir"  value="build/test" />
      
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar" />
@@ -19,10 +21,6 @@
     <property name="jar.dir"         value="${build.dir}/jar" />
 
     <property name="main-class"  value="vista.RegistrarResultado" />
-
-    <!-- Allows us to use the IzPack Ant task izpack home needed -->
-    <taskdef name="IzPack" classpath="${env.IZPACK_HOME}/lib/compiler.jar"
-         classname="com.izforge.izpack.ant.IzPackTask" />
 
     <target name="clean">
         <delete dir="${build.dir}" />
@@ -44,7 +42,7 @@
         </jar>
     </target>
 
-    <target name="run" depends="jar">
+<!--    <target name="run" depends="jar">
         <java fork="true" classname="${main-class}">
             <classpath>
                 <path refid="classpath" />
@@ -52,16 +50,31 @@
             </classpath>
         </java>
     </target>
+-->
+    
+    <target name="build" depends="compile">
+        <mkdir dir="${test.build.dir}"/>
+        <javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false">
+            <classpath refid="classpath.test"/>
+        </javac>
+        <echo message="Build done" />
+    </target>
+    <!-- Test and build all files -->
+    <!-- To run this: use "ant" (default) or "ant run" -->
+    <target name="run" depends="build">
+        <junit printsummary="on" haltonfailure="yes">
+            <classpath>
+                <path refid="classpath" />
+                <pathelement location="${test.build.dir}"/>
+            </classpath>
+            <formatter type="brief" usefile="false" />
+            <batchtest>
+                <fileset dir="${test.src.dir}" includes="**/*Test*.java" />
+            </batchtest>
+        </junit>
+    </target>
 
     <target name="clean-build" depends="clean,jar" />
 
     <target name="main" depends="clean,run" />
-
-    <!-- We call IzPack -->
-<!--    <echo message="Makes the installer using IzPack" />
-    <IzPack input="${base}/IzPack-install.xml"
-        output="${jar.dir}/IzPack-install.jar"
-        installerType="standard"
-        basedir="${base}"
-        IzPackDir="${env.IZPACK_HOME}" /> -->
 </project>
