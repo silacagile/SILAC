@@ -14,6 +14,7 @@ import dao.Factory.DAOFactory;
 import dao.MuestraDAO;
 import dao.PacienteDAO;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -65,6 +66,10 @@ public class RegistrarResultado extends JFrame implements Printable {
         btn_buscarPaciente.setEnabled(true);
     }
 
+    private void enableCambiarPaciente() {
+        btn_cambiarPaciente.setEnabled(true);
+    }
+
     private void disableIDPaciente() {
         txtF_idPaciente.setEnabled(false);
         btn_buscarPaciente.setEnabled(false);
@@ -78,6 +83,13 @@ public class RegistrarResultado extends JFrame implements Printable {
     private void disableIDMuestra() {
         txtF_codMuestra.setEnabled(false);
         btn_buscarMuestra.setEnabled(false);
+    }
+    
+    private void resetCombos(){
+        cmb_instrumento.setSelectedIndex(0);
+        cmb_solBuffer.setSelectedIndex(0);
+        cmb_tipoMuestra.setSelectedIndex(0);
+        cmb_tipoTest.setSelectedIndex(0);
     }
 
     private void enableMuestra() {
@@ -187,6 +199,7 @@ public class RegistrarResultado extends JFrame implements Printable {
      * Desabilita todos los componentes de la interfaz
      */
     public void disableComponents() {
+        btn_cambiarPaciente.setEnabled(false);
         txtF_codMuestra.setEnabled(false);
         btn_buscarMuestra.setEnabled(false);
         btn_cambiarMuestra.setEnabled(false);
@@ -437,7 +450,7 @@ public class RegistrarResultado extends JFrame implements Printable {
             }
         });
 
-        date_extraccion.setCurrentView(new datechooser.view.appearance.AppearancesList("Dali",
+        date_extraccion.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
             new datechooser.view.appearance.ViewAppearance("custom",
                 new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(222, 222, 222),
@@ -485,7 +498,7 @@ public class RegistrarResultado extends JFrame implements Printable {
     e1.printStackTrace();
     }
 
-    date_gel.setCurrentView(new datechooser.view.appearance.AppearancesList("Dali",
+    date_gel.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
         new datechooser.view.appearance.ViewAppearance("custom",
             new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                 new java.awt.Color(222, 222, 222),
@@ -884,7 +897,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             }
 
             JOptionPane.showMessageDialog(this,
-                    "Se ingreso la muestra correctamente!");
+                    "Se ha guardado la muestra : " + muestra.getIdMuestra() + " correctamente!");
 
             enableEnsayos();
         } else {
@@ -914,6 +927,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
         } else {
             label_pacienteControl.setText("Paciente ID : " + txtF_idPaciente.getText());
             label_pacienteControl.setForeground(Color.blue);
+            enableCambiarPaciente();
             enableIDMuestra();
             disableIDPaciente();
         }
@@ -956,17 +970,25 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_rbtn_ensayo5ActionPerformed
 
     private void btn_cambiarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarPacienteActionPerformed
-        disableComponents();
-        enableIDPaciente();
+        int opcion = JOptionPane.showConfirmDialog(new Frame(),
+                "¿Seguro que desea cambiar de Paciente?\n"
+                + "Todos los cambios no guardados se perderán",
+                "PRECAUCIÓN",
+                JOptionPane.WARNING_MESSAGE);
+
+        if (opcion == JOptionPane.OK_OPTION) {
+            disableComponents();
+            cleanEnsayos();
+            cleanMuestras();
+            enableIDPaciente();
+        }
 
     }//GEN-LAST:event_btn_cambiarPacienteActionPerformed
 
     private void btn_cambiarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarMuestraActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this,
-                "Si cambia la muestra los datos actuales no se\n"
-                + "guardaran, desea continuar?\n"
-                + "CONSEJO: Guarde los datos actuales de la "
-                + "muestra.", "ATENSION!",
+                "¿Seguro que desea cambiar de muestra?\n"
+                + "Todos los cambios no guardados se perderán", "PRECAUCIÓN",
                 JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.OK_OPTION) {
             cleanEnsayos();
@@ -974,6 +996,8 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             disableEnsayos();
             disableMuestra();
             enableIDMuestra();
+            resetCombos();
+            rbtn_ensayo1.setSelected(true);
         }
     }//GEN-LAST:event_btn_cambiarMuestraActionPerformed
 
@@ -989,8 +1013,8 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                     txtF_idPaciente.getText(), txtF_codMuestra.getText());
             if (muestra == null) {
                 int opcion = JOptionPane.showConfirmDialog(this,
-                        "El código no pertenece a ninguna muestra\n"
-                        + "desea crear una nueva muestra?", "ERROR",
+                        "El código de muestra no existe\n"
+                        + "¿Desea crear una nueva muestra?", "ATENCIÓN!",
                         JOptionPane.YES_NO_OPTION);
                 if (opcion == JOptionPane.OK_OPTION) {
                     enableMuestra();
@@ -998,6 +1022,8 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                     label_mensajeMuestra.setText("Muestra Codigo: "
                             + txtF_codMuestra.getText());
                     label_mensajeMuestra.setForeground(Color.blue);
+                    rbtn_ensayo1.setSelected(true);
+                    updateVistaEnsayo();
                 } else {
                     txtF_codMuestra.requestFocus();
                     txtF_codMuestra.selectAll();
@@ -1020,6 +1046,8 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                 label_mensajeMuestra.setText("Muestra Codigo: "
                         + txtF_codMuestra.getText());
                 label_mensajeMuestra.setForeground(Color.blue);
+                rbtn_ensayo1.setSelected(true);
+                updateVistaEnsayo();
 
             }
 
