@@ -8,6 +8,7 @@ package controlador;
 import Utilitarios.Configuracion;
 import dao.Factory.DAOFactory;
 import dao.MuestraDAO;
+import java.util.List;
 import modelo.Muestra;
 
 /**
@@ -61,5 +62,9 @@ public class MuestraCtrl {
      */
     public Muestra buscarMuestra(String pacienteId, String muestraId) {
         return muestraDAO.findMuestra(pacienteId, muestraId);
+    }
+    
+    public List<Muestra> getAllMuestras(String idPaciente){
+        return muestraDAO.getAllMuestras(idPaciente);
     }
 }
