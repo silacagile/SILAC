@@ -73,6 +73,7 @@ public class PostgresPacienteDAO implements PacienteDAO {
 
             }
         } catch (SQLException e) {
+            
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }

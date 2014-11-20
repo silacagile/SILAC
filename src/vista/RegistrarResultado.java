@@ -46,7 +46,6 @@ public class RegistrarResultado extends JFrame implements Printable {
     private final MuestraCtrl muestraCtrl;
     private final PacienteCtrl pacienteCtrl;
     private final EnsayoCtrl ensayoCtrl;
-    private boolean nuevaMuestra;
 
     /**
      * Creates new form RegistrarResultado
@@ -84,8 +83,8 @@ public class RegistrarResultado extends JFrame implements Printable {
         txtF_codMuestra.setEnabled(false);
         btn_buscarMuestra.setEnabled(false);
     }
-    
-    private void resetCombos(){
+
+    private void resetCombos() {
         cmb_instrumento.setSelectedIndex(0);
         cmb_solBuffer.setSelectedIndex(0);
         cmb_tipoMuestra.setSelectedIndex(0);
@@ -341,6 +340,12 @@ public class RegistrarResultado extends JFrame implements Printable {
         });
 
         label_volumen.setText("Volumen Muestra [ ml ] : ");
+
+        txtF_volumenMuestra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtF_volumenMuestraActionPerformed(evt);
+            }
+        });
 
         label_tipoTest.setText("Tipo Test :");
 
@@ -888,7 +893,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             muestra.setResultadoFinal(txtF_resultadoFinal.getText());
             muestra.setObservaciones(txtA_observaciones.getText());
 
-            if (nuevaMuestra) {
+            if ((muestraCtrl.buscarMuestra(muestra.getIdPaciente(), muestra.getIdMuestra())) == null) {
                 System.out.println("Antes de entrar al insert Nueva Muestra");
                 muestraCtrl.insertarMuestra(muestra);
             } else {
@@ -906,7 +911,6 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                     "ERROR", JOptionPane.ERROR_MESSAGE);
         }
 
-        nuevaMuestra = false;
     }//GEN-LAST:event_btn_guardarMuestraActionPerformed
 
     private boolean validarCamposMuestra() {
@@ -1003,7 +1007,6 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
 
 
     private void btn_buscarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarMuestraActionPerformed
-        nuevaMuestra = true;
 
         if (txtF_codMuestra.getText().equals("")) {
             label_mensajeMuestra.setText("Ingrese un código válido!");
@@ -1031,7 +1034,6 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                     label_mensajeMuestra.setForeground(Color.black);
                 }
             } else {
-                nuevaMuestra = false;
                 enableEnsayos();
                 cmb_solBuffer.setSelectedItem(muestra.getSolucionBuffer());
                 cmb_tipoMuestra.setSelectedItem(muestra.getTipoMuestra());
@@ -1082,6 +1084,10 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     private void txtF_tipoGelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_tipoGelKeyPressed
         txtF_tipoGel.setBackground(Color.white);
     }//GEN-LAST:event_txtF_tipoGelKeyPressed
+
+    private void txtF_volumenMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_volumenMuestraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtF_volumenMuestraActionPerformed
 
     /**
      * @param args the command line arguments

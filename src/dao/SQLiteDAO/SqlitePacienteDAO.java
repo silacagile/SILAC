@@ -45,26 +45,29 @@ public class SqlitePacienteDAO implements PacienteDAO {
         /**
          * Obtener todos los pacientes
          */
-        List<Paciente> lista = p.getAllPacientes();
+       /* List<Paciente> lista = p.getAllPacientes();
         for (Paciente pac : lista) {
             System.out.println(pac);
         }
         /**
          * Encontrar Paciente
          */
-        /* Paciente pac = p.findPaciente("P1");
-         System.out.println(pac);*/
+         Paciente pac = p.findPaciente("P1");
+         System.out.println(pac);
 
     }
 
     @Override
     public Paciente findPaciente(String id) {
+       // System.out.println("Dentro find");
         Paciente paciente = null;
-        String sql = "SELECT * FROM Paciente where id_Paciente =" + "'" + id + "';";
+        String sql = "SELECT * FROM Persona , Paciente where id_Paciente =" + "'" + id + "' AND Paciente.id_Paciente = Persona.id_Persona;";
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = SqliteDAOFactory.createConnection();
+
         try {
+             System.out.println("Dentro find dentro");
             statement = connection.createStatement();
             rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -80,7 +83,7 @@ public class SqlitePacienteDAO implements PacienteDAO {
 
             }
         } catch (SQLException e) {
-            System.out.println("Error");
+            System.out.println("Error Findddddddddddddddd");
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
 
         } finally {
@@ -128,7 +131,7 @@ public class SqlitePacienteDAO implements PacienteDAO {
             statement = connection.createStatement();
             statement.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.println("Error");
+            System.out.println("Errorrrrrrrrrrrrrrrr");
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             res = false;
         } finally {
@@ -166,7 +169,7 @@ public class SqlitePacienteDAO implements PacienteDAO {
             statement = connection.createStatement();
             statement.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.println("Error");
+            System.out.println("Error2");
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             res = false;
         } finally {
@@ -214,7 +217,7 @@ public class SqlitePacienteDAO implements PacienteDAO {
             statement = connection.createStatement();
             statement.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.println("Error");
+            System.out.println("Error Aqui");
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             res = false;
         } finally {
@@ -264,7 +267,7 @@ public class SqlitePacienteDAO implements PacienteDAO {
                 pacientes.add(paciente);
             }
         } catch (SQLException e) {
-            System.out.println("Error");
+            System.out.println("Error GEt ALL");
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
 
         } finally {

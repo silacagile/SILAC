@@ -41,6 +41,7 @@ public class PacienteCtrl {
      * @return 
      */
     public Paciente buscarPaciente(String pacienteId) {
+        System.out.println("");
         return pacienteDAO.findPaciente(pacienteId);
     }
 }

@@ -8,6 +8,7 @@ package controlador;
 import Utilitarios.Configuracion;
 import dao.EnsayoDAO;
 import dao.Factory.DAOFactory;
+import java.util.List;
 import modelo.Ensayo;
 
 /**
@@ -48,8 +49,8 @@ public class EnsayoCtrl {
 
     /**
      * Delega al DAO
-     * 
-     * @param ensayo 
+     *
+     * @param ensayo
      */
     public void updateEnsayo(Ensayo ensayo) {
         ensayoDAO.updateEnsayo(ensayo);
@@ -57,10 +58,14 @@ public class EnsayoCtrl {
 
     /**
      * Delega al DAO
-     * 
-     * @param ensayo 
+     *
+     * @param ensayo
      */
     public void insertarEnsayo(Ensayo ensayo) {
         ensayoDAO.insertEnsayo(ensayo);
+    }
+
+    public List<Ensayo> getAllEnsayos(String idPaciente, String idMuestra) {
+       return ensayoDAO.getAllEnsayos(idPaciente, idMuestra);
     }
 }
