@@ -6,135 +6,36 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
  * @author Machis
  */
-public class Paciente {
+public class Paciente extends Persona {
 
-    private String idPaciente;
-    private String nombre;
-    private String direccion;
-    private String telefono;
-    private String apPaterno;
-    private String apMaterno;
-    private String ci;
-    private String correo;
+    private String tipoSangre;
 
-    public Paciente() {
-    }
-
-    /**
-     * @return the idPaciente
-     */
-    public String getIdPaciente() {
-        return idPaciente;
-    }
-
-    /**
-     * @param idPaciente the idPaciente to set
-     */
     public void setIdPaciente(String idPaciente) {
-        this.idPaciente = idPaciente;
+        super.setIdPersona(idPaciente);
+    }
+
+    public String getIdPaciente() {
+        return super.getIdPersona();
     }
 
     /**
-     * @return the nombre
+     * @return the tipoSangre
      */
-    public String getNombre() {
-        return nombre;
+    public String getTipoSangre() {
+        return tipoSangre;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param tipoSangre the tipoSangre to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @return the direccion
-     */
-    public String getDireccion() {
-        return direccion;
-    }
-
-    /**
-     * @param direccion the direccion to set
-     */
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    /**
-     * @return the telefono
-     */
-    public String getTelefono() {
-        return telefono;
-    }
-
-    /**
-     * @param telefono the telefono to set
-     */
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    /**
-     * @return the apPaterno
-     */
-    public String getApPaterno() {
-        return apPaterno;
-    }
-
-    /**
-     * @param apPaterno the apPaterno to set
-     */
-    public void setApPaterno(String apPaterno) {
-        this.apPaterno = apPaterno;
-    }
-
-    /**
-     * @return the apMaterno
-     */
-    public String getApMaterno() {
-        return apMaterno;
-    }
-
-    /**
-     * @param apMaterno the apMaterno to set
-     */
-    public void setApMaterno(String apMaterno) {
-        this.apMaterno = apMaterno;
-    }
-
-    /**
-     * @return the ci
-     */
-    public String getCi() {
-        return ci;
-    }
-
-    /**
-     * @param ci the ci to set
-     */
-    public void setCi(String ci) {
-        this.ci = ci;
-    }
-
-    /**
-     * @return the correo
-     */
-    public String getCorreo() {
-        return correo;
-    }
-
-    /**
-     * @param correo the correo to set
-     */
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setTipoSangre(String tipoSangre) {
+        this.tipoSangre = tipoSangre;
     }
 
     /**
@@ -146,14 +47,15 @@ public class Paciente {
         String res
                 = "*** Datos Paciente *** \n"
                 + "Id Paciente : " + getIdPaciente() + "\n"
-                + "Nombre : " + nombre + "\n"
-                + "Direccion : " + direccion + "\n"
-                + "Telefono : " + telefono + "\n"
-                + "Apellido Paterno : " + apPaterno + "\n"
-                + "Apellido Materno : " + apMaterno + "\n"
-                + "Ci : " + ci + "\n"
-                + "Correo : " + correo + "\n";
+                + "Nombre : " + super.getNombre() + "\n"
+                + "Direccion : " + super.getDireccion() + "\n"
+                + "Telefono : " + super.getTelefono() + "\n"
+                + "Apellido Paterno : " + super.getApPaterno() + "\n"
+                + "Apellido Materno : " + super.getApMaterno() + "\n"
+                + "Ci : " + super.getCi() + "\n"
+                + "Correo : " + super.getCorreo() + "\n"
+                + "Fecha Nacimiento : " + super.getFnac().toString() + "\n"
+                + "Tipo Sangre : " + getTipoSangre();
         return res;
     }
-
 }
