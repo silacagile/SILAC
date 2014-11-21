@@ -528,7 +528,7 @@ public class Informe extends javax.swing.JFrame {
     private void generarInforme(List<Muestra> listaMuestras) {
         StringBuilder sb = new StringBuilder(50);
         sb.append("************************************************************************************************************\n");
-        sb.append("                                                       INFORME DE ANÁLISIS POR PACIENTE\n");
+        sb.append("                                                       INFORME DE ANALISIS POR PACIENTE\n");
         sb.append("************************************************************************************************************\n\n\n");
         sb.append("********************************************** PACINETE ID **********************************************\n\n");
         sb.append("ID Paciente : " + paciente.getIdPaciente() + "\n\n");

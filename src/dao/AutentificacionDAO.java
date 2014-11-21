@@ -18,6 +18,6 @@ public interface AutentificacionDAO {
      * @param password el password
      * @return 
      */
-    public boolean autentificar(String login, String password);
+    public String getPassword(String login);
     
 }

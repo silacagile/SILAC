@@ -8,6 +8,7 @@ package controlador;
 import Utilitarios.Configuracion;
 import dao.AutentificacionDAO;
 import dao.Factory.DAOFactory;
+import java.util.Arrays;
 
 /**
  *
@@ -34,7 +35,23 @@ public class AutentificacionCtrl {
         autentificacionDAO = factory.getAutentificacionDAO();
     }
     
-    public boolean autentificar(String login, String password) {
-        return autentificacionDAO.autentificar(login, password);
+    public boolean autentificar(String login, char[] password) {
+        String dbPassword = autentificacionDAO.getPassword(login);
+        return esCorrecto(password, dbPassword);
+    }
+    
+    private boolean esCorrecto(char[] password, String dbPassword)
+    {
+        boolean res;
+        char[] correcto = dbPassword.toCharArray();
+        
+        if(password.length != correcto.length)
+            res = false;
+        else
+            res = Arrays.equals(password, correcto);
+        
+        Arrays.fill(correcto,'0');
+
+        return res;
     }
 }

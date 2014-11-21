@@ -21,21 +21,20 @@ public class SqliteAutentificacionDAO implements AutentificacionDAO {
     Connection db = SqliteDAOFactory.createConnection();
 
     @Override
-    public boolean autentificar(String login, String password) {
-        boolean res = false;
+    public String getPassword(String login) {
+        String res = null;
         Connection connection = SqliteDAOFactory.createConnection();
         ResultSet rs = null;
         Statement statement = null;
 
         try {
-            String sql = "SELECT * "
+            String sql = "SELECT password "
                     + "FROM usuario "
-                    + "WHERE login = " + "'" + login + "' "
-                    + " and password = " + "'" + password + "' ";
+                    + "WHERE login = " + "'" + login + "'";
             statement = connection.createStatement();
             rs = statement.executeQuery(sql);
             
-            res = rs.next();
+            if(rs.next()) res = rs.getString("password");
         } catch(SQLException sqle) {
             System.out.println("Error");
             System.err.println(sqle.getClass().getName() 
@@ -49,11 +48,5 @@ public class SqliteAutentificacionDAO implements AutentificacionDAO {
         }
         
         return res;
-    }
-    
-    public static void main(String args[]) {
-        SqliteAutentificacionDAO dao = new SqliteAutentificacionDAO();
-        
-        System.out.println(dao.autentificar("Jorge", "A123456a"));
     }
 }

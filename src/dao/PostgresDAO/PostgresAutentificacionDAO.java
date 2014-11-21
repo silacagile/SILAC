@@ -14,7 +14,7 @@ import dao.AutentificacionDAO;
 public class PostgresAutentificacionDAO implements AutentificacionDAO {
 
     @Override
-    public boolean autentificar(String login, String password) {
+    public String getPassword(String login) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

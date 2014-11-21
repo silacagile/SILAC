@@ -1,5 +1,15 @@
 -- -------------------------------------------------------------------------
--- Table: Paciente
+-- Table: Usuario
+-- -------------------------------------------------------------------------
+CREATE TABLE Usuario(
+  login VARCHAR PRIMARY KEY NOT NULL UNIQUE,
+  password VARCHAR NOT NULL,
+  id_Persona VARCHAR NOT NULL,
+  FOREIGN KEY (id_Persona) REFERENCES Persona(id_Persona)
+);
+
+-- -------------------------------------------------------------------------
+-- Table: Persona
 -- -------------------------------------------------------------------------
 CREATE TABLE Persona(
   id_Persona VARCHAR PRIMARY KEY NOT NULL,
@@ -10,15 +20,22 @@ CREATE TABLE Persona(
   ap_materno VARCHAR NULL,
   ci VARCHAR NULL,
   correo VARCHAR NULL,
-  fnac DATE NULL
+  fnac DATE NULL,
+  rol INTEGER NOT NULL
 );
 
+-- -------------------------------------------------------------------------
+-- Table: Paciente
+-- -------------------------------------------------------------------------
 CREATE TABLE Paciente(
   id_Paciente VARCHAR PRIMARY KEY NOT NULL,
   tipo_sangre VARCHAR NULL,
   FOREIGN KEY (id_Paciente) REFERENCES Persona(id_Persona)
 );
 
+-- -------------------------------------------------------------------------
+-- Table: Doctor
+-- -------------------------------------------------------------------------
 CREATE TABLE Doctor(
   id_Doctor VARCHAR PRIMARY KEY NOT NULL,
   grado VARCHAR NULL,
@@ -27,7 +44,7 @@ CREATE TABLE Doctor(
 );
 
 -- -------------------------------------------------------------------------
--- Table: Historial
+-- Table: Tratamiento
 -- -------------------------------------------------------------------------
 CREATE TABLE Tratamiento(
   id_Tratamiento VARCHAR NOT NULL,
@@ -61,9 +78,9 @@ CREATE TABLE Muestra(
 );
 
 -- -------------------------------------------------------------------------
--- Table: ensayo
+-- Table: Ensayo
 -- -------------------------------------------------------------------------
-CREATE TABLE ensayo(
+CREATE TABLE Ensayo(
   id_ensayo VARCHAR NOT NULL,
   id_muestra VARCHAR NOT NULL,
   id_Paciente VARCHAR NOT NULL,
