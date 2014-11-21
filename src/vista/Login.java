@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.AutentificacionCtrl;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -121,10 +122,15 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        if(autentificacionCtrl.autentificar(jTextField1.getText(), jPasswordField1.getPassword()))
-            System.out.println("exito");
-        else
-            System.out.println("fracaso");
+        if(autentificacionCtrl.autentificar(jTextField1.getText(), jPasswordField1.getPassword())) {
+            new Principal().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        cleanCredentials();
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
@@ -171,4 +177,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    private void cleanCredentials() {
+        jTextField1.setText("");
+        jPasswordField1.setText("");
+    }
 }
