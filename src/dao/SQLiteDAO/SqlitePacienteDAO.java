@@ -46,20 +46,20 @@ public class SqlitePacienteDAO implements PacienteDAO {
         /**
          * Eliminar Paciente
          */
-        //p.deletePaciente("P10");
+       //p.deletePaciente("P14");
         /**
          * Obtener todos los pacientes
          */
-        /* List<Paciente> lista = p.getAllPacientes();
-         for (Paciente pac : lista) {
-         System.out.println(pac);
-         }
-         /**
+       List<Paciente> lista = p.getAllPacientes();
+        for (Paciente pac : lista) {
+            System.out.println(pac);
+        }
+        /**
          * Encontrar Paciente
          */
-        Paciente pac = p.findPaciente("P14");
-        System.out.println(pac);
-
+        /*Paciente pac = p.findPaciente("P14");
+         System.out.println(pac);
+         */
     }
 
     @Override
@@ -72,7 +72,6 @@ public class SqlitePacienteDAO implements PacienteDAO {
         Connection connection = SqliteDAOFactory.createConnection();
 
         try {
-            System.out.println("Dentro find dentro");
             statement = connection.createStatement();
             rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -128,9 +127,7 @@ public class SqlitePacienteDAO implements PacienteDAO {
         String apMat = paciente.getApMaterno();
         String ci = paciente.getCi();
         String correo = paciente.getCorreo();
-        System.out.println("Antes");
         String fnac = paciente.getFnac();
-        System.out.println("Despues");
         String tipoSangre = paciente.getTipoSangre();
         ResultSet rs = null;
         Statement statement = null;

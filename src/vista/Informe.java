@@ -431,6 +431,7 @@ public class Informe extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE);
 
         if (opcion == JOptionPane.OK_OPTION) {
+            txtA_VistaPrevia.setText("");
             disableComponents();
             //cleanData();
             enableIDPaciente();
