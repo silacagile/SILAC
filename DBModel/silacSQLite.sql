@@ -21,7 +21,7 @@ CREATE TABLE Persona(
   ci VARCHAR NULL,
   correo VARCHAR NULL,
   fnac DATE NULL,
-  rol INTEGER NOT NULL
+  rol INTEGER NULL
 );
 
 -- -------------------------------------------------------------------------

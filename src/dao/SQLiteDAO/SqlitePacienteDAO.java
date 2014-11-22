@@ -86,6 +86,7 @@ public class SqlitePacienteDAO implements PacienteDAO {
                 paciente.setCorreo(rs.getString("correo"));
                 paciente.setFnac(rs.getString("fnac"));
                 paciente.setTipoSangre(rs.getString("tipo_sangre"));
+                
 
             }
         } catch (SQLException e) {

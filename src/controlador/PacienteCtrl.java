@@ -8,6 +8,7 @@ package controlador;
 import Utilitarios.Configuracion;
 import dao.Factory.DAOFactory;
 import dao.PacienteDAO;
+import modelo.Ensayo;
 import modelo.Paciente;
 
 /**
@@ -43,5 +44,14 @@ public class PacienteCtrl {
     public Paciente buscarPaciente(String pacienteId) {
         System.out.println("");
         return pacienteDAO.findPaciente(pacienteId);
+    }
+    
+    /**
+     * Delega al DAO
+     *
+     * @param paciente
+     */
+    public void insertarPaciente(Paciente paciente) {
+        pacienteDAO.insertPaciente(paciente);
     }
 }
