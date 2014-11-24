@@ -5,9 +5,14 @@
  */
 package vista;
 
+import Utilitarios.EmailValidator;
 import controlador.PacienteCtrl;
-import dao.SQLiteDAO.SqlitePacienteDAO;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Ensayo;
 import modelo.Paciente;
 
 /**
@@ -21,6 +26,7 @@ public class RegistroPaciente extends javax.swing.JFrame {
      */
     public RegistroPaciente() {
         initComponents();
+        updateTable();
     }
 
     /**
@@ -41,16 +47,15 @@ public class RegistroPaciente extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txt_idpaciente = new javax.swing.JTextField();
+        txt_nombre = new javax.swing.JTextField();
+        txt_apPat = new javax.swing.JTextField();
+        txt_apMat = new javax.swing.JTextField();
+        txt_direccion = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        txt_carnet = new javax.swing.JTextField();
+        txt_email = new javax.swing.JTextField();
+        txt_telf = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -59,6 +64,7 @@ public class RegistroPaciente extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
         btn_guardarPaciente = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Registro de Paciente"); // NOI18N
@@ -69,7 +75,7 @@ public class RegistroPaciente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id_Paciente", "Nombre", "Ap. Paterno", "Ap. Materno", "Teléfono", "Dirección", "Carnet", "Email", "Fec. Nacimiento", "Grupo Sanguineo"
+                "Id_Paciente", "Nombre", "Ap. Paterno", "Ap. Materno", "Teléfono", "Dirección", "Carnet", "Email", "Fec. Nacimiento", "Tipo de Sangre"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -87,11 +93,11 @@ public class RegistroPaciente extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setText("Id_Persona:");
+        jLabel1.setText("* Id_Paciente:");
 
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("* Nombre:");
 
-        jLabel3.setText("Ap. Paterno:");
+        jLabel3.setText("* Ap. Paterno:");
 
         jLabel4.setText("Ap. Materno:");
 
@@ -127,9 +133,42 @@ public class RegistroPaciente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txt_idpaciente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_idpacienteKeyPressed(evt);
+            }
+        });
+
+        txt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_nombreKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_nombreKeyTyped(evt);
+            }
+        });
+
+        txt_apPat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_apPatKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_apPatKeyTyped(evt);
+            }
+        });
+
+        txt_apMat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_apMatKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_apMatKeyTyped(evt);
+            }
+        });
+
+        txt_direccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                txt_direccionActionPerformed(evt);
             }
         });
 
@@ -141,12 +180,11 @@ public class RegistroPaciente extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_idpaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                    .addComponent(txt_nombre)
+                    .addComponent(txt_apPat)
+                    .addComponent(txt_apMat)
+                    .addComponent(txt_direccion))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -154,24 +192,42 @@ public class RegistroPaciente extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_idpaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_apPat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_apMat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Paciente"));
 
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
+        txt_carnet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_carnetKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_carnetKeyTyped(evt);
+            }
+        });
+
+        txt_email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_emailKeyPressed(evt);
+            }
+        });
+
+        txt_telf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_telfKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_telfKeyTyped(evt);
             }
         });
 
@@ -179,9 +235,9 @@ public class RegistroPaciente extends javax.swing.JFrame {
 
         jLabel6.setText("Carnet:");
 
-        jLabel7.setText("Email:");
+        jLabel7.setText("* Email:");
 
-        jLabel8.setText("Teléfono:");
+        jLabel8.setText("* Teléfono:");
 
         jLabel9.setText("Fec. Nac:");
 
@@ -258,6 +314,8 @@ public class RegistroPaciente extends javax.swing.JFrame {
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
+    dateChooserCombo1.setFormat(2);
+    dateChooserCombo1.setNavigateFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
 
     btn_guardarPaciente.setText("Registrar Paciente");
     btn_guardarPaciente.addActionListener(new java.awt.event.ActionListener() {
@@ -265,6 +323,8 @@ public class RegistroPaciente extends javax.swing.JFrame {
             btn_guardarPacienteActionPerformed(evt);
         }
     });
+
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "                                   O +", "                                   O -", "                                   A +", "                                   A -", "                                   B +", "                                   B -", "                                   AB +", "                                   AB -" }));
 
     javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
     jPanel2.setLayout(jPanel2Layout);
@@ -274,28 +334,28 @@ public class RegistroPaciente extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addComponent(btn_guardarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txt_email, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txt_telf, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(dateChooserCombo1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                        .addComponent(txt_carnet, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btn_guardarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
     );
     jPanel2Layout.setVerticalGroup(
         jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel2Layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(txt_carnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(4, 4, 4)
-            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(txt_telf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(35, 35, 35)
             .addComponent(btn_guardarPaciente)
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -306,11 +366,12 @@ public class RegistroPaciente extends javax.swing.JFrame {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(jScrollPane2)
-        .addGroup(layout.createSequentialGroup()
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(40, 40, 40)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(39, 39, 39))
+        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,36 +387,125 @@ public class RegistroPaciente extends javax.swing.JFrame {
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
-
+PacienteCtrl pacienteCtrl = new PacienteCtrl();
     private void btn_guardarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarPacienteActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        PacienteCtrl p = new PacienteCtrl();
-        Paciente paciente = new Paciente();
-        paciente.setIdPaciente(jTextField1.getText());
-        paciente.setNombre(jTextField2.getText());
-        paciente.setDireccion(jTextField5.getText());
-        paciente.setTelefono(jTextField8.getText());
-        paciente.setApPaterno(jTextField3.getText());
-        paciente.setApMaterno(jTextField4.getText());
-        paciente.setCi(jTextField6.getText());
-        paciente.setCorreo(jTextField7.getText());
-        paciente.setFnac(dateChooserCombo1.getText());
-        paciente.setTipoSangre(jTextField10.getText());
-        
-        p.insertarPaciente(paciente);
-        model.insertRow(model.getRowCount(), new Object[]{paciente.getIdPaciente(),
-        paciente.getNombre(), paciente.getApPaterno(), paciente.getApMaterno(),
-        paciente.getTelefono(), paciente.getDireccion(), paciente.getCi(), 
-        paciente.getCorreo(), paciente.getFnac(), paciente.getTipoSangre() });
+        EmailValidator email = new EmailValidator();
+        if (!camposEmpty()) {
+            if(!email.validate(txt_email.getText().trim())){
+                JOptionPane.showMessageDialog(this, "Por Favor, Ingrese un Email Valido", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
+                txt_email.setBackground(Color.red);
+            }
+            else{
+                countDigitCI = 0;
+                countDigit = 0;
+                Paciente paciente = getPaciente();
+                if (pacienteCtrl.buscarPaciente(txt_idpaciente.getText().trim()) != null) {
+                    int opcion = JOptionPane.showConfirmDialog(this, "El Id_Paciente: " 
+                            + txt_idpaciente.getText() + " Ya existe.\nDesea Actualizar Sus Datos?",
+                            "Seleccione una opción", JOptionPane.YES_NO_OPTION);
+                    if(opcion == 0){
+                        pacienteCtrl.updatePaciente(paciente);
+                        cleanFormulario();
+                        updateTable();
+                    }
+
+                } else {
+                    pacienteCtrl.insertarPaciente(paciente);
+                    JOptionPane.showMessageDialog(this, "Se ha guardado el Paciente : " + txt_idpaciente.getText() + " \ncorrectamente");
+                    cleanFormulario();
+                    updateTable();
+                }
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Por Favor, ingrese los campos Requeridos con *", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btn_guardarPacienteActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txt_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_direccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txt_direccionActionPerformed
+    int countDigitCI = 0;
+    private void txt_carnetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_carnetKeyPressed
+        if (evt.getKeyCode() == 8 && countDigitCI != 0) //el cod 8 es delete
+        {
+            countDigitCI -= 1;
+        }
+        txt_carnet.setBackground(Color.white);
+    }//GEN-LAST:event_txt_carnetKeyPressed
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
+    private void txt_carnetKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_carnetKeyTyped
+        char c=evt.getKeyChar();
+        if(Character.isDigit(c) && countDigitCI < 8) {
+           countDigitCI++;
+        }
+        else{
+             getToolkit().beep(); 
+             evt.consume();
+        }  
+    }//GEN-LAST:event_txt_carnetKeyTyped
+    int countDigit = 0; // controla que la cantidad de digitos sea 8
+    private void txt_telfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telfKeyTyped
+        char c=evt.getKeyChar();
+        if(Character.isDigit(c) && countDigit < 8) {
+           countDigit++;
+        }
+        else{
+             getToolkit().beep(); 
+             evt.consume();
+        }  
+    }//GEN-LAST:event_txt_telfKeyTyped
+
+    private void txt_telfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telfKeyPressed
+         if (evt.getKeyCode() == 8 && countDigit != 0) //el cod 8 es delete
+        {
+            countDigit -= 1;
+        }
+        txt_telf.setBackground(Color.white);
+    }//GEN-LAST:event_txt_telfKeyPressed
+
+    private void txt_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombreKeyTyped
+        char c=evt.getKeyChar();
+        if(Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+          }
+    }//GEN-LAST:event_txt_nombreKeyTyped
+
+    private void txt_apPatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_apPatKeyTyped
+        char c=evt.getKeyChar();
+        if(Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+          }
+    }//GEN-LAST:event_txt_apPatKeyTyped
+
+    private void txt_apMatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_apMatKeyTyped
+        char c=evt.getKeyChar();
+        if(Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+          }
+    }//GEN-LAST:event_txt_apMatKeyTyped
+
+    private void txt_idpacienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_idpacienteKeyPressed
+        txt_idpaciente.setBackground(Color.white);
+    }//GEN-LAST:event_txt_idpacienteKeyPressed
+
+    private void txt_nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombreKeyPressed
+        txt_nombre.setBackground(Color.white);
+    }//GEN-LAST:event_txt_nombreKeyPressed
+
+    private void txt_apPatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_apPatKeyPressed
+        txt_apPat.setBackground(Color.white);
+    }//GEN-LAST:event_txt_apPatKeyPressed
+
+    private void txt_apMatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_apMatKeyPressed
+        txt_apMat.setBackground(Color.white);
+    }//GEN-LAST:event_txt_apMatKeyPressed
+
+    private void txt_emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_emailKeyPressed
+        txt_email.setBackground(Color.white);
+    }//GEN-LAST:event_txt_emailKeyPressed
 
     /**
      * @param args the command line arguments
@@ -395,6 +545,7 @@ public class RegistroPaciente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_guardarPaciente;
     private datechooser.beans.DateChooserCombo dateChooserCombo1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -411,14 +562,82 @@ public class RegistroPaciente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField txt_apMat;
+    private javax.swing.JTextField txt_apPat;
+    private javax.swing.JTextField txt_carnet;
+    private javax.swing.JTextField txt_direccion;
+    private javax.swing.JTextField txt_email;
+    private javax.swing.JTextField txt_idpaciente;
+    private javax.swing.JTextField txt_nombre;
+    private javax.swing.JTextField txt_telf;
     // End of variables declaration//GEN-END:variables
+
+    private Paciente getPaciente() {
+        Paciente paciente = new Paciente();
+        paciente.setIdPaciente(txt_idpaciente.getText().trim());
+        paciente.setNombre(txt_nombre.getText().trim());
+        paciente.setDireccion(txt_direccion.getText().trim());
+        paciente.setTelefono(txt_telf.getText().trim());
+        paciente.setApPaterno(txt_apPat.getText().trim());
+        paciente.setApMaterno(txt_apMat.getText().trim());
+        paciente.setCi(txt_carnet.getText().trim());
+        paciente.setCorreo(txt_email.getText().trim());
+        paciente.setFnac(dateChooserCombo1.getText().replace('-', '/'));
+        paciente.setTipoSangre(jComboBox1.getSelectedItem().toString().trim());
+        return paciente;
+    }
+
+    private boolean camposEmpty() {
+        boolean res = false;
+        if (txt_email.getText().trim().isEmpty()) {
+            res = true;
+            txt_email.setBackground(Color.red);
+        }
+        if (txt_idpaciente.getText().trim().isEmpty()) {
+            res = true;
+            txt_idpaciente.setBackground(Color.red);
+        }
+        if (txt_nombre.getText().trim().isEmpty()) {
+            res = true;
+            txt_nombre.setBackground(Color.red);
+        }
+        if (txt_apPat.getText().trim().isEmpty()) {
+            res = true;
+            txt_apPat.setBackground(Color.red);
+        }
+        if (txt_telf.getText().trim().isEmpty()) {
+            res = true;
+            txt_telf.setBackground(Color.red);
+        }
+        return res;
+    }
+
+    private void cleanFormulario() {
+        txt_idpaciente.setText("");
+        txt_nombre.setText("");
+        txt_apPat.setText("");
+        txt_apMat.setText("");
+        txt_direccion.setText("");
+        txt_carnet.setText("");
+        txt_email.setText("");
+        txt_telf.setText("");
+    }
+
+    private void updateTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        ArrayList<Paciente> p = (ArrayList)pacienteCtrl.getAllPacientes();
+        cleanTable(model);
+        for (Paciente p1 : p) {
+            model.insertRow(0, new Object[]{p1.getIdPaciente(),
+            p1.getNombre(), p1.getApPaterno(), p1.getApMaterno(),
+            p1.getTelefono(), p1.getDireccion(), p1.getCi(), 
+            p1.getCorreo(), p1.getFnac(), p1.getTipoSangre()});
+        }
+    }
+
+    private void cleanTable(DefaultTableModel model) {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
+        }
+    }
 }

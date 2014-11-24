@@ -8,7 +8,7 @@ package controlador;
 import Utilitarios.Configuracion;
 import dao.Factory.DAOFactory;
 import dao.PacienteDAO;
-import modelo.Ensayo;
+import java.util.List;
 import modelo.Paciente;
 
 /**
@@ -54,4 +54,12 @@ public class PacienteCtrl {
     public void insertarPaciente(Paciente paciente) {
         pacienteDAO.insertPaciente(paciente);
     }
+    
+     public List<Paciente> getAllPacientes() {
+         return pacienteDAO.getAllPacientes();
+     }
+     
+     public boolean updatePaciente(Paciente paciente) {
+         return pacienteDAO.updatePaciente(paciente);
+     }
 }
