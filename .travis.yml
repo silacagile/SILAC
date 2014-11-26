@@ -2,4 +2,12 @@
 language: java
 # list any JAVA version you want to test against
 jdk:
-    - oraclejdk8
+  - oraclejdk8
+notifications:
+  email:
+    recipients:
+      - jagojr.a@gmail.com
+      - fmarcelo.sur@gmail.com
+      - veymarjoel@gmail.com
+    on_success: always
+    on_failure: always
