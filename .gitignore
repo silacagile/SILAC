@@ -1,5 +1,6 @@
+build/*
 build/classes/*
 nbproject/private/*
 dist/
-src/modelo/Persona.java
-src/modelo/Persona.java
+build/test/classes/*
+build/test/results/*
