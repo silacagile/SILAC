@@ -9,10 +9,8 @@ import Utilitarios.EmailValidator;
 import controlador.PacienteCtrl;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Ensayo;
 import modelo.Paciente;
 
 /**
@@ -61,10 +59,10 @@ public class RegistroPaciente extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
         btn_guardarPaciente = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Registro de Paciente"); // NOI18N
@@ -241,8 +239,6 @@ public class RegistroPaciente extends javax.swing.JFrame {
 
         jLabel9.setText("Fec. Nac:");
 
-        jLabel10.setText("Sangre:");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -253,8 +249,7 @@ public class RegistroPaciente extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel9))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -268,8 +263,6 @@ public class RegistroPaciente extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -324,7 +317,9 @@ public class RegistroPaciente extends javax.swing.JFrame {
         }
     });
 
-    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "                                   O +", "                                   O -", "                                   A +", "                                   A -", "                                   B +", "                                   B -", "                                   AB +", "                                   AB -" }));
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " O +", " O -", " A +", " A -", " B +", " B -", " AB +", " AB -" }));
+
+    jLabel10.setText("Grupo Sanguineo:");
 
     javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
     jPanel2.setLayout(jPanel2Layout);
@@ -332,16 +327,18 @@ public class RegistroPaciente extends javax.swing.JFrame {
         jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel2Layout.createSequentialGroup()
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txt_email, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txt_telf, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(dateChooserCombo1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                        .addComponent(txt_carnet, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(btn_guardarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_email, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txt_telf, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                    .addComponent(txt_carnet, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addComponent(jLabel10)
+                    .addGap(18, 18, 18)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btn_guardarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
     );
     jPanel2Layout.setVerticalGroup(
         jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,7 +352,9 @@ public class RegistroPaciente extends javax.swing.JFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel10))
             .addGap(35, 35, 35)
             .addComponent(btn_guardarPaciente)
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -636,8 +635,9 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
     }
 
     private void cleanTable(DefaultTableModel model) {
-        for (int i = 0; i < model.getRowCount(); i++) {
-            model.removeRow(i);
+        while(model.getRowCount() != 0)
+        {
+            model.removeRow(model.getRowCount() - 1);
         }
     }
 }
