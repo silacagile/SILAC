@@ -13,6 +13,7 @@ public class Usuario {
     
     private String login;
     private String password;
+    private Persona persona;
     
     public Usuario() {}
     
@@ -35,5 +36,13 @@ public class Usuario {
     
     public String getPassword() {
         return this.password;
+    }
+    
+    public Persona getPersona() {
+        return this.persona;
+    }
+    
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 }

@@ -5,17 +5,17 @@
  */
 package dao.PostgresDAO;
 
-import dao.AutentificacionDAO;
-import modelo.Usuario;
+import dao.PersonaDAO;
+import modelo.Persona;
 
 /**
  *
  * @author Jorge Aguirre
  */
-public class PostgresAutentificacionDAO implements AutentificacionDAO {
+public class PostgresPersonaDAO implements PersonaDAO {
 
     @Override
-    public Usuario getUsuario(String login) {
+    public Persona buscarPersona(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

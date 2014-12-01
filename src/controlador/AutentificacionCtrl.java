@@ -8,7 +8,10 @@ package controlador;
 import Utilitarios.Configuracion;
 import dao.AutentificacionDAO;
 import dao.Factory.DAOFactory;
+import dao.PersonaDAO;
 import java.util.Arrays;
+import modelo.Persona;
+import modelo.Usuario;
 
 /**
  *
@@ -26,6 +29,8 @@ public class AutentificacionCtrl {
      */
     private final AutentificacionDAO autentificacionDAO;
     
+    private final PersonaDAO personaDAO;
+    
     
     /**
      * El constructor
@@ -33,11 +38,20 @@ public class AutentificacionCtrl {
     public AutentificacionCtrl() {
         this.factory = DAOFactory.getDAOFactory(Configuracion.DBMS);
         autentificacionDAO = factory.getAutentificacionDAO();
+        personaDAO = factory.getPersonaDAO();
     }
     
-    public boolean autentificar(String login, char[] password) {
-        String dbPassword = autentificacionDAO.getPassword(login);
-        return esCorrecto(password, dbPassword);
+    public Usuario autentificar(String login, char[] password) {
+        Usuario usuario = autentificacionDAO.getUsuario(login);
+        // Load Persona data
+        Persona persona = personaDAO.buscarPersona(usuario.getPersona().getIdPersona());
+        usuario.setPersona(persona);
+        
+        if (esCorrecto(password, usuario.getPassword())) {
+            return usuario;
+        }
+
+        return null;
     }
     
     private boolean esCorrecto(char[] password, String dbPassword)

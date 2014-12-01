@@ -22,7 +22,7 @@ public class Persona {
     private String ci;
     private String correo;
     private String fnac;
-    private int rol;
+    private Rol rol;
 
     /**
      * @return the idPersona
@@ -153,7 +153,7 @@ public class Persona {
     /**
      * @return the rol
      */
-    public int getRol() {
+    public Rol getRol() {
         return rol;
     }
 
@@ -161,9 +161,6 @@ public class Persona {
      * @param rol the rol to set
      */
     public void setRol(int rol) {
-        this.rol = rol;
+        this.rol = Rol.fromValue(rol);
     }
-    
-    
-
 }

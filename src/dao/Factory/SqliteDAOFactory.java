@@ -10,10 +10,12 @@ import dao.AutentificacionDAO;
 import dao.EnsayoDAO;
 import dao.MuestraDAO;
 import dao.PacienteDAO;
+import dao.PersonaDAO;
 import dao.SQLiteDAO.SqliteAutentificacionDAO;
 import dao.SQLiteDAO.SqliteEnsayoDAO;
 import dao.SQLiteDAO.SqliteMuestraDAO;
 import dao.SQLiteDAO.SqlitePacienteDAO;
+import dao.SQLiteDAO.SqlitePersonaDAO;
 import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -68,5 +70,10 @@ public class SqliteDAOFactory extends DAOFactory {
     @Override
     public AutentificacionDAO getAutentificacionDAO() {
         return new SqliteAutentificacionDAO();
+    }
+
+    @Override
+    public PersonaDAO getPersonaDAO() {
+        return new SqlitePersonaDAO();
     }
 }

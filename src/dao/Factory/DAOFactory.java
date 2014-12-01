@@ -9,6 +9,7 @@ import dao.AutentificacionDAO;
 import dao.EnsayoDAO;
 import dao.MuestraDAO;
 import dao.PacienteDAO;
+import dao.PersonaDAO;
 
 /**
  *
@@ -26,6 +27,8 @@ public abstract class DAOFactory {
     public abstract PacienteDAO getPacienteDAO();
     
     public abstract AutentificacionDAO getAutentificacionDAO();
+    
+    public abstract PersonaDAO getPersonaDAO();
 
     public static DAOFactory getDAOFactory(int factory) {
         switch (factory) {

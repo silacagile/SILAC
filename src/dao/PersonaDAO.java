@@ -5,21 +5,19 @@
  */
 package dao;
 
-import modelo.Usuario;
+import modelo.Persona;
 
 /**
  *
  * @author Jorge Aguirre
  */
-public interface AutentificacionDAO {
-
+public interface PersonaDAO {
+    
     /**
-     * Verifica la correcta autentificacion de un usuario al sistema
+     * Buscar una persona por su id.
      * 
-     * @param login el login
-     * @param password el password
+     * @param id
      * @return 
      */
-    public Usuario getUsuario(String login);
-    
+    public Persona buscarPersona(String id);
 }

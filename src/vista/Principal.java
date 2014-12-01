@@ -5,16 +5,21 @@
  */
 package vista;
 
+import modelo.Usuario;
+
 /**
  *
  * @author Jorge Aguirre
  */
 public class Principal extends javax.swing.JFrame {
 
+    private Usuario usuario;
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public Principal(Usuario usuario) {
+        this.usuario = usuario;
+        System.out.println("hola me llamo: " + usuario.getPersona().getNombre());
         initComponents();
     }
 

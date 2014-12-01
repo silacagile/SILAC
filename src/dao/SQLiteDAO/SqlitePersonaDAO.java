@@ -5,53 +5,49 @@
  */
 package dao.SQLiteDAO;
 
-import dao.AutentificacionDAO;
 import dao.Factory.SqliteDAOFactory;
+import dao.PersonaDAO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import modelo.Persona;
-import modelo.Rol;
-import modelo.Usuario;
 
 /**
  *
  * @author Jorge Aguirre
  */
-public class SqliteAutentificacionDAO implements AutentificacionDAO {
+public class SqlitePersonaDAO implements PersonaDAO {
     
     Connection db = SqliteDAOFactory.createConnection();
 
     @Override
-    public Usuario getUsuario(String login) {
-        Usuario usuario = null;
+    public Persona buscarPersona(String id) {
+        Persona persona = null;
         Connection connection = SqliteDAOFactory.createConnection();
         ResultSet rs = null;
         Statement statement = null;
 
         try {
             String sql = "SELECT * "
-                    + "FROM usuario "
-                    + "WHERE login = " + "'" + login + "'";
+                    + "FROM persona "
+                    + "WHERE id_Persona = " + "'" + id + "'";
             statement = connection.createStatement();
             rs = statement.executeQuery(sql);
             
-            if(rs.next()) {
-                String password = rs.getString("password");
-                int rol = rs.getInt("rol");
-                if (Rol.logeable(rol)) {
-                    usuario = new Usuario();
-                    usuario.setLogin(login);
-                    usuario.setPassword(rs.getString("password"));
-                    
-                    // Persona
-                    Persona persona = new Persona();
-                    persona.setIdPersona(rs.getString("id_Persona"));
-                    
-                    usuario.setPersona(persona);
-                }
-            } 
+            while (rs.next()) {
+                persona = new Persona();
+                persona.setIdPersona(rs.getString("id_Persona"));
+                persona.setNombre(rs.getString("nombre"));
+                persona.setDireccion(rs.getString("direccion"));
+                persona.setTelefono(rs.getString("telefono"));
+                persona.setApMaterno(rs.getString("ap_materno"));
+                persona.setApPaterno(rs.getString("ap_paterno"));
+                persona.setCi(rs.getString("ci"));
+                persona.setCorreo(rs.getString("correo"));
+                persona.setFnac(rs.getString("fnac"));
+                persona.setRol(rs.getInt("rol"));
+            }
         } catch(SQLException sqle) {
             System.out.println("Error");
             System.err.println(sqle.getClass().getName() 
@@ -64,6 +60,7 @@ public class SqliteAutentificacionDAO implements AutentificacionDAO {
             }
         }
         
-        return usuario;
+        return persona;
     }
+    
 }

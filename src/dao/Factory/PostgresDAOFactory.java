@@ -10,10 +10,12 @@ import dao.AutentificacionDAO;
 import dao.EnsayoDAO;
 import dao.MuestraDAO;
 import dao.PacienteDAO;
+import dao.PersonaDAO;
 import dao.PostgresDAO.PostgresAutentificacionDAO;
 import dao.PostgresDAO.PostgresEnsayoDAO;
 import dao.PostgresDAO.PostgresMuestraDAO;
 import dao.PostgresDAO.PostgresPacienteDAO;
+import dao.PostgresDAO.PostgresPersonaDAO;
 import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -121,5 +123,10 @@ public class PostgresDAOFactory extends DAOFactory {
     @Override
     public AutentificacionDAO getAutentificacionDAO() {
         return new PostgresAutentificacionDAO();
+    }
+
+    @Override
+    public PersonaDAO getPersonaDAO() {
+        return new PostgresPersonaDAO();
     }
 }
