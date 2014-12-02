@@ -5,9 +5,6 @@
  */
 package modelo;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
  *
  * @author Machis
@@ -54,7 +51,7 @@ public class Paciente extends Persona {
                 + "Apellido Materno : " + super.getApMaterno() + "\n"
                 + "Ci : " + super.getCi() + "\n"
                 + "Correo : " + super.getCorreo() + "\n"
-                + "Fecha Nacimiento : " + super.getFnac().toString() + "\n"
+                + "Fecha Nacimiento : " + super.getFnac() + "\n"
                 + "Tipo Sangre : " + getTipoSangre();
         return res;
     }
