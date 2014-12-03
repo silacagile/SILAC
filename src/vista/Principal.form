@@ -41,9 +41,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="274" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButton1" pref="132" max="32767" attributes="0"/>
-                      <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_RegPaciente" pref="132" max="32767" attributes="0"/>
+                      <Component id="btn_RegMuestra" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_Informe" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="246" max="32767" attributes="0"/>
               </Group>
@@ -53,34 +53,40 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="48" max="-2" attributes="0"/>
+                  <Component id="btn_RegPaciente" min="-2" pref="48" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" pref="53" max="-2" attributes="0"/>
+                  <Component id="btn_RegMuestra" min="-2" pref="53" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="btn_Informe" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace pref="103" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btn_RegPaciente">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Action1"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Action2"/>
+            <Property name="text" type="java.lang.String" value="Registrar Paciente"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_RegPacienteActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btn_RegMuestra">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Action3"/>
+            <Property name="text" type="java.lang.String" value="Registrar Muestra"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_RegMuestraActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_Informe">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Informe"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_InformeActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

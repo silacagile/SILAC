@@ -20,9 +20,6 @@
 
     <property name="main-class"  value="vista.RegistrarResultado" />
 
-    <!-- Allows us to use the IzPack Ant task izpack home needed -->
-    <taskdef name="IzPack" classpath="${env.IZPACK_HOME}/lib/compiler.jar"
-         classname="com.izforge.izpack.ant.IzPackTask" />
 
     <target name="clean">
         <delete dir="${build.dir}" />

@@ -39,18 +39,16 @@ public class SqliteAutentificacionDAO implements AutentificacionDAO {
             
             if(rs.next()) {
                 String password = rs.getString("password");
-                int rol = rs.getInt("rol");
-                if (Rol.logeable(rol)) {
-                    usuario = new Usuario();
-                    usuario.setLogin(login);
-                    usuario.setPassword(rs.getString("password"));
+                usuario = new Usuario();
+                usuario.setLogin(login);
+                usuario.setPassword(rs.getString("password"));
                     
                     // Persona
                     Persona persona = new Persona();
                     persona.setIdPersona(rs.getString("id_Persona"));
                     
                     usuario.setPersona(persona);
-                }
+
             } 
         } catch(SQLException sqle) {
             System.out.println("Error");

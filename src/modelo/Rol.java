@@ -18,7 +18,7 @@ public enum Rol {
     
     private final int value;
     
-    private Rol(int value) {
+    Rol(int value) {
         this.value = value;
     }
     
@@ -30,9 +30,16 @@ public enum Rol {
         }
     }
     
-    public static boolean logeable(int value) {
-        if (value == Rol.NA.value)
-            return false;
-        return true;
+    public static boolean logeable(Rol value) {
+        System.out.println(value);
+        System.out.println(value.getValue() == Rol.NA.getValue()  || value.getValue() == Rol.DOCTOR.getValue());
+        return value.getValue() != Rol.NA.getValue()  || value.getValue() != Rol.DOCTOR.getValue();
+    }
+
+    /**
+     * @return the value
+     */
+    public int getValue() {
+        return value;
     }
 }

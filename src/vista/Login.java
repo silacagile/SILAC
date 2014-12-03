@@ -7,6 +7,7 @@ package vista;
 
 import controlador.AutentificacionCtrl;
 import javax.swing.JOptionPane;
+import modelo.Rol;
 import modelo.Usuario;
 
 /**
@@ -125,8 +126,11 @@ public class Login extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         Usuario usuario = autentificacionCtrl.autentificar(jTextField1.getText(), jPasswordField1.getPassword());
         if(usuario != null) {
-            new Principal(usuario).setVisible(true);
-            this.dispose();
+            Rol rol = usuario.getPersona().getRol();
+            if (Rol.logeable(rol)) {
+                new Principal(usuario).setVisible(true);
+                this.dispose();
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
