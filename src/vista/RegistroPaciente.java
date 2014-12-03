@@ -65,6 +65,7 @@ public class RegistroPaciente extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Registrar Pacientes");
         setName("Registro de Paciente"); // NOI18N
         setResizable(false);
 
