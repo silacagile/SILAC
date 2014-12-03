@@ -66,7 +66,7 @@ public class RolTest {
     @Test
     public void testLogeable() {
         System.out.println("logeable");
-        int value = 0;
+        Rol value = Rol.ADMINISTRADOR;
         boolean expResult = true;
         boolean result = Rol.logeable(value);
         assertEquals(expResult, result);
