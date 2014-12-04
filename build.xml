@@ -51,6 +51,14 @@
             </batchtest> 
         </junit> 
     </target>
+    <target name="jar" depends="compile">
+        <mkdir dir="dist/jar"/>
+        <jar destfile="dist/jar/silac.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="vista.Login"/>
+            </manifest>
+        </jar>
+    </target>
     <target name="test" depends="junit">
         
     </target>
