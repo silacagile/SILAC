@@ -13,7 +13,7 @@
     </path>
 
     <property name="src.dir"         value="src" />
-
+    <property name="test.dir"        value="test" />
     <property name="build.dir"       value="build" />
     <property name="classes.dir"     value="${build.dir}/classes" />
     <property name="jar.dir"         value="${build.dir}/jar" />
@@ -40,6 +40,18 @@
             </manifest>
         </jar>
     </target>
+    
+    <target name="test" depends="compile">
+        <junit fork="yes" haltonfailure="true">
+            <classpath refid="classpath" />
+            <batchtest fork="yes" todir="tres">
+                <formatter type="brief" usefile="false"/>
+                <fileset dir="${test.dir}">
+                    <include name="**/*Test*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
 
     <target name="run" depends="jar">
         <java fork="true" classname="${main-class}">
@@ -54,11 +66,4 @@
 
     <target name="main" depends="clean,run" />
 
-    <!-- We call IzPack -->
-<!--    <echo message="Makes the installer using IzPack" />
-    <IzPack input="${base}/IzPack-install.xml"
-        output="${jar.dir}/IzPack-install.jar"
-        installerType="standard"
-        basedir="${base}"
-        IzPackDir="${env.IZPACK_HOME}" /> -->
 </project>
