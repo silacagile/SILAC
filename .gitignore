@@ -4,3 +4,5 @@ nbproject/private/*
 dist/
 build/test/classes/*
 build/test/results/*
+bin/*
+testreport/*

@@ -4,66 +4,58 @@
     <description>Builds, tests, and runs the project SILAC.</description>
     <import file="nbproject/build-impl.xml"/>
 
-    <property environment="env" />
-    <property name="base"            value ="" />
-    <property name="lib.dir"         value="lib" />
-     
+    <!-- Sets variables which can later be used. -->
+    <!-- The value of a property is accessed via ${} -->
+    <property name="lib.dir" value="lib" />
+    <property name="src.dir" location="src" /> 
+    <property name="test.dir" location="test" /> 
+    <property name="build.dir" location="bin" /> 
+    <property name="build.test.dir" location="bin/tests" /> <!-- Variables used for JUnit testin --> 
+    <property name="test.report.dir" location="testreport" /> <!-- Define the classpath which includes the junit.jar and the classes after compiling--> 
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar" />
     </path>
-
-    <property name="src.dir"         value="src" />
-    <property name="test.dir"        value="test" />
-    <property name="build.dir"       value="build" />
-    <property name="classes.dir"     value="${build.dir}/classes" />
-    <property name="jar.dir"         value="${build.dir}/jar" />
-
-    <property name="main-class"  value="vista.RegistrarResultado" />
-
-
-    <target name="clean">
-        <delete dir="${build.dir}" />
+    <path id="junit.class.path"> 
+        <pathelement location="lib/junit-4.11.jar" /> 
+        <pathelement location="lib/hamcrest-core-1.3.jar" /> 
+        <pathelement location="${build.dir}" /> 
+    </path> <!-- Deletes the existing build, docs and dist directory--> 
+    <target name="clean"> 
+        <delete dir="${build.dir}" /> 
+        <delete dir="${test.report.dir}" /> 
+    </target> <!-- Creates the build, docs and dist directory--> 
+    <target name="makedir"> 
+        <mkdir dir="${build.dir}" /> 
+        <mkdir dir="${build.test.dir}" /> 
+        <mkdir dir="${test.report.dir}" /> 
+    </target> <!-- Compiles the java code (including the usage of library for JUnit --> 
+    <target name="compile" depends="clean, makedir"> 
+        <javac srcdir="${src.dir}" destdir="${build.dir}"> 
+            <classpath refid="classpath" /> 
+        </javac> 
+        <javac srcdir="${test.dir}" destdir="${build.test.dir}"> 
+            <classpath refid="junit.class.path" /> 
+        </javac> 
+    </target> <!-- Run the JUnit Tests --> <!-- Output is XML, could also be plain--> 
+    <target name="junit" depends="compile"> 
+        <junit printsummary="on" fork="true" haltonfailure="yes"> 
+            <classpath refid="junit.class.path" /> 
+            <classpath> 
+                <pathelement location="${build.test.dir}"/> 
+            </classpath> 
+            <formatter type="xml" /> 
+            <batchtest todir="${test.report.dir}"> 
+                <fileset dir="${test.dir}"> 
+                    <include name="**/*Test*.java" /> 
+                </fileset> 
+            </batchtest> 
+        </junit> 
     </target>
-
-    <target name="compile">
-        <mkdir dir="${classes.dir}" />
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" 
-            classpathref="classpath" />
+    <target name="test" depends="junit">
+        
     </target>
-
-    <target name="jar" depends="compile">
-        <mkdir dir="${jar.dir}" />
-        <jar destfile="${jar.dir}/${ant.project.name}.jar" 
-             basedir="${classes.dir}">
-            <manifest>
-                <attribute name="Main-Class" value="${main-class}" />
-            </manifest>
-        </jar>
+    <target name="main" depends="compile, junit"> 
+        <description>Main target</description> 
     </target>
-    
-    <target name="test" depends="compile">
-        <junit fork="yes" haltonfailure="true">
-            <classpath refid="classpath" />
-            <batchtest fork="yes" todir="tres">
-                <formatter type="brief" usefile="false"/>
-                <fileset dir="${test.dir}">
-                    <include name="**/*Test*.java"/>
-                </fileset>
-            </batchtest>
-        </junit>
-    </target>
-
-    <target name="run" depends="jar">
-        <java fork="true" classname="${main-class}">
-            <classpath>
-                <path refid="classpath" />
-                <path location="${jar.dir}/${ant.project.name}.jar" />
-            </classpath>
-        </java>
-    </target>
-
-    <target name="clean-build" depends="clean,jar" />
-
-    <target name="main" depends="clean,run" />
 
 </project>
