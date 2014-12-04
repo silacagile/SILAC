@@ -43,12 +43,16 @@ public class AutentificacionCtrl {
     
     public Usuario autentificar(String login, char[] password) {
         Usuario usuario = autentificacionDAO.getUsuario(login);
-        // Load Persona data
-        Persona persona = personaDAO.buscarPersona(usuario.getPersona().getIdPersona());
-        usuario.setPersona(persona);
-        
-        if (esCorrecto(password, usuario.getPassword())) {
-            return usuario;
+
+        if (usuario != null) {
+            // Load Persona data
+            Persona persona = personaDAO.buscarPersona(usuario.getPersona().getIdPersona());
+            System.out.println(persona.getRol());
+            usuario.setPersona(persona);
+
+            if (esCorrecto(password, usuario.getPassword())) {
+                return usuario;
+            }
         }
 
         return null;

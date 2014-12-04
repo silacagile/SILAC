@@ -23,17 +23,21 @@ public enum Rol {
     }
     
     public static Rol fromValue(int value) {
-        try{
-            return Rol.values()[value];
-        }catch( ArrayIndexOutOfBoundsException e ) {
-            return Rol.NA;
+        Rol res = null;
+
+        for (Rol rol : Rol.values()) {
+            if (rol.getValue() == value) {
+                res = rol;
+                break;
+            }
         }
+        
+        return res;
     }
     
     public static boolean logeable(Rol value) {
         System.out.println(value);
-        System.out.println(value.getValue() == Rol.NA.getValue()  || value.getValue() == Rol.DOCTOR.getValue());
-        return value.getValue() != Rol.NA.getValue()  || value.getValue() != Rol.DOCTOR.getValue();
+        return value.getValue() != Rol.NA.getValue() && value.getValue() != Rol.DOCTOR.getValue();
     }
 
     /**

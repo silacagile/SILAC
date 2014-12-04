@@ -13,20 +13,16 @@ import modelo.*;
  */
 public class Principal extends javax.swing.JFrame {
 
-    private Usuario usuario;
+    private final Usuario usuario;
+
     /**
      * Creates new form Principal
+     * @param usuario
      */
     public Principal(Usuario usuario) {
-        
-        
         initComponents();
-
         this.usuario = usuario;
-        System.out.println("hola me llamo: " + usuario.getPersona().getNombre());
-        
-        Rol rol = usuario.getPersona().getRol();
-        System.out.println(rol);
+        Rol rol = this.usuario.getPersona().getRol();
         
         if(rol == Rol.ADMINISTRADOR){
         }
