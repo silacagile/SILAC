@@ -30,6 +30,9 @@ public class Informe extends javax.swing.JFrame {
     private Paciente paciente;
     private List<Muestra> listaMuestras;
     private List<Ensayo> listaEnsayos;
+    private List<Paciente> listaPacientes;
+    private DefaultComboBoxModel pacientes;
+    private DefaultComboBoxModel muestras;
 
     /**
      * Creates new form Informe
@@ -40,10 +43,12 @@ public class Informe extends javax.swing.JFrame {
         muestraCtrl = new MuestraCtrl();
         ensayoCtrl = new EnsayoCtrl();
         disableComponents();
+        setComboBoxPacientes();
     }
 
     private void enableIDPaciente() {
-        txtF_idPaciente.setEnabled(true);
+       // txtF_idPaciente.setEnabled(true);
+        cmb_Pacientes.setEnabled(true);
         btn_buscarPaciente.setEnabled(true);
     }
 
@@ -52,7 +57,8 @@ public class Informe extends javax.swing.JFrame {
     }
 
     private void disableIDPaciente() {
-        txtF_idPaciente.setEnabled(false);
+       // txtF_idPaciente.setEnabled(false);
+        cmb_Pacientes.setEnabled(false);
         btn_buscarPaciente.setEnabled(false);
     }
 
@@ -103,7 +109,6 @@ public class Informe extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtF_idPaciente = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         cmb_Muestras = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
@@ -125,16 +130,22 @@ public class Informe extends javax.swing.JFrame {
         btn_buscarPaciente = new javax.swing.JButton();
         label_pacienteControl = new javax.swing.JLabel();
         btn_cambiarPaciente = new javax.swing.JButton();
+        cmb_Pacientes = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Informe de Análisis Por Paciente "));
 
-        jLabel1.setText("Introduzca ID Paciente : ");
+        jLabel1.setText("Seleccione ID Paciente : ");
 
         jLabel2.setText("Incluir Muestras: ");
 
         cmb_Muestras.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmb_Muestras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_MuestrasActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Incluir Datos de :");
 
@@ -215,7 +226,7 @@ public class Informe extends javax.swing.JFrame {
             }
         });
 
-        btn_buscarPaciente.setText("Buscar");
+        btn_buscarPaciente.setText("Seleccionar");
         btn_buscarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarPacienteActionPerformed(evt);
@@ -228,6 +239,13 @@ public class Informe extends javax.swing.JFrame {
         btn_cambiarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cambiarPacienteActionPerformed(evt);
+            }
+        });
+
+        cmb_Pacientes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmb_Pacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_PacientesActionPerformed(evt);
             }
         });
 
@@ -245,8 +263,8 @@ public class Informe extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtF_idPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cmb_Pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btn_buscarPaciente))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -263,22 +281,22 @@ public class Informe extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(0, 59, Short.MAX_VALUE)
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(chk_SolBuffer)
-                                            .addComponent(chk_Tipotest)
-                                            .addComponent(chk_VolumenMuestra)
-                                            .addComponent(chk_SelectAll))
-                                        .addGap(36, 36, 36)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(chk_Instrumento)
-                                            .addComponent(chk_TipoMuestra)
-                                            .addComponent(chk_Observaciones)))
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel3))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(btn_cambiarPaciente)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chk_SolBuffer)
+                                    .addComponent(chk_Tipotest)
+                                    .addComponent(chk_VolumenMuestra)
+                                    .addComponent(chk_SelectAll))
+                                .addGap(36, 36, 36)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chk_Instrumento)
+                                    .addComponent(chk_TipoMuestra)
+                                    .addComponent(chk_Observaciones))))
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,12 +310,12 @@ public class Informe extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtF_idPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(btn_buscarPaciente)
-                    .addComponent(btn_cambiarPaciente))
+                    .addComponent(btn_cambiarPaciente)
+                    .addComponent(cmb_Pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
@@ -331,7 +349,7 @@ public class Informe extends javax.swing.JFrame {
                             .addComponent(chk_Observaciones))
                         .addGap(18, 18, 18)
                         .addComponent(chk_SelectAll)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 33, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -370,6 +388,7 @@ public class Informe extends javax.swing.JFrame {
     private void btn_generarInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generarInformeActionPerformed
         String combo = cmb_Muestras.getSelectedItem().toString();
         listaMuestras = muestraCtrl.getAllMuestras(paciente.getIdPaciente());
+        
         if (!combo.equals("Incluir Todas")) {
             Muestra m = muestraCtrl.buscarMuestra(paciente.getIdPaciente(), combo);
             listaMuestras = new ArrayList<Muestra>();
@@ -400,16 +419,17 @@ public class Informe extends javax.swing.JFrame {
 
     private void btn_buscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarPacienteActionPerformed
 
-        paciente = pacienteCtrl.buscarPaciente(txtF_idPaciente.getText());
+        //paciente = pacienteCtrl.buscarPaciente(txtF_idPaciente.getText());
+        paciente = pacienteCtrl.buscarPaciente(cmb_Pacientes.getSelectedItem().toString());
         System.out.println(paciente);
 
         if (paciente == null) {
-            label_pacienteControl.setText("No existe el paciente con el ID : " + txtF_idPaciente.getText());
+          //  label_pacienteControl.setText("No existe el paciente con el ID : " + txtF_idPaciente.getText());
             label_pacienteControl.setForeground(Color.red);
             //disableComponents();
         } else {
             System.out.println("Aceptado");
-            label_pacienteControl.setText("Paciente ID : " + txtF_idPaciente.getText());
+            label_pacienteControl.setText("Paciente ID : " + cmb_Pacientes.getSelectedItem().toString());
             label_pacienteControl.setForeground(Color.blue);
             setComboBoxMuestras(paciente);
             enableComponents();
@@ -442,6 +462,14 @@ public class Informe extends javax.swing.JFrame {
     private void chk_InstrumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_InstrumentoActionPerformed
         chk_SelectAll.setSelected(false);
     }//GEN-LAST:event_chk_InstrumentoActionPerformed
+
+    private void cmb_MuestrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_MuestrasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_MuestrasActionPerformed
+
+    private void cmb_PacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_PacientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_PacientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -493,6 +521,7 @@ public class Informe extends javax.swing.JFrame {
     private javax.swing.JCheckBox chk_Tipotest;
     private javax.swing.JCheckBox chk_VolumenMuestra;
     private javax.swing.JComboBox cmb_Muestras;
+    private javax.swing.JComboBox cmb_Pacientes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -504,12 +533,24 @@ public class Informe extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtn_EnsayosNo;
     private javax.swing.JRadioButton rbtn_EnsayosSI;
     private javax.swing.JTextArea txtA_VistaPrevia;
-    private javax.swing.JTextField txtF_idPaciente;
     // End of variables declaration//GEN-END:variables
+
+    private void setComboBoxPacientes() {
+
+        pacientes = new DefaultComboBoxModel();
+        listaPacientes = pacienteCtrl.getAllPacientes();
+        System.out.println(listaPacientes.size());
+        for (int i = 0; i < listaPacientes.size(); i++) {
+            pacientes.addElement(listaPacientes.get(i).getIdPaciente());
+        }
+
+        cmb_Pacientes.setModel(pacientes);
+        cmb_Pacientes.setMaximumRowCount(4);
+    }
 
     private void setComboBoxMuestras(Paciente paciente) {
 
-        final DefaultComboBoxModel muestras = new DefaultComboBoxModel();
+        muestras = new DefaultComboBoxModel();
 
         listaMuestras = muestraCtrl.getAllMuestras(paciente.getIdPaciente());
         for (int i = 0; i < listaMuestras.size(); i++) {
@@ -517,6 +558,7 @@ public class Informe extends javax.swing.JFrame {
         }
         muestras.addElement("Incluir Todas");
         cmb_Muestras.setModel(muestras);
+        cmb_Muestras.setMaximumRowCount(4);
     }
 
     private void generarInforme(List<Muestra> listaMuestras) {
