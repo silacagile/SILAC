@@ -12,6 +12,8 @@
     <property name="build.dir" location="bin" /> 
     <property name="build.test.dir" location="bin/tests" /> <!-- Variables used for JUnit testin --> 
     <property name="test.report.dir" location="testreport" /> <!-- Define the classpath which includes the junit.jar and the classes after compiling--> 
+    <property name="jar.dir" value="${build.dir}/jar" />
+    <property name="main-class"  value="vista.Login"/>
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar" />
     </path>
@@ -52,8 +54,8 @@
         </junit> 
     </target>
     <target name="jar" depends="compile">
-        <mkdir dir="dist/jar"/>
-        <jar destfile="dist/jar/silac.jar" basedir="${build.dir}">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/silac.jar" basedir="${build.dir}">
             <manifest>
                 <attribute name="Main-Class" value="vista.Login"/>
             </manifest>
@@ -65,5 +67,14 @@
     <target name="main" depends="compile, junit"> 
         <description>Main target</description> 
     </target>
-
+    
+    <target name="run" depends="jar">
+        <java fork="true" classname="${main-class}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${jar.dir}/silac.jar"/>
+            </classpath>
+        </java>
+    </target>
+    
 </project>
