@@ -18,6 +18,7 @@ public class RegistroPaciente extends javax.swing.JFrame {
      */
     public RegistroPaciente() {
         initComponents();
+        setLocationRelativeTo(null);
         updateTable();
     }
 
@@ -58,7 +59,7 @@ public class RegistroPaciente extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Pacientes");
         setName("Registro de Paciente"); // NOI18N
         setResizable(false);
@@ -526,6 +527,7 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RegistroPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

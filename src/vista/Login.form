@@ -127,6 +127,7 @@
           </AccessibilityProperties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_LogMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_LogActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_SilacName">
@@ -138,6 +139,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txt_Password">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_PasswordKeyPressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

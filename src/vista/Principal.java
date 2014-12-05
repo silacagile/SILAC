@@ -21,6 +21,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal(Usuario usuario) {
         initComponents();
+        setLocationRelativeTo(null);
         this.usuario = usuario;
         Rol rol = this.usuario.getPersona().getRol();
         
@@ -51,7 +52,7 @@ public class Principal extends javax.swing.JFrame {
         btn_RegMuestra = new javax.swing.JButton();
         btn_Informe = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btn_RegPaciente.setText("Registrar Paciente");
         btn_RegPaciente.addActionListener(new java.awt.event.ActionListener() {

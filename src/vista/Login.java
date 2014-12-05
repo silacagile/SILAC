@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.AutentificacionCtrl;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.Rol;
 import modelo.Usuario;
@@ -24,6 +25,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         autentificacionCtrl = new AutentificacionCtrl();
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -60,9 +62,20 @@ public class Login extends javax.swing.JFrame {
                 btn_LogMouseClicked(evt);
             }
         });
+        btn_Log.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LogActionPerformed(evt);
+            }
+        });
 
         lbl_SilacName.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         lbl_SilacName.setText("SILAC");
+
+        txt_Password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_PasswordKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pn_LoginPanelLayout = new javax.swing.GroupLayout(pn_LoginPanel);
         pn_LoginPanel.setLayout(pn_LoginPanelLayout);
@@ -129,7 +142,7 @@ public class Login extends javax.swing.JFrame {
             Rol rol = usuario.getPersona().getRol();
             if (Rol.logeable(rol)) {
                 new Principal(usuario).setVisible(true);
-                this.dispose();
+               // this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -143,6 +156,18 @@ public class Login extends javax.swing.JFrame {
         
         cleanPassword();
     }//GEN-LAST:event_btn_LogMouseClicked
+
+    private void txt_PasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_PasswordKeyPressed
+        int key=evt.getKeyCode();
+        if(key==KeyEvent.VK_ENTER)
+        { 
+            btn_LogMouseClicked(null);
+        }
+    }//GEN-LAST:event_txt_PasswordKeyPressed
+
+    private void btn_LogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LogActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_LogActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,6 +194,7 @@ public class Login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

@@ -33,7 +33,7 @@ public class PrincipalAuxiliar extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btn_buscarHistorial = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel1.setText("BUSCAR HISTORIAL");
@@ -124,6 +124,7 @@ public class PrincipalAuxiliar extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PrincipalAuxiliar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
