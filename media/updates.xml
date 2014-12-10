@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<updateDescriptor baseUrl="">
-  <entry targetMediaFileId="27" updatableVersionMin="" updatableVersionMax="" fileName="SILAC_windows-x64_1_3.exe" newVersion="1.3" newMediaFileId="27" fileSize="37087744" bundledJre="windows-amd64-1.8.0_25" archive="false">
-    <comment language="es" />
-  </entry>
-</updateDescriptor>
-
