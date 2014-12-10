@@ -7,9 +7,7 @@ package vista;
 
 import controlador.AutentificacionCtrl;
 import java.awt.event.KeyEvent;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 import modelo.Rol;
 import modelo.Usuario;
 
@@ -28,7 +26,6 @@ public class Login extends javax.swing.JFrame {
         autentificacionCtrl = new AutentificacionCtrl();
         initComponents();
         setLocationRelativeTo(null);
-        addButtonFocus();
     }
 
     /**
@@ -144,7 +141,10 @@ public class Login extends javax.swing.JFrame {
         if(usuario != null) {
             Rol rol = usuario.getPersona().getRol();
             if (Rol.logeable(rol)) {
-                new Principal(usuario).setVisible(true);
+                if(rol.SECRETARIA == usuario.getPersona().getRol())
+                    new RegistroPaciente().setVisible(true);
+                else
+                    new Principal(usuario).setVisible(true);
                // this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
@@ -169,24 +169,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_PasswordKeyPressed
 
     private void btn_LogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LogActionPerformed
-        Usuario usuario = autentificacionCtrl.autentificar(txt_Login.getText(), txt_Password.getPassword());
-        if(usuario != null) {
-            Rol rol = usuario.getPersona().getRol();
-            if (Rol.logeable(rol)) {
-                new Principal(usuario).setVisible(true);
-               // this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
-                
-                cleanPassword();
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        cleanPassword();
+        // TODO add your handling code here:
     }//GEN-LAST:event_btn_LogActionPerformed
 
     /**
@@ -215,7 +198,6 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -238,12 +220,4 @@ public class Login extends javax.swing.JFrame {
     private void cleanPassword() {
         txt_Password.setText("");
     }
-    
-     private void addButtonFocus() {
-        btn_Log.registerKeyboardAction(btn_Log.getActionForKeyStroke(
-                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
-                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
-                JComponent.WHEN_FOCUSED);
-    }
-    
 }

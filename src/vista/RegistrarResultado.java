@@ -357,6 +357,14 @@ public class RegistrarResultado extends JFrame implements Printable {
                 txtF_volumenMuestraActionPerformed(evt);
             }
         });
+        txtF_volumenMuestra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtF_volumenMuestraKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtF_volumenMuestraKeyTyped(evt);
+            }
+        });
 
         label_tipoTest.setText("Tipo Test :");
 
@@ -950,22 +958,100 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     private void cmb_tipoMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_tipoMuestraActionPerformed
 
     }//GEN-LAST:event_cmb_tipoMuestraActionPerformed
-
+datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserCombo();
+    private boolean validarFechaExtrac()
+    {
+        boolean res = false;
+        int todayYear = Integer.valueOf(today.getText().substring(6));
+        int todayMonth = Integer.valueOf(today.getText().substring(3, 5));
+        int todayDay = Integer.valueOf(today.getText().substring(0, 2));
+        
+        int selectYear = Integer.valueOf(date_extraccion.getText().substring(6));
+        int selectMonth = Integer.valueOf(date_extraccion.getText().substring(3, 5));
+        int selectDay = Integer.valueOf(date_extraccion.getText().substring(0, 2));
+        System.out.println("selected " + selectDay  + " " + selectMonth + " " + selectYear);
+        System.out.println("Today " + todayDay + " " + todayMonth + " " + todayYear);
+        
+        if(selectYear <= todayYear)
+        {
+            if(selectYear == todayYear)
+            {
+                if(selectMonth <= todayMonth)
+                {
+                    if(selectMonth == todayMonth)
+                    {
+                        if(selectDay <= todayDay)
+                        {
+                            res = true;
+                        }
+                    }
+                    else{
+                        res = true;
+                    }
+                }
+            }
+            else{
+                res = true;
+            }
+        }
+        return res;
+    }
+    
+    private boolean validarFechaGel()
+    {
+        boolean res = false;
+        int todayYear = Integer.valueOf(today.getText().substring(6));
+        int todayMonth = Integer.valueOf(today.getText().substring(3, 5));
+        int todayDay = Integer.valueOf(today.getText().substring(0, 2));
+        
+        int selectYear = Integer.valueOf(date_gel.getText().substring(6));
+        int selectMonth = Integer.valueOf(date_gel.getText().substring(3, 5));
+        int selectDay = Integer.valueOf(date_gel.getText().substring(0, 2));
+        System.out.println("selected " + selectDay  + " " + selectMonth + " " + selectYear);
+        System.out.println("Today " + todayDay + " " + todayMonth + " " + todayYear);
+        
+        if(selectYear <= todayYear)
+        {
+            if(selectYear == todayYear)
+            {
+                if(selectMonth <= todayMonth)
+                {
+                    if(selectMonth == todayMonth)
+                    {
+                        if(selectDay <= todayDay)
+                        {
+                            res = true;
+                        }
+                    }
+                    else{
+                        res = true;
+                    }
+                }
+            }
+            else{
+                res = true;
+            }
+        }
+        return res;
+    }
     private void btn_guardarEnsayoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarEnsayoActionPerformed
 
         String id_ensayo = getId_Ensayo();
         if (!camposEmpty()) {
-            Ensayo ensayo = getEnsayo();
-            ensayo.setIdEnsayo(id_ensayo);
-            limit_ftxt = 0;
-            if (ensayoCtrl.buscarEnsayo(cmb_Pacientes.getSelectedItem().toString(),
-                    txtF_codMuestra.getText(), id_ensayo) != null) {
-                ensayoCtrl.updateEnsayo(ensayo);
-                JOptionPane.showMessageDialog(this, "Se ha actualizado el Ensayo : " + id_ensayo + "\ncorrectatmente");
-            } else {
-                ensayoCtrl.insertarEnsayo(ensayo);
-                JOptionPane.showMessageDialog(this, "Se ha guardado el Ensayo : " + id_ensayo + " \ncorrectamente");
-            }
+            if(validarFechaExtrac() && validarFechaGel()){
+                Ensayo ensayo = getEnsayo();
+                ensayo.setIdEnsayo(id_ensayo);
+                limit_ftxt = 0;
+                if (ensayoCtrl.buscarEnsayo(cmb_Pacientes.getSelectedItem().toString(),
+                        txtF_codMuestra.getText(), id_ensayo) != null) {
+                    ensayoCtrl.updateEnsayo(ensayo);
+                    JOptionPane.showMessageDialog(this, "Se ha actualizado el Ensayo : " + id_ensayo + "\ncorrectatmente");
+                } else {
+                    ensayoCtrl.insertarEnsayo(ensayo);
+                    JOptionPane.showMessageDialog(this, "Se ha guardado el Ensayo : " + id_ensayo + " \ncorrectamente");
+                }
+            }else
+                JOptionPane.showMessageDialog(this, "Por Favor, Ingrese una Fecha Valida", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Por Favor ingrese todos los campos", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
         }
@@ -1068,7 +1154,7 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     int limit_ftxt = 0; //controla que el input sea max de 5 digitos
     private void ftxt_numExtraccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxt_numExtraccionKeyTyped
         limit_ftxt = ftxt_numExtraccion.getText().length();
-        if (!Character.isDigit(evt.getKeyChar()) || !(limit_ftxt < 5)) {
+        if (!Character.isDigit(evt.getKeyChar()) || !(limit_ftxt < 3)) {
             evt.consume();
             return;
         }
@@ -1108,6 +1194,22 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     private void txtF_idPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_idPacienteActionPerformed
 
     }//GEN-LAST:event_txtF_idPacienteActionPerformed
+int lim = 0;
+    private void txtF_volumenMuestraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_volumenMuestraKeyPressed
+         if (evt.getKeyCode() == 8 && lim != 0) //el cod 8 es delete
+        {
+            lim -= 1;
+        }
+    }//GEN-LAST:event_txtF_volumenMuestraKeyPressed
+
+    private void txtF_volumenMuestraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_volumenMuestraKeyTyped
+        lim = txtF_volumenMuestra.getText().length();
+        if (!Character.isDigit(evt.getKeyChar()) || !(lim < 3)) {
+            evt.consume();
+            return;
+        }
+        lim++;
+    }//GEN-LAST:event_txtF_volumenMuestraKeyTyped
 
     /**
      * @param args the command line arguments
@@ -1134,10 +1236,6 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RegistrarResultado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
