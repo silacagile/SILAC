@@ -62,4 +62,8 @@ public class PacienteCtrl {
      public boolean updatePaciente(Paciente paciente) {
          return pacienteDAO.updatePaciente(paciente);
      }
-}
+     
+     public List<Paciente> executePacienteQuery(String column, String criterio){
+         return pacienteDAO.executePacienteQuery(column, criterio);
+     }
+}   

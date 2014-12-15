@@ -18,7 +18,7 @@ import modelo.Usuario;
  * @author Jorge Aguirre
  */
 public class Login extends javax.swing.JFrame {
-    
+
     private final AutentificacionCtrl autentificacionCtrl;
 
     /**
@@ -27,8 +27,8 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         autentificacionCtrl = new AutentificacionCtrl();
         initComponents();
-        setLocationRelativeTo(null);
         addButtonFocus();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -47,6 +47,7 @@ public class Login extends javax.swing.JFrame {
         btn_Log = new javax.swing.JButton();
         lbl_SilacName = new javax.swing.JLabel();
         txt_Password = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +81,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+
         javax.swing.GroupLayout pn_LoginPanelLayout = new javax.swing.GroupLayout(pn_LoginPanel);
         pn_LoginPanel.setLayout(pn_LoginPanelLayout);
         pn_LoginPanelLayout.setHorizontalGroup(
@@ -87,37 +90,43 @@ public class Login extends javax.swing.JFrame {
             .addGroup(pn_LoginPanelLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_SilacName, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pn_LoginPanelLayout.createSequentialGroup()
+                        .addComponent(lbl_SilacName, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60))
                     .addGroup(pn_LoginPanelLayout.createSequentialGroup()
                         .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbl_Password)
-                            .addComponent(lbl_Login))
-                        .addGap(60, 60, 60)
-                        .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_Login, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(txt_Password))))
-                .addContainerGap(72, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_LoginPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_Log, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102))
+                            .addComponent(btn_Log, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pn_LoginPanelLayout.createSequentialGroup()
+                                .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbl_Password)
+                                    .addComponent(lbl_Login))
+                                .addGap(104, 104, 104)
+                                .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         pn_LoginPanelLayout.setVerticalGroup(
             pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_LoginPanelLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(lbl_SilacName, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn_LoginPanelLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(lbl_SilacName, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_Login)
                     .addComponent(txt_Login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_Password)
                     .addComponent(txt_Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btn_Log)
-                .addGap(28, 28, 28))
+                .addGap(34, 34, 34))
         );
 
         lbl_Login.getAccessibleContext().setAccessibleName("login");
@@ -141,22 +150,25 @@ public class Login extends javax.swing.JFrame {
 
     private void btn_LogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LogMouseClicked
         Usuario usuario = autentificacionCtrl.autentificar(txt_Login.getText(), txt_Password.getPassword());
-        if(usuario != null) {
+        if (usuario != null) {
             Rol rol = usuario.getPersona().getRol();
             if (Rol.logeable(rol)) {
-                new Principal(usuario).setVisible(true);
+                if(rol.SECRETARIA == usuario.getPersona().getRol())
+                    new RegistroPaciente().setVisible(true);
+                else
+                    new Principal(usuario).setVisible(true);
                // this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
-                
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+
                 cleanPassword();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         cleanPassword();
     }//GEN-LAST:event_btn_LogMouseClicked
 
@@ -170,22 +182,22 @@ public class Login extends javax.swing.JFrame {
 
     private void btn_LogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LogActionPerformed
         Usuario usuario = autentificacionCtrl.autentificar(txt_Login.getText(), txt_Password.getPassword());
-        if(usuario != null) {
+        if (usuario != null) {
             Rol rol = usuario.getPersona().getRol();
             if (Rol.logeable(rol)) {
                 new Principal(usuario).setVisible(true);
-               // this.dispose();
+                // this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
-                
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+
                 cleanPassword();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         cleanPassword();
     }//GEN-LAST:event_btn_LogActionPerformed
 
@@ -215,7 +227,6 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -227,6 +238,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Log;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_Login;
     private javax.swing.JLabel lbl_Password;
     private javax.swing.JLabel lbl_SilacName;
@@ -244,6 +256,11 @@ public class Login extends javax.swing.JFrame {
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
                 JComponent.WHEN_FOCUSED);
+
+      
+
+     
+
     }
     
 }

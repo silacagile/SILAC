@@ -1,80 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project name="SILAC" default="default" basedir=".">
-    <description>Builds, tests, and runs the project SILAC.</description>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="SILAC_DICIEMBRE" default="default" basedir=".">
+    <description>Builds, tests, and runs the project SILAC DICIEMBRE.</description>
     <import file="nbproject/build-impl.xml"/>
+    <!--
 
-    <!-- Sets variables which can later be used. -->
-    <!-- The value of a property is accessed via ${} -->
-    <property name="lib.dir" value="lib" />
-    <property name="src.dir" location="src" /> 
-    <property name="test.dir" location="test" /> 
-    <property name="build.dir" location="bin" /> 
-    <property name="build.test.dir" location="bin/tests" /> <!-- Variables used for JUnit testin --> 
-    <property name="test.report.dir" location="testreport" /> <!-- Define the classpath which includes the junit.jar and the classes after compiling--> 
-    <property name="jar.dir" value="${build.dir}/jar" />
-    <property name="main-class"  value="vista.Login"/>
-    <path id="classpath">
-        <fileset dir="${lib.dir}" includes="**/*.jar" />
-    </path>
-    <path id="junit.class.path"> 
-        <pathelement location="lib/junit-4.11.jar" /> 
-        <pathelement location="lib/hamcrest-core-1.3.jar" /> 
-        <pathelement location="${build.dir}" /> 
-    </path> <!-- Deletes the existing build, docs and dist directory--> 
-    <target name="clean"> 
-        <delete dir="${build.dir}" /> 
-        <delete dir="${test.report.dir}" /> 
-    </target> <!-- Creates the build, docs and dist directory--> 
-    <target name="makedir"> 
-        <mkdir dir="${build.dir}" /> 
-        <mkdir dir="${build.test.dir}" /> 
-        <mkdir dir="${test.report.dir}" /> 
-    </target> <!-- Compiles the java code (including the usage of library for JUnit --> 
-    <target name="compile" depends="clean, makedir"> 
-        <javac srcdir="${src.dir}" destdir="${build.dir}"> 
-            <classpath refid="classpath" /> 
-        </javac> 
-        <javac srcdir="${test.dir}" destdir="${build.test.dir}"> 
-            <classpath refid="junit.class.path" /> 
-        </javac> 
-    </target> <!-- Run the JUnit Tests --> <!-- Output is XML, could also be plain--> 
-    <target name="junit" depends="compile"> 
-        <junit printsummary="on" fork="true" haltonfailure="yes"> 
-            <classpath refid="junit.class.path" /> 
-            <classpath> 
-                <pathelement location="${build.test.dir}"/> 
-            </classpath> 
-            <formatter type="xml" /> 
-            <batchtest todir="${test.report.dir}"> 
-                <fileset dir="${test.dir}"> 
-                    <include name="**/*Test*.java" /> 
-                </fileset> 
-            </batchtest> 
-        </junit> 
-    </target>
-    <target name="jar" depends="compile">
-        <mkdir dir="${jar.dir}"/>
-        <jar destfile="${jar.dir}/silac.jar" basedir="${build.dir}">
-            <manifest>
-                <attribute name="Main-Class" value="vista.Login"/>
-            </manifest>
-        </jar>
-    </target>
-    <target name="test" depends="junit">
-        
-    </target>
-    <target name="main" depends="compile, junit"> 
-        <description>Main target</description> 
-    </target>
-    
-    <target name="run" depends="jar">
-        <java fork="true" classname="${main-class}">
-            <classpath>
-                <path refid="classpath"/>
-                <path location="${jar.dir}/silac.jar"/>
-            </classpath>
-        </java>
-    </target>
-    
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar:                  JAR building
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="SILAC_DICIEMBRE-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
 </project>

@@ -52,5 +52,7 @@ public interface PacienteDAO {
      * @return
      */
     public List<Paciente> getAllPacientes();
+    
+    public List<Paciente> executePacienteQuery(String column, String criterio);
 
 }

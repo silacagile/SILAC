@@ -5,6 +5,8 @@
  */
 package Utilitarios;
 
+import java.util.HashMap;
+
 /**
  *
  * @author Jorge Aguirre
@@ -27,4 +29,8 @@ public class Constantes {
     /** SQLite datos para la conexion */
     public static final String SQLITE_DRIVER = "org.sqlite.JDBC";
     public static final String SQLITE_DBURL = "jdbc:sqlite:silac.db";
+    
+    public static HashMap<String, String> atributos = new HashMap<String, String>();
+    
+           
 }

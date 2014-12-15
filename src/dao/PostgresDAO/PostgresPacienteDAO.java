@@ -152,4 +152,9 @@ public class PostgresPacienteDAO implements PacienteDAO {
         return pacientes;
     }
 
+    @Override
+    public List<Paciente> executePacienteQuery(String column, String criterio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

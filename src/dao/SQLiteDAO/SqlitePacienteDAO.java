@@ -42,11 +42,11 @@ public class SqlitePacienteDAO implements PacienteDAO {
         /**
          * Eliminar Paciente
          */
-       //p.deletePaciente("P14");
+        //p.deletePaciente("P14");
         /**
          * Obtener todos los pacientes
          */
-       List<Paciente> lista = p.getAllPacientes();
+        List<Paciente> lista = p.executePacienteQuery("tipo_sangre", "A");
         for (Paciente pac : lista) {
             System.out.println(pac);
         }
@@ -63,6 +63,7 @@ public class SqlitePacienteDAO implements PacienteDAO {
         // System.out.println("Dentro find");
         Paciente paciente = null;
         String sql = "SELECT * FROM Paciente, Persona where id_Paciente =" + "'" + id + "' AND Paciente.id_Paciente = Persona.id_Persona;";
+
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = SqliteDAOFactory.createConnection();
@@ -269,6 +270,69 @@ public class SqlitePacienteDAO implements PacienteDAO {
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                paciente = new Paciente();
+                paciente.setIdPaciente(rs.getString("id_Paciente"));
+                paciente.setNombre(rs.getString("nombre"));
+                paciente.setDireccion(rs.getString("direccion"));
+                paciente.setTelefono(rs.getString("telefono"));
+                paciente.setApMaterno(rs.getString("ap_materno"));
+                paciente.setApPaterno(rs.getString("ap_paterno"));
+                paciente.setCi(rs.getString("ci"));
+                paciente.setCorreo(rs.getString("correo"));
+                paciente.setFnac(rs.getString("fnac"));
+                paciente.setTipoSangre(rs.getString("tipo_sangre"));
+                pacientes.add(paciente);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error GEt ALL");
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+
+        }
+        return pacientes;
+    }
+
+    @Override
+    public List<Paciente> executePacienteQuery(String column, String criterio) {
+        List<Paciente> pacientes = new ArrayList<Paciente>();
+        Paciente paciente;
+
+        String sql = "";
+        if (column.equals("tipo_sangre")) {
+            sql = "select * from Paciente , Persona WHERE Paciente.id_Paciente" + "= Persona.id_Persona"
+                    + " AND Paciente." + column + " Like '%" + criterio + "%'";
+        } else {
+            sql = "select * from Paciente , Persona WHERE Paciente.id_Paciente" + "= Persona.id_Persona"
+                    + " AND Persona." + column + " Like '%" + criterio + "%'";
+        }
+        ResultSet rs = null;
+        Statement statement = null;
+        Connection connection = SqliteDAOFactory.createConnection();
+        try {
+            statement = connection.createStatement();
+
+            rs = statement.executeQuery(sql);
+            System.out.println("test");
             while (rs.next()) {
                 paciente = new Paciente();
                 paciente.setIdPaciente(rs.getString("id_Paciente"));

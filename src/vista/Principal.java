@@ -32,10 +32,12 @@ public class Principal extends javax.swing.JFrame {
             btn_RegPaciente.setVisible(false);
         }
         
-        if (rol == Rol.SECRETARIA) {
-            btn_Informe.setVisible(false);
-            btn_RegMuestra.setVisible(false);
-        }
+//        if (rol == Rol.SECRETARIA) {
+//            //btn_Informe.setVisible(false);
+//            //btn_RegMuestra.setVisible(false);
+//            new RegistroPaciente().setVisible(true);
+//            this.dispose();
+//        }
     }
 
     /**

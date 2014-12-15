@@ -50,6 +50,7 @@ public class RegistrarResultado extends JFrame implements Printable {
         ensayoCtrl = new EnsayoCtrl();
         setLocationRelativeTo(null);
         disableComponents();
+        date_gel.setFormat(2);
         addButtonFocus();
         setComboBoxPacientes();
     }
@@ -283,9 +284,9 @@ public class RegistrarResultado extends JFrame implements Printable {
         btn_guardarEnsayo = new javax.swing.JButton();
         label_Resultado = new javax.swing.JLabel();
         txtF_Resultado = new javax.swing.JTextField();
+        ftxt_numExtraccion = new javax.swing.JFormattedTextField();
         date_extraccion = new datechooser.beans.DateChooserCombo();
         date_gel = new datechooser.beans.DateChooserCombo();
-        ftxt_numExtraccion = new javax.swing.JFormattedTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtA_observaciones = new javax.swing.JTextArea();
         btn_guardarMuestra = new javax.swing.JButton();
@@ -355,6 +356,14 @@ public class RegistrarResultado extends JFrame implements Printable {
         txtF_volumenMuestra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtF_volumenMuestraActionPerformed(evt);
+            }
+        });
+        txtF_volumenMuestra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtF_volumenMuestraKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtF_volumenMuestraKeyTyped(evt);
             }
         });
 
@@ -466,6 +475,16 @@ public class RegistrarResultado extends JFrame implements Printable {
             }
         });
 
+        ftxt_numExtraccion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ftxt_numExtraccionKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ftxt_numExtraccionKeyTyped(evt);
+            }
+        });
+
         date_extraccion.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
             new datechooser.view.appearance.ViewAppearance("custom",
                 new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
@@ -507,12 +526,7 @@ public class RegistrarResultado extends JFrame implements Printable {
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
-    try {
-        date_extraccion.setDefaultPeriods(new datechooser.model.multiple.PeriodSet(new datechooser.model.multiple.Period(new java.util.GregorianCalendar(2014, 9, 30),
-            new java.util.GregorianCalendar(2014, 9, 30))));
-} catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
-    e1.printStackTrace();
-    }
+    date_extraccion.setFormat(2);
 
     date_gel.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
         new datechooser.view.appearance.ViewAppearance("custom",
@@ -556,57 +570,47 @@ public class RegistrarResultado extends JFrame implements Printable {
             false,
             true)));
 
-ftxt_numExtraccion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
-    public void keyPressed(java.awt.event.KeyEvent evt) {
-        ftxt_numExtraccionKeyPressed(evt);
-    }
-    public void keyTyped(java.awt.event.KeyEvent evt) {
-        ftxt_numExtraccionKeyTyped(evt);
-    }
-    });
-
-    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-    jPanel2.setLayout(jPanel2Layout);
-    jPanel2Layout.setHorizontalGroup(
-        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel2Layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(label_ensayoInfo)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(label_Resultado)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtF_Resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(label_NumExtraccion))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(label_fecha)
-                            .addGap(148, 148, 148)
-                            .addComponent(label_tipo)
-                            .addGap(0, 0, Short.MAX_VALUE)))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(ftxt_numExtraccion, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addComponent(btn_guardarEnsayo)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(label_extraccion)
-                        .addComponent(label_gel))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(date_gel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(date_extraccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(39, 39, 39)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtF_tipoExtraccion, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtF_tipoGel, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(29, 29, 29))))
+javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+jPanel2.setLayout(jPanel2Layout);
+jPanel2Layout.setHorizontalGroup(
+    jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jPanel2Layout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_ensayoInfo)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(label_Resultado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtF_Resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(label_NumExtraccion))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(label_fecha)
+                        .addGap(148, 148, 148)
+                        .addComponent(label_tipo)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ftxt_numExtraccion, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(btn_guardarEnsayo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_extraccion)
+                    .addComponent(label_gel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(date_extraccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(date_gel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtF_tipoExtraccion, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtF_tipoGel, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))))
     );
     jPanel2Layout.setVerticalGroup(
         jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -632,11 +636,15 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
                 .addComponent(label_extraccion)
                 .addComponent(txtF_tipoExtraccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(date_extraccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(12, 12, 12)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(label_gel)
-                .addComponent(date_gel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(txtF_tipoGel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(label_gel)
+                        .addComponent(txtF_tipoGel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(date_gel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap(14, Short.MAX_VALUE))
     );
 
@@ -950,22 +958,100 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     private void cmb_tipoMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_tipoMuestraActionPerformed
 
     }//GEN-LAST:event_cmb_tipoMuestraActionPerformed
-
+datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserCombo();
+    private boolean validarFechaExtrac()
+    {
+        boolean res = false;
+        int todayYear = Integer.valueOf(today.getText().substring(6)) + 2000;
+        int todayMonth = Integer.valueOf(today.getText().substring(3, 5));
+        int todayDay = Integer.valueOf(today.getText().substring(0, 2));
+        
+        int selectYear = Integer.valueOf(date_extraccion.getText().substring(6));
+        int selectMonth = Integer.valueOf(date_extraccion.getText().substring(3, 5));
+        int selectDay = Integer.valueOf(date_extraccion.getText().substring(0, 2));
+        System.out.println("selected " + selectDay  + " " + selectMonth + " " + selectYear);
+        System.out.println("Today " + todayDay + " " + todayMonth + " " + todayYear);
+        
+        if(selectYear <= todayYear)
+        {
+            if(selectYear == todayYear)
+            {
+                if(selectMonth <= todayMonth)
+                {
+                    if(selectMonth == todayMonth)
+                    {
+                        if(selectDay <= todayDay)
+                        {
+                            res = true;
+                        }
+                    }
+                    else{
+                        res = true;
+                    }
+                }
+            }
+            else{
+                res = true;
+            }
+        }
+        return res;
+    }
+    
+    private boolean validarFechaGel()
+    {
+        boolean res = false;
+        int todayYear = Integer.valueOf(today.getText().substring(6)) + 2000;
+        int todayMonth = Integer.valueOf(today.getText().substring(3, 5));
+        int todayDay = Integer.valueOf(today.getText().substring(0, 2));
+        
+        int selectYear = Integer.valueOf(date_gel.getText().substring(6));
+        int selectMonth = Integer.valueOf(date_gel.getText().substring(3, 5));
+        int selectDay = Integer.valueOf(date_gel.getText().substring(0, 2));
+        System.out.println("selected " + selectDay  + " " + selectMonth + " " + selectYear);
+        System.out.println("Today " + todayDay + " " + todayMonth + " " + todayYear);
+        
+        if(selectYear <= todayYear)
+        {
+            if(selectYear == todayYear)
+            {
+                if(selectMonth <= todayMonth)
+                {
+                    if(selectMonth == todayMonth)
+                    {
+                        if(selectDay <= todayDay)
+                        {
+                            res = true;
+                        }
+                    }
+                    else{
+                        res = true;
+                    }
+                }
+            }
+            else{
+                res = true;
+            }
+        }
+        return res;
+    }
     private void btn_guardarEnsayoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarEnsayoActionPerformed
 
         String id_ensayo = getId_Ensayo();
         if (!camposEmpty()) {
-            Ensayo ensayo = getEnsayo();
-            ensayo.setIdEnsayo(id_ensayo);
-            limit_ftxt = 0;
-            if (ensayoCtrl.buscarEnsayo(cmb_Pacientes.getSelectedItem().toString(),
-                    txtF_codMuestra.getText(), id_ensayo) != null) {
-                ensayoCtrl.updateEnsayo(ensayo);
-                JOptionPane.showMessageDialog(this, "Se ha actualizado el Ensayo : " + id_ensayo + "\ncorrectatmente");
-            } else {
-                ensayoCtrl.insertarEnsayo(ensayo);
-                JOptionPane.showMessageDialog(this, "Se ha guardado el Ensayo : " + id_ensayo + " \ncorrectamente");
-            }
+            if(validarFechaExtrac() && validarFechaGel()){
+                Ensayo ensayo = getEnsayo();
+                ensayo.setIdEnsayo(id_ensayo);
+                limit_ftxt = 0;
+                if (ensayoCtrl.buscarEnsayo(cmb_Pacientes.getSelectedItem().toString(),
+                        txtF_codMuestra.getText(), id_ensayo) != null) {
+                    ensayoCtrl.updateEnsayo(ensayo);
+                    JOptionPane.showMessageDialog(this, "Se ha actualizado el Ensayo : " + id_ensayo + "\ncorrectatmente");
+                } else {
+                    ensayoCtrl.insertarEnsayo(ensayo);
+                    JOptionPane.showMessageDialog(this, "Se ha guardado el Ensayo : " + id_ensayo + " \ncorrectamente");
+                }
+            }else
+                JOptionPane.showMessageDialog(this, "Por Favor, Ingrese una Fecha Valida", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Por Favor ingrese todos los campos", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
         }
@@ -1108,6 +1194,22 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
     private void txtF_idPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_idPacienteActionPerformed
 
     }//GEN-LAST:event_txtF_idPacienteActionPerformed
+int lim = 0;
+    private void txtF_volumenMuestraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_volumenMuestraKeyPressed
+         if (evt.getKeyCode() == 8 && lim != 0) //el cod 8 es delete
+        {
+            lim -= 1;
+        }
+    }//GEN-LAST:event_txtF_volumenMuestraKeyPressed
+
+    private void txtF_volumenMuestraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_volumenMuestraKeyTyped
+        lim = txtF_volumenMuestra.getText().length();
+        if (!Character.isDigit(evt.getKeyChar()) || !(lim < 3)) {
+            evt.consume();
+            return;
+        }
+        lim++;
+    }//GEN-LAST:event_txtF_volumenMuestraKeyTyped
 
     /**
      * @param args the command line arguments
@@ -1134,10 +1236,6 @@ ftxt_numExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RegistrarResultado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

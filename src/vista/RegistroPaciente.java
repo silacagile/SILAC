@@ -16,9 +16,12 @@ public class RegistroPaciente extends javax.swing.JFrame {
     /**
      * Creates new form RegistroPaciente
      */
+    datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserCombo();
+    static datechooser.beans.DateChooserCombo selectedDate;
     public RegistroPaciente() {
         initComponents();
         setLocationRelativeTo(null);
+        generarID();
         updateTable();
     }
 
@@ -305,6 +308,16 @@ public class RegistroPaciente extends javax.swing.JFrame {
                 true)));
     dateChooserCombo1.setFormat(2);
     dateChooserCombo1.setNavigateFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
+    dateChooserCombo1.addSelectionChangedListener(new datechooser.events.SelectionChangedListener() {
+        public void onSelectionChange(datechooser.events.SelectionChangedEvent evt) {
+            dateChooserCombo1OnSelectionChange(evt);
+        }
+    });
+    dateChooserCombo1.addCommitListener(new datechooser.events.CommitListener() {
+        public void onCommit(datechooser.events.CommitEvent evt) {
+            dateChooserCombo1OnCommit(evt);
+        }
+    });
 
     btn_guardarPaciente.setText("Registrar Paciente");
     btn_guardarPaciente.addActionListener(new java.awt.event.ActionListener() {
@@ -386,31 +399,36 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
     private void btn_guardarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarPacienteActionPerformed
         EmailValidator email = new EmailValidator();
         if (!camposEmpty()) {
-            if(!email.validate(txt_email.getText().trim())){
-                JOptionPane.showMessageDialog(this, "Por Favor, Ingrese un Email Valido", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
-                txt_email.setBackground(Color.red);
-            }
-            else{
-                countDigitCI = 0;
-                countDigit = 0;
-                Paciente paciente = getPaciente();
-                if (pacienteCtrl.buscarPaciente(txt_idpaciente.getText().trim()) != null) {
-                    int opcion = JOptionPane.showConfirmDialog(this, "El Id_Paciente: " 
-                            + txt_idpaciente.getText() + " Ya existe.\nDesea Actualizar Sus Datos?",
-                            "Seleccione una opción", JOptionPane.YES_NO_OPTION);
-                    if(opcion == 0){
-                        pacienteCtrl.updatePaciente(paciente);
+            if(validarFecha())
+                if(!email.validate(txt_email.getText().trim())){
+                    JOptionPane.showMessageDialog(this, "Por Favor, Ingrese un Email Valido", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
+                    txt_email.setBackground(Color.red);
+                }
+                else{
+                    countDigitCI = 0;
+                    countDigit = 0;
+                    Paciente paciente = getPaciente();
+                    if (pacienteCtrl.buscarPaciente(txt_idpaciente.getText().trim()) != null) {
+                        int opcion = JOptionPane.showConfirmDialog(this, "El Id_Paciente: " 
+                                + txt_idpaciente.getText() + " Ya existe.\nDesea Actualizar Sus Datos?",
+                                "Seleccione una opción", JOptionPane.YES_NO_OPTION);
+                        if(opcion == 0){
+                            pacienteCtrl.updatePaciente(paciente);
+                            cleanFormulario();
+                            updateTable();
+                            generarID();
+                        }
+
+                    } else {
+                        pacienteCtrl.insertarPaciente(paciente);
+                        JOptionPane.showMessageDialog(this, "Se ha guardado el Paciente : " + txt_idpaciente.getText() + " \ncorrectamente");
                         cleanFormulario();
                         updateTable();
+                        generarID();
                     }
-
-                } else {
-                    pacienteCtrl.insertarPaciente(paciente);
-                    JOptionPane.showMessageDialog(this, "Se ha guardado el Paciente : " + txt_idpaciente.getText() + " \ncorrectamente");
-                    cleanFormulario();
-                    updateTable();
                 }
-            }
+            else
+                JOptionPane.showMessageDialog(this, "Por Favor, Ingrese una Fecha Valida", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
         }else {
             JOptionPane.showMessageDialog(this, "Por Favor, ingrese los campos Requeridos con *", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
         }
@@ -502,6 +520,89 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
         txt_email.setBackground(Color.white);
     }//GEN-LAST:event_txt_emailKeyPressed
 
+    public static boolean validarFech(String today, String selected)
+    {
+        boolean res = false;
+        int todayYear = Integer.valueOf(today.substring(6));
+        int todayMonth = Integer.valueOf(today.substring(3, 5));
+        int todayDay = Integer.valueOf(today.substring(0, 2));
+        
+        int selectYear = Integer.valueOf(selected.substring(6));
+        int selectMonth = Integer.valueOf(selected.substring(3, 5));
+        int selectDay = Integer.valueOf(selected.substring(0, 2));
+        System.out.println("selected test " + selectDay  + " " + selectMonth + " " + selectYear);
+        System.out.println("Today " + todayDay + " " + todayMonth + " " + todayYear);
+        
+        if(selectYear <= todayYear)
+        {
+            if(selectYear == todayYear)
+            {
+                if(selectMonth <= todayMonth)
+                {
+                    if(selectMonth == todayMonth)
+                    {
+                        if(selectDay <= todayDay)
+                        {
+                            res = true;
+                        }
+                    }
+                    else{
+                        res = true;
+                    }
+                }
+            }
+            else{
+                res = true;
+            }
+        }
+        return res;
+    }
+    
+    private boolean validarFecha()
+    {
+        boolean res = false;
+        
+        int todayYear = Integer.valueOf(today.getText().substring(6)) + 2000;
+        int todayMonth = Integer.valueOf(today.getText().substring(3, 5));
+        int todayDay = Integer.valueOf(today.getText().substring(0, 2));
+        
+        int selectYear = Integer.valueOf(dateChooserCombo1.getText().substring(6));
+        int selectMonth = Integer.valueOf(dateChooserCombo1.getText().substring(3, 5));
+        int selectDay = Integer.valueOf(dateChooserCombo1.getText().substring(0, 2));
+        System.out.println("selected " + selectDay  + " " + selectMonth + " " + selectYear);
+        System.out.println("Today " + todayDay + " " + todayMonth + " " + todayYear);
+        
+        if(selectYear <= todayYear)
+        {
+            if(selectYear == todayYear)
+            {
+                if(selectMonth <= todayMonth)
+                {
+                    if(selectMonth == todayMonth)
+                    {
+                        if(selectDay <= todayDay)
+                        {
+                            res = true;
+                        }
+                    }
+                    else{
+                        res = true;
+                    }
+                }
+            }
+            else{
+                res = true;
+            }
+        }
+        return res;
+    }
+    private void dateChooserCombo1OnCommit(datechooser.events.CommitEvent evt) {//GEN-FIRST:event_dateChooserCombo1OnCommit
+    }//GEN-LAST:event_dateChooserCombo1OnCommit
+
+    private void dateChooserCombo1OnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_dateChooserCombo1OnSelectionChange
+       
+    }//GEN-LAST:event_dateChooserCombo1OnSelectionChange
+
     /**
      * @param args the command line arguments
      */
@@ -527,7 +628,6 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RegistroPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -636,5 +736,11 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
         {
             model.removeRow(model.getRowCount() - 1);
         }
+    }
+
+    private void generarID() {
+        int idNumber = pacienteCtrl.getAllPacientes().size();
+        txt_idpaciente.setText("P" + ++idNumber);
+        txt_idpaciente.setEditable(false);
     }
 }
