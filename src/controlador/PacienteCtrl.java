@@ -63,6 +63,10 @@ public class PacienteCtrl {
          return pacienteDAO.updatePaciente(paciente);
      }
      
+     public boolean deletePaciente(String id){
+         return pacienteDAO.deletePaciente(id);
+     }
+     
      public List<Paciente> executePacienteQuery(String column, String criterio){
          return pacienteDAO.executePacienteQuery(column, criterio);
      }

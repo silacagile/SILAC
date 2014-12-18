@@ -37,7 +37,7 @@ public class RegistrarResultado extends JFrame implements Printable {
     private final MuestraCtrl muestraCtrl;
     private final PacienteCtrl pacienteCtrl;
     private final EnsayoCtrl ensayoCtrl;
-     private List<Paciente> listaPacientes;
+    private List<Paciente> listaPacientes;
     private DefaultComboBoxModel pacientes;
 
     /**
