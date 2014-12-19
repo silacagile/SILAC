@@ -53,6 +53,11 @@ public class TratamientoPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(txt_Tratamiento);
 
         btn_Guardar.setText("Guardar");
+        btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_GuardarActionPerformed(evt);
+            }
+        });
 
         lbl_MuestraVal.setText("jLabel1");
 
@@ -102,6 +107,10 @@ public class TratamientoPanel extends javax.swing.JPanel {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
+        System.out.println("abc");
+    }//GEN-LAST:event_btn_GuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

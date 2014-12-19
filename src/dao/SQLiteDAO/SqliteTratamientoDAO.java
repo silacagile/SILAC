@@ -6,11 +6,17 @@
 package dao.SQLiteDAO;
 
 import dao.TratamientoDAO;
+import modelo.Tratamiento;
 
 /**
  *
  * @author Jorge Aguirre
  */
 public class SqliteTratamientoDAO implements TratamientoDAO {
+
+    @Override
+    public boolean insertTratamiento(Tratamiento tratamiento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

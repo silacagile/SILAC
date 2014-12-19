@@ -5,10 +5,18 @@
  */
 package dao;
 
+import modelo.Tratamiento;
+
 /**
  *
  * @author Jorge Aguirre
  */
 public interface TratamientoDAO {
-    
+    /**
+     * Saves a tratamiento in database.
+     * 
+     * @param tratamiento the tratamiento
+     * @return 
+     */
+    public boolean insertTratamiento(Tratamiento tratamiento);
 }
