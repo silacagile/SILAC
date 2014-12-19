@@ -16,6 +16,8 @@ import dao.SQLiteDAO.SqliteEnsayoDAO;
 import dao.SQLiteDAO.SqliteMuestraDAO;
 import dao.SQLiteDAO.SqlitePacienteDAO;
 import dao.SQLiteDAO.SqlitePersonaDAO;
+import dao.SQLiteDAO.SqliteTratamientoDAO;
+import dao.TratamientoDAO;
 import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -75,5 +77,10 @@ public class SqliteDAOFactory extends DAOFactory {
     @Override
     public PersonaDAO getPersonaDAO() {
         return new SqlitePersonaDAO();
+    }
+    
+    @Override
+    public TratamientoDAO getTratamientoDAO() {
+        return new SqliteTratamientoDAO();
     }
 }

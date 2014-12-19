@@ -16,6 +16,8 @@ import dao.PostgresDAO.PostgresEnsayoDAO;
 import dao.PostgresDAO.PostgresMuestraDAO;
 import dao.PostgresDAO.PostgresPacienteDAO;
 import dao.PostgresDAO.PostgresPersonaDAO;
+import dao.PostgresDAO.PostgresTratamientoDAO;
+import dao.TratamientoDAO;
 import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -128,5 +130,10 @@ public class PostgresDAOFactory extends DAOFactory {
     @Override
     public PersonaDAO getPersonaDAO() {
         return new PostgresPersonaDAO();
+    }
+    
+    @Override
+    public TratamientoDAO getTratamientoDAO() {
+        return new PostgresTratamientoDAO();
     }
 }

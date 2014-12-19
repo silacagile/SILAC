@@ -5,18 +5,23 @@
  */
 package vista;
 
+import modelo.Muestra;
+
 /**
  *
  * @author Marcelo
  */
 public class TratamientoPanel extends javax.swing.JPanel {
 
+    private final Muestra muestra;
+
     /**
      * Creates new form TratamientoPanel
+     * @param muestra
      */
-    public TratamientoPanel() {
+    public TratamientoPanel(Muestra muestra) {
+        this.muestra = muestra;
         initComponents();
-        System.out.println("Test");
         this.setVisible(true);
     }
 

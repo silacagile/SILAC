@@ -7,11 +7,15 @@ package vista;
 
 import controlador.MuestraCtrl;
 import controlador.PacienteCtrl;
+import controlador.TratamientoCtrl;
+import java.awt.Label;
+import java.awt.Panel;
 import java.awt.event.ItemEvent;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
+import modelo.Muestra;
 import modelo.Paciente;
 
 /**
@@ -20,11 +24,16 @@ import modelo.Paciente;
  */
 public class HistorialPaciente extends javax.swing.JFrame {
 
-    private PacienteCtrl pacienteCtrl;
+    /** Controllers */
+    private final PacienteCtrl pacienteCtrl;
+    private final MuestraCtrl muestraCtrl;
+    private final TratamientoCtrl tratamientoCtrl;
+    
+    /** General Properties */
     private DefaultComboBoxModel pacientes;
     private List<Paciente> listaPacientes;
     private Paciente paciente;
-    private MuestraCtrl muestraCtrl;
+
 
     /**
      * Creates new form HistorialPaciente
@@ -32,11 +41,13 @@ public class HistorialPaciente extends javax.swing.JFrame {
     public HistorialPaciente() {
         pacienteCtrl = new PacienteCtrl();
         muestraCtrl = new MuestraCtrl();
+        tratamientoCtrl = new TratamientoCtrl();
 
         initComponents();
         ipanel_Tratamientos.setLayout(new BoxLayout(ipanel_Tratamientos, BoxLayout.Y_AXIS));
         setComboBoxPacientes();
-    }
+        setTratamientos();
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -245,6 +256,10 @@ public class HistorialPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmb_PacientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmb_PacientesItemStateChanged
+        
+        // Clear all components.
+        ipanel_Tratamientos.removeAll();
+        
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             String id = (String) cmb_Pacientes.getSelectedItem();
             paciente = pacienteCtrl.buscarPaciente(id);
@@ -329,6 +344,11 @@ public class HistorialPaciente extends javax.swing.JFrame {
 
         cmb_Pacientes.setModel(pacientes);
         cmb_Pacientes.setMaximumRowCount(4);
+        
+        // sets the initial paciente as default
+        if (listaPacientes.size() > 0) {
+            paciente = pacienteCtrl.buscarPaciente(listaPacientes.get(0).getIdPaciente());
+        }
     }
 
     private void setCamposPaciente(Paciente paciente) {
@@ -344,18 +364,18 @@ public class HistorialPaciente extends javax.swing.JFrame {
     }
 
     private void setTratamientos() {
-        for (int i = 0; i < 3 ; i++) {
-            TratamientoPanel tp = new TratamientoPanel();
-            tp.setVisible(true);
-            JLabel label = new JLabel();
-            label.setText("safd");
-            ipanel_Tratamientos.add(tp);
+        if (paciente != null) {
+            List<Muestra> muestras = muestraCtrl.getAllMuestras(paciente.getIdPaciente());
+
+            if (!muestras.isEmpty()) {
+                for (Muestra muestra : muestras) {
+                    TratamientoPanel tp = new TratamientoPanel(muestra);
+                    tp.setVisible(true);
+                    ipanel_Tratamientos.add(tp);
+                }
+            } else {
+                ipanel_Tratamientos.add(new Label("No hay muestras ni tratamientos para este paciente."));
+            }
         }
-        /*muestraCtrl = new MuestraCtrl();
-        List<Muestra> muestras = muestraCtrl.getAllMuestras(paciente.getIdPaciente());
-        if (muestras.size() != 0) {
-            lbl_Muestra.setText(muestras.get(0).getIdMuestra());
-            lbl_Resultado.setText(muestras.get(0).getResultadoFinal());
-        }*/
     }
 }
