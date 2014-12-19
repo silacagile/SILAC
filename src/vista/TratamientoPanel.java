@@ -23,6 +23,8 @@ public class TratamientoPanel extends javax.swing.JPanel {
         this.muestra = muestra;
         initComponents();
         this.setVisible(true);
+        
+        setCamposMuestra();
     }
 
     /**
@@ -34,21 +36,27 @@ public class TratamientoPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_MuestraId = new javax.swing.JLabel();
+        lbl_ResFinal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        txt_Tratamiento = new javax.swing.JTextArea();
+        btn_Guardar = new javax.swing.JButton();
+        lbl_MuestraVal = new javax.swing.JLabel();
+        lbl_ResFinalVal = new javax.swing.JLabel();
 
-        jLabel1.setText("Muestra :");
+        lbl_MuestraId.setText("Muestra :");
 
-        jLabel2.setText("Resultado Final :");
+        lbl_ResFinal.setText("Resultado Final :");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txt_Tratamiento.setColumns(20);
+        txt_Tratamiento.setRows(5);
+        jScrollPane1.setViewportView(txt_Tratamiento);
 
-        jButton1.setText("Guardar");
+        btn_Guardar.setText("Guardar");
+
+        lbl_MuestraVal.setText("jLabel1");
+
+        lbl_ResFinalVal.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -56,10 +64,16 @@ public class TratamientoPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl_MuestraId)
+                        .addGap(60, 60, 60)
+                        .addComponent(lbl_MuestraVal))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl_ResFinal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_ResFinalVal)))
+                .addContainerGap(300, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -67,30 +81,54 @@ public class TratamientoPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(btn_Guardar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_MuestraId)
+                    .addComponent(lbl_MuestraVal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_ResFinal)
+                    .addComponent(lbl_ResFinalVal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btn_Guardar)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btn_Guardar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lbl_MuestraId;
+    private javax.swing.JLabel lbl_MuestraVal;
+    private javax.swing.JLabel lbl_ResFinal;
+    private javax.swing.JLabel lbl_ResFinalVal;
+    private javax.swing.JTextArea txt_Tratamiento;
     // End of variables declaration//GEN-END:variables
+
+    private void setCamposMuestra() {
+        lbl_MuestraVal.setText(muestra.getIdMuestra());
+        String resFinal = muestra.getResultadoFinal();
+        
+        if (resFinal != null && !resFinal.equalsIgnoreCase("")) {
+            setEditarTratamientos(true);
+            lbl_ResFinalVal.setText(resFinal);
+        } else {
+            setEditarTratamientos(false);
+            lbl_ResFinalVal.setText("NA");
+        }
+    }
+
+    private void setEditarTratamientos(boolean value) {
+        txt_Tratamiento.setEditable(value);
+        btn_Guardar.setEnabled(value);
+    }
 }
