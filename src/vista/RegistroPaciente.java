@@ -1,6 +1,7 @@
 package vista;
 
 import Utilitarios.EmailValidator;
+import Utilitarios.Utils;
 import controlador.PacienteCtrl;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class RegistroPaciente extends javax.swing.JFrame {
      */
     datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserCombo();
     static datechooser.beans.DateChooserCombo selectedDate;
+    public static int idNumber;
+
     public RegistroPaciente() {
         initComponents();
         setLocationRelativeTo(null);
@@ -130,6 +133,11 @@ public class RegistroPaciente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        txt_idpaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_idpacienteActionPerformed(evt);
+            }
+        });
         txt_idpaciente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_idpacienteKeyPressed(evt);
@@ -267,38 +275,38 @@ public class RegistroPaciente extends javax.swing.JFrame {
 
         dateChooserCombo1.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
             new datechooser.view.appearance.ViewAppearance("custom",
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(0, 0, 255),
                     true,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(0, 0, 255),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(128, 128, 128),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(255, 0, 0),
                     false,
                     false,
@@ -306,7 +314,6 @@ public class RegistroPaciente extends javax.swing.JFrame {
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
-    dateChooserCombo1.setFormat(2);
     dateChooserCombo1.setNavigateFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
     dateChooserCombo1.addSelectionChangedListener(new datechooser.events.SelectionChangedListener() {
         public void onSelectionChange(datechooser.events.SelectionChangedEvent evt) {
@@ -319,7 +326,7 @@ public class RegistroPaciente extends javax.swing.JFrame {
         }
     });
 
-    btn_guardarPaciente.setText("Registrar Paciente");
+    btn_guardarPaciente.setText("Guardar Paciente");
     btn_guardarPaciente.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             btn_guardarPacienteActionPerformed(evt);
@@ -399,20 +406,19 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
     private void btn_guardarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarPacienteActionPerformed
         EmailValidator email = new EmailValidator();
         if (!camposEmpty()) {
-            if(validarFecha())
-                if(!email.validate(txt_email.getText().trim())){
+            if (validarFecha()) {
+                if (!email.validate(txt_email.getText().trim())) {
                     JOptionPane.showMessageDialog(this, "Por Favor, Ingrese un Email Valido", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
                     txt_email.setBackground(Color.red);
-                }
-                else{
+                } else {
                     countDigitCI = 0;
                     countDigit = 0;
                     Paciente paciente = getPaciente();
                     if (pacienteCtrl.buscarPaciente(txt_idpaciente.getText().trim()) != null) {
-                        int opcion = JOptionPane.showConfirmDialog(this, "El Id_Paciente: " 
+                        int opcion = JOptionPane.showConfirmDialog(this, "El Id_Paciente: "
                                 + txt_idpaciente.getText() + " Ya existe.\nDesea Actualizar Sus Datos?",
                                 "Seleccione una opción", JOptionPane.YES_NO_OPTION);
-                        if(opcion == 0){
+                        if (opcion == 0) {
                             pacienteCtrl.updatePaciente(paciente);
                             cleanFormulario();
                             updateTable();
@@ -427,9 +433,10 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
                         generarID();
                     }
                 }
-            else
+            } else {
                 JOptionPane.showMessageDialog(this, "Por Favor, Ingrese una Fecha Valida", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
-        }else {
+            }
+        } else {
             JOptionPane.showMessageDialog(this, "Por Favor, ingrese los campos Requeridos con *", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_guardarPacienteActionPerformed
@@ -447,29 +454,27 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
     }//GEN-LAST:event_txt_carnetKeyPressed
 
     private void txt_carnetKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_carnetKeyTyped
-        char c=evt.getKeyChar();
-        if(Character.isDigit(c) && countDigitCI < 8) {
-           countDigitCI++;
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c) && countDigitCI < 8) {
+            countDigitCI++;
+        } else {
+            getToolkit().beep();
+            evt.consume();
         }
-        else{
-             getToolkit().beep(); 
-             evt.consume();
-        }  
     }//GEN-LAST:event_txt_carnetKeyTyped
     int countDigit = 0; // controla que la cantidad de digitos sea 8
     private void txt_telfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telfKeyTyped
-        char c=evt.getKeyChar();
-        if(Character.isDigit(c) && countDigit < 8) {
-           countDigit++;
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c) && countDigit < 8) {
+            countDigit++;
+        } else {
+            getToolkit().beep();
+            evt.consume();
         }
-        else{
-             getToolkit().beep(); 
-             evt.consume();
-        }  
     }//GEN-LAST:event_txt_telfKeyTyped
 
     private void txt_telfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telfKeyPressed
-         if (evt.getKeyCode() == 8 && countDigit != 0) //el cod 8 es delete
+        if (evt.getKeyCode() == 8 && countDigit != 0) //el cod 8 es delete
         {
             countDigit -= 1;
         }
@@ -477,27 +482,27 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
     }//GEN-LAST:event_txt_telfKeyPressed
 
     private void txt_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombreKeyTyped
-        char c=evt.getKeyChar();
-        if(Character.isDigit(c)) {
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c)) {
             getToolkit().beep();
             evt.consume();
-          }
+        }
     }//GEN-LAST:event_txt_nombreKeyTyped
 
     private void txt_apPatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_apPatKeyTyped
-        char c=evt.getKeyChar();
-        if(Character.isDigit(c)) {
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c)) {
             getToolkit().beep();
             evt.consume();
-          }
+        }
     }//GEN-LAST:event_txt_apPatKeyTyped
 
     private void txt_apMatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_apMatKeyTyped
-        char c=evt.getKeyChar();
-        if(Character.isDigit(c)) {
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c)) {
             getToolkit().beep();
             evt.consume();
-          }
+        }
     }//GEN-LAST:event_txt_apMatKeyTyped
 
     private void txt_idpacienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_idpacienteKeyPressed
@@ -520,77 +525,81 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
         txt_email.setBackground(Color.white);
     }//GEN-LAST:event_txt_emailKeyPressed
 
-    public static boolean validarFech(String today, String selected)
-    {
+    public static boolean validarFech(String today, String selected) {
         boolean res = false;
         int todayYear = Integer.valueOf(today.substring(6));
         int todayMonth = Integer.valueOf(today.substring(3, 5));
         int todayDay = Integer.valueOf(today.substring(0, 2));
-        
+
         int selectYear = Integer.valueOf(selected.substring(6));
         int selectMonth = Integer.valueOf(selected.substring(3, 5));
         int selectDay = Integer.valueOf(selected.substring(0, 2));
-        System.out.println("selected test " + selectDay  + " " + selectMonth + " " + selectYear);
+        System.out.println("selected test " + selectDay + " " + selectMonth + " " + selectYear);
         System.out.println("Today " + todayDay + " " + todayMonth + " " + todayYear);
-        
-        if(selectYear <= todayYear)
-        {
-            if(selectYear == todayYear)
-            {
-                if(selectMonth <= todayMonth)
-                {
-                    if(selectMonth == todayMonth)
-                    {
-                        if(selectDay <= todayDay)
-                        {
+
+        if (selectYear <= todayYear) {
+            if (selectYear == todayYear) {
+                if (selectMonth <= todayMonth) {
+                    if (selectMonth == todayMonth) {
+                        if (selectDay <= todayDay) {
                             res = true;
                         }
-                    }
-                    else{
+                    } else {
                         res = true;
                     }
                 }
-            }
-            else{
+            } else {
                 res = true;
             }
         }
         return res;
     }
-    
-    private boolean validarFecha()
-    {
+
+    public void modificarPaciente(Paciente paciente) {
+        txt_idpaciente.setText(paciente.getIdPaciente());
+        txt_nombre.setText(paciente.getNombre());
+        txt_apPat.setText(paciente.getApPaterno());
+        txt_apMat.setText(paciente.getApMaterno());
+        txt_direccion.setText(paciente.getDireccion());
+        txt_carnet.setText(paciente.getCi());
+        txt_email.setText(paciente.getCorreo());
+        txt_telf.setText(paciente.getTelefono());
+        dateChooserCombo1.setSelectedDate(Utils.formatoFecha(paciente.getFnac()));
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        cleanTable(model);
+
+        model.insertRow(0, new Object[]{paciente.getIdPaciente(),
+            paciente.getNombre(), paciente.getApPaterno(), paciente.getApMaterno(),
+            paciente.getTelefono(), paciente.getDireccion(), paciente.getCi(),
+            paciente.getCorreo(), paciente.getFnac(), paciente.getTipoSangre()});
+
+    }
+
+    private boolean validarFecha() {
         boolean res = false;
-        
+
         int todayYear = Integer.valueOf(today.getText().substring(6)) + 2000;
         int todayMonth = Integer.valueOf(today.getText().substring(3, 5));
         int todayDay = Integer.valueOf(today.getText().substring(0, 2));
-        
+
         int selectYear = Integer.valueOf(dateChooserCombo1.getText().substring(6));
         int selectMonth = Integer.valueOf(dateChooserCombo1.getText().substring(3, 5));
         int selectDay = Integer.valueOf(dateChooserCombo1.getText().substring(0, 2));
-        System.out.println("selected " + selectDay  + " " + selectMonth + " " + selectYear);
+        System.out.println("selected " + selectDay + " " + selectMonth + " " + selectYear);
         System.out.println("Today " + todayDay + " " + todayMonth + " " + todayYear);
-        
-        if(selectYear <= todayYear)
-        {
-            if(selectYear == todayYear)
-            {
-                if(selectMonth <= todayMonth)
-                {
-                    if(selectMonth == todayMonth)
-                    {
-                        if(selectDay <= todayDay)
-                        {
+
+        if (selectYear <= todayYear) {
+            if (selectYear == todayYear) {
+                if (selectMonth <= todayMonth) {
+                    if (selectMonth == todayMonth) {
+                        if (selectDay <= todayDay) {
                             res = true;
                         }
-                    }
-                    else{
+                    } else {
                         res = true;
                     }
                 }
-            }
-            else{
+            } else {
                 res = true;
             }
         }
@@ -600,8 +609,12 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
     }//GEN-LAST:event_dateChooserCombo1OnCommit
 
     private void dateChooserCombo1OnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_dateChooserCombo1OnSelectionChange
-       
+
     }//GEN-LAST:event_dateChooserCombo1OnSelectionChange
+
+    private void txt_idpacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idpacienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_idpacienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -721,25 +734,25 @@ PacienteCtrl pacienteCtrl = new PacienteCtrl();
 
     private void updateTable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        ArrayList<Paciente> p = (ArrayList)pacienteCtrl.getAllPacientes();
+        ArrayList<Paciente> p = (ArrayList) pacienteCtrl.getAllPacientes();
         cleanTable(model);
         for (Paciente p1 : p) {
             model.insertRow(0, new Object[]{p1.getIdPaciente(),
-            p1.getNombre(), p1.getApPaterno(), p1.getApMaterno(),
-            p1.getTelefono(), p1.getDireccion(), p1.getCi(), 
-            p1.getCorreo(), p1.getFnac(), p1.getTipoSangre()});
+                p1.getNombre(), p1.getApPaterno(), p1.getApMaterno(),
+                p1.getTelefono(), p1.getDireccion(), p1.getCi(),
+                p1.getCorreo(), p1.getFnac(), p1.getTipoSangre()});
         }
     }
 
     private void cleanTable(DefaultTableModel model) {
-        while(model.getRowCount() != 0)
-        {
+        while (model.getRowCount() != 0) {
             model.removeRow(model.getRowCount() - 1);
         }
     }
 
     private void generarID() {
-        int idNumber = pacienteCtrl.getAllPacientes().size();
+       // int idNumber = pacienteCtrl.getAllPacientes().size();
+        
         txt_idpaciente.setText("P" + ++idNumber);
         txt_idpaciente.setEditable(false);
     }

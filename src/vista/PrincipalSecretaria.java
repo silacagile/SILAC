@@ -11,7 +11,7 @@ import modelo.*;
  *
  * @author Jorge Aguirre
  */
-public class Principal extends javax.swing.JFrame {
+public class PrincipalSecretaria extends javax.swing.JFrame {
 
     private final Usuario usuario;
 
@@ -19,7 +19,7 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      * @param usuario
      */
-    public Principal(Usuario usuario) {
+    public PrincipalSecretaria(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(null);
         this.usuario = usuario;
