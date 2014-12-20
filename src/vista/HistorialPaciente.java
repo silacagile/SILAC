@@ -7,8 +7,12 @@ package vista;
 
 import controlador.MuestraCtrl;
 import controlador.PacienteCtrl;
-import java.util.ArrayList;
+import controlador.TratamientoCtrl;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.event.ItemEvent;
 import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import modelo.Muestra;
@@ -20,11 +24,16 @@ import modelo.Paciente;
  */
 public class HistorialPaciente extends javax.swing.JFrame {
 
-    private PacienteCtrl pacienteCtrl;
+    /** Controllers */
+    private final PacienteCtrl pacienteCtrl;
+    private final MuestraCtrl muestraCtrl;
+    private final TratamientoCtrl tratamientoCtrl;
+    
+    /** General Properties */
     private DefaultComboBoxModel pacientes;
     private List<Paciente> listaPacientes;
     private Paciente paciente;
-    private MuestraCtrl muestraCtrl;
+
 
     /**
      * Creates new form HistorialPaciente
@@ -32,10 +41,14 @@ public class HistorialPaciente extends javax.swing.JFrame {
     public HistorialPaciente() {
         pacienteCtrl = new PacienteCtrl();
         muestraCtrl = new MuestraCtrl();
+        tratamientoCtrl = new TratamientoCtrl();
 
         initComponents();
+        ipanel_Tratamientos.setLayout(new BoxLayout(ipanel_Tratamientos, BoxLayout.Y_AXIS));
         setComboBoxPacientes();
-    }
+        setTratamientos();
+        setCamposPaciente(paciente);
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,17 +59,17 @@ public class HistorialPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        panel_Paciente = new javax.swing.JPanel();
+        lbl_IdPaciente = new javax.swing.JLabel();
+        lbl_Nombre = new javax.swing.JLabel();
+        lbl_Dir = new javax.swing.JLabel();
+        lbl_Telf = new javax.swing.JLabel();
+        lbl_ApPat = new javax.swing.JLabel();
+        lbl_ApMat = new javax.swing.JLabel();
+        lbl_CI = new javax.swing.JLabel();
+        lbl_Correo = new javax.swing.JLabel();
+        lbl_FecNac = new javax.swing.JLabel();
+        lbl_TipoSangre = new javax.swing.JLabel();
         lbl_NombreV = new javax.swing.JLabel();
         lbl_ApPatV = new javax.swing.JLabel();
         lbl_ApMatV = new javax.swing.JLabel();
@@ -67,58 +80,35 @@ public class HistorialPaciente extends javax.swing.JFrame {
         lbl_DirV = new javax.swing.JLabel();
         lbl_CorreoV = new javax.swing.JLabel();
         cmb_Pacientes = new javax.swing.JComboBox();
-        panel_Tratamientos = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtA_Tratamiento = new javax.swing.JTextArea();
-        btn_Guardar = new javax.swing.JButton();
-        lbl_Resultado = new javax.swing.JLabel();
-        lbl_Muestra = new javax.swing.JLabel();
+        panel_Tratamientos = new javax.swing.JScrollPane();
+        ipanel_Tratamientos = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Paciente"));
+        panel_Paciente.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Paciente"));
 
-        jLabel1.setText("ID Paciente :");
+        lbl_IdPaciente.setText("ID Paciente :");
 
-        jLabel2.setText("Nombre :");
+        lbl_Nombre.setText("Nombre :");
 
-        jLabel3.setText("Direccion :");
+        lbl_Dir.setText("Direccion :");
 
-        jLabel4.setText("Telefono :");
+        lbl_Telf.setText("Telefono :");
 
-        jLabel5.setText("Ap. Paterno :");
+        lbl_ApPat.setText("Ap. Paterno :");
 
-        jLabel6.setText("Ap, Materno :");
+        lbl_ApMat.setText("Ap, Materno :");
 
-        jLabel7.setText("CI :");
+        lbl_CI.setText("CI :");
 
-        jLabel8.setText("Correo :");
+        lbl_Correo.setText("Correo :");
 
-        jLabel9.setText("Fecha Nacimiento :");
+        lbl_FecNac.setText("Fecha Nacimiento :");
 
-        jLabel10.setText("Tipo Sangre :");
-
-        lbl_NombreV.setText("jLabel12");
-
-        lbl_ApPatV.setText("jLabel13");
-
-        lbl_ApMatV.setText("jLabel14");
-
-        lbl_FNacV.setText("jLabel15");
-
-        lbl_TipoSangreV.setText("jLabel16");
-
-        lbl_CIV.setText("jLabel17");
-
-        lbl_TelfV.setText("jLabel18");
-
-        lbl_DirV.setText("jLabel19");
-
-        lbl_CorreoV.setText("jLabel20");
+        lbl_TipoSangre.setText("Tipo Sangre :");
 
         cmb_Pacientes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmb_Pacientes.setSelectedItem("");
         cmb_Pacientes.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmb_PacientesItemStateChanged(evt);
@@ -130,194 +120,158 @@ public class HistorialPaciente extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_TipoSangreV)
-                                    .addComponent(lbl_FNacV))))
-                        .addGap(132, 132, 132)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(30, 30, 30)
-                                .addComponent(lbl_CorreoV))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addGap(53, 53, 53)
-                                    .addComponent(lbl_CIV))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
+        javax.swing.GroupLayout panel_PacienteLayout = new javax.swing.GroupLayout(panel_Paciente);
+        panel_Paciente.setLayout(panel_PacienteLayout);
+        panel_PacienteLayout.setHorizontalGroup(
+            panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_PacienteLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lbl_ApPat)
+                        .addComponent(lbl_ApMat))
+                    .addGroup(panel_PacienteLayout.createSequentialGroup()
+                        .addComponent(lbl_TipoSangre)
+                        .addGap(33, 33, 33)
+                        .addComponent(lbl_TipoSangreV))
+                    .addGroup(panel_PacienteLayout.createSequentialGroup()
+                        .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_PacienteLayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_IdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_Nombre))
+                                .addGap(26, 26, 26))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_PacienteLayout.createSequentialGroup()
+                                .addComponent(lbl_FecNac)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_NombreV)
+                            .addComponent(lbl_ApPatV)
+                            .addComponent(lbl_ApMatV)
+                            .addComponent(cmb_Pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_FNacV))))
+                .addGap(55, 55, 55)
+                .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_PacienteLayout.createSequentialGroup()
+                        .addComponent(lbl_CI)
+                        .addGap(49, 49, 49)
+                        .addComponent(lbl_CIV)
+                        .addContainerGap(207, Short.MAX_VALUE))
+                    .addGroup(panel_PacienteLayout.createSequentialGroup()
+                        .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_PacienteLayout.createSequentialGroup()
+                                .addComponent(lbl_Telf)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbl_TelfV))
+                            .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(panel_PacienteLayout.createSequentialGroup()
+                                    .addComponent(lbl_Correo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lbl_CorreoV))
+                                .addGroup(panel_PacienteLayout.createSequentialGroup()
+                                    .addComponent(lbl_Dir)
                                     .addGap(18, 18, 18)
-                                    .addComponent(lbl_DirV))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lbl_TelfV))))
-                        .addContainerGap(163, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_NombreV)
-                                    .addComponent(lbl_ApPatV)
-                                    .addComponent(lbl_ApMatV)
-                                    .addComponent(cmb_Pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(lbl_DirV))))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panel_PacienteLayout.setVerticalGroup(
+            panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_PacienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_IdPaciente)
                     .addComponent(cmb_Pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel7)
-                    .addComponent(lbl_NombreV)
-                    .addComponent(lbl_CIV))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(lbl_ApPatV)
-                    .addComponent(lbl_TelfV))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel3)
-                    .addComponent(lbl_ApMatV)
-                    .addComponent(lbl_DirV))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8)
-                    .addComponent(lbl_FNacV)
-                    .addComponent(lbl_CorreoV))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
+                .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_PacienteLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_NombreV)
+                            .addComponent(lbl_CI)
+                            .addComponent(lbl_CIV)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_PacienteLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_Nombre)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_PacienteLayout.createSequentialGroup()
+                        .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_ApPat)
+                            .addComponent(lbl_ApPatV))
+                        .addGap(10, 10, 10)
+                        .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_ApMat)
+                            .addComponent(lbl_ApMatV)))
+                    .addGroup(panel_PacienteLayout.createSequentialGroup()
+                        .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_TelfV)
+                            .addComponent(lbl_Telf))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_Dir)
+                            .addComponent(lbl_DirV))
+                        .addGap(9, 9, 9)
+                        .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_FecNac)
+                            .addComponent(lbl_FNacV)
+                            .addComponent(lbl_Correo)
+                            .addComponent(lbl_CorreoV))))
+                .addGap(7, 7, 7)
+                .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_TipoSangre)
                     .addComponent(lbl_TipoSangreV))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panel_Tratamientos.setBorder(javax.swing.BorderFactory.createTitledBorder("Tratamientos"));
-        panel_Tratamientos.setAutoscrolls(true);
 
-        jLabel11.setText("Muestra:");
-
-        jLabel12.setText("Resultado Final: ");
-
-        txtA_Tratamiento.setColumns(20);
-        txtA_Tratamiento.setRows(5);
-        jScrollPane1.setViewportView(txtA_Tratamiento);
-
-        btn_Guardar.setText("jButton1");
-        btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_GuardarActionPerformed(evt);
-            }
-        });
-
-        lbl_Resultado.setText("jLabel14");
-
-        lbl_Muestra.setText("jLabel13");
-
-        javax.swing.GroupLayout panel_TratamientosLayout = new javax.swing.GroupLayout(panel_Tratamientos);
-        panel_Tratamientos.setLayout(panel_TratamientosLayout);
-        panel_TratamientosLayout.setHorizontalGroup(
-            panel_TratamientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_TratamientosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_TratamientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(panel_TratamientosLayout.createSequentialGroup()
-                        .addGroup(panel_TratamientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panel_TratamientosLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbl_Muestra))
-                            .addGroup(panel_TratamientosLayout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbl_Resultado)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_TratamientosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_Guardar)))
-                .addContainerGap())
+        javax.swing.GroupLayout ipanel_TratamientosLayout = new javax.swing.GroupLayout(ipanel_Tratamientos);
+        ipanel_Tratamientos.setLayout(ipanel_TratamientosLayout);
+        ipanel_TratamientosLayout.setHorizontalGroup(
+            ipanel_TratamientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 572, Short.MAX_VALUE)
         );
-        panel_TratamientosLayout.setVerticalGroup(
-            panel_TratamientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_TratamientosLayout.createSequentialGroup()
-                .addGroup(panel_TratamientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(lbl_Muestra))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_TratamientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(lbl_Resultado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Guardar)
-                .addContainerGap())
+        ipanel_TratamientosLayout.setVerticalGroup(
+            ipanel_TratamientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 254, Short.MAX_VALUE)
         );
+
+        panel_Tratamientos.setViewportView(ipanel_Tratamientos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel_Tratamientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panel_Paciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_Tratamientos)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_Paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_Tratamientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(panel_Tratamientos, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cmb_PacientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmb_PacientesItemStateChanged
+        
+        // Clear all components.
+        ipanel_Tratamientos.removeAll();
+        
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String id = (String) cmb_Pacientes.getSelectedItem();
+            paciente = pacienteCtrl.buscarPaciente(id);
+            setCamposPaciente(paciente);
+            setTratamientos();
+        }
+    }//GEN-LAST:event_cmb_PacientesItemStateChanged
+
     private void cmb_PacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_PacientesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_PacientesActionPerformed
-
-    private void cmb_PacientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmb_PacientesItemStateChanged
-        String id = (String) cmb_Pacientes.getSelectedItem();
-        paciente = pacienteCtrl.buscarPaciente(id);
-        setCamposPaciente(paciente);
-        setTratamientos();
-    }//GEN-LAST:event_cmb_PacientesItemStateChanged
-
-    private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
-
-
-    }//GEN-LAST:event_btn_GuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,75 +309,76 @@ public class HistorialPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Guardar;
     private javax.swing.JComboBox cmb_Pacientes;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel ipanel_Tratamientos;
+    private javax.swing.JLabel lbl_ApMat;
     private javax.swing.JLabel lbl_ApMatV;
+    private javax.swing.JLabel lbl_ApPat;
     private javax.swing.JLabel lbl_ApPatV;
+    private javax.swing.JLabel lbl_CI;
     private javax.swing.JLabel lbl_CIV;
+    private javax.swing.JLabel lbl_Correo;
     private javax.swing.JLabel lbl_CorreoV;
+    private javax.swing.JLabel lbl_Dir;
     private javax.swing.JLabel lbl_DirV;
     private javax.swing.JLabel lbl_FNacV;
-    private javax.swing.JLabel lbl_Muestra;
+    private javax.swing.JLabel lbl_FecNac;
+    private javax.swing.JLabel lbl_IdPaciente;
+    private javax.swing.JLabel lbl_Nombre;
     private javax.swing.JLabel lbl_NombreV;
-    private javax.swing.JLabel lbl_Resultado;
+    private javax.swing.JLabel lbl_Telf;
     private javax.swing.JLabel lbl_TelfV;
+    private javax.swing.JLabel lbl_TipoSangre;
     private javax.swing.JLabel lbl_TipoSangreV;
-    private javax.swing.JPanel panel_Tratamientos;
-    private javax.swing.JTextArea txtA_Tratamiento;
+    private javax.swing.JPanel panel_Paciente;
+    private javax.swing.JScrollPane panel_Tratamientos;
     // End of variables declaration//GEN-END:variables
 
     private void setComboBoxPacientes() {
 
         pacientes = new DefaultComboBoxModel();
         listaPacientes = pacienteCtrl.getAllPacientes();
-        System.out.println(listaPacientes.size());
+
         for (int i = 0; i < listaPacientes.size(); i++) {
             pacientes.addElement(listaPacientes.get(i).getIdPaciente());
         }
 
         cmb_Pacientes.setModel(pacientes);
         cmb_Pacientes.setMaximumRowCount(4);
+        
+        // sets the initial paciente as default
+        if (listaPacientes.size() > 0) {
+            paciente = pacienteCtrl.buscarPaciente(listaPacientes.get(0).getIdPaciente());
+        }
     }
 
     private void setCamposPaciente(Paciente paciente) {
-        lbl_NombreV.setText(paciente.getNombre());
-        lbl_ApPatV.setText(paciente.getApPaterno());
-        lbl_ApMatV.setText(paciente.getApMaterno());
-        lbl_FNacV.setText(paciente.getFnac());
-        lbl_CIV.setText(paciente.getCi());
-        lbl_TipoSangreV.setText(paciente.getTipoSangre());
-        lbl_CorreoV.setText(paciente.getCorreo());
-        lbl_TelfV.setText(paciente.getTelefono());
-        lbl_DirV.setText(paciente.getDireccion());
+        if (paciente != null) {
+            lbl_NombreV.setText(paciente.getNombre());
+            lbl_ApPatV.setText(paciente.getApPaterno());
+            lbl_ApMatV.setText(paciente.getApMaterno());
+            lbl_FNacV.setText(paciente.getFnac());
+            lbl_CIV.setText(paciente.getCi());
+            lbl_TipoSangreV.setText(paciente.getTipoSangre());
+            lbl_CorreoV.setText(paciente.getCorreo());
+            lbl_TelfV.setText(paciente.getTelefono());
+            lbl_DirV.setText(paciente.getDireccion());
+        }
     }
 
     private void setTratamientos() {
-        /* for (int i = 0; i < 3 ; i++){
-         TratamientoPanel tp = new TratamientoPanel();
-         tp.setVisible(true);
-         JLabel label = new JLabel();
-         label.setText("safd");
-         panel_Tratamientos.add(tp);
-         }*/
-        muestraCtrl = new MuestraCtrl();
-        List<Muestra> muestras = muestraCtrl.getAllMuestras(paciente.getIdPaciente());
-        if (muestras.size() != 0) {
-            lbl_Muestra.setText(muestras.get(0).getIdMuestra());
-            lbl_Resultado.setText(muestras.get(0).getResultadoFinal());
+        if (paciente != null) {
+            List<Muestra> muestras = muestraCtrl.getAllMuestras(paciente.getIdPaciente());
+
+            if (!muestras.isEmpty()) {
+                for (Muestra muestra : muestras) {
+                    TratamientoPanel tp = new TratamientoPanel(muestra);
+                    tp.setVisible(true);
+                    ipanel_Tratamientos.add(tp);
+                }
+            } else {
+                ipanel_Tratamientos.add(new Label("No hay muestras ni tratamientos para este paciente."));
+            }
         }
     }
 }
