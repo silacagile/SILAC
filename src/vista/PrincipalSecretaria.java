@@ -23,21 +23,8 @@ public class PrincipalSecretaria extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.usuario = usuario;
-        Rol rol = this.usuario.getPersona().getRol();
-        
-        if(rol == Rol.ADMINISTRADOR){
-        }
-        
-        if (rol == Rol.ANALISTA) {
-            btn_RegPaciente.setVisible(false);
-        }
-        
-//        if (rol == Rol.SECRETARIA) {
-//            //btn_Informe.setVisible(false);
-//            //btn_RegMuestra.setVisible(false);
-//            new RegistroPaciente().setVisible(true);
-//            this.dispose();
-//        }
+        new RegistroPaciente().setVisible(true);
+        this.dispose();
     }
 
     /**

@@ -5,7 +5,9 @@
  */
 package vista;
 
+import controlador.TratamientoCtrl;
 import modelo.Muestra;
+import modelo.Tratamiento;
 
 /**
  *
@@ -13,6 +15,7 @@ import modelo.Muestra;
  */
 public class TratamientoPanel extends javax.swing.JPanel {
 
+    private final TratamientoCtrl tratamientoCtrl;
     private final Muestra muestra;
 
     /**
@@ -21,6 +24,7 @@ public class TratamientoPanel extends javax.swing.JPanel {
      */
     public TratamientoPanel(Muestra muestra) {
         this.muestra = muestra;
+        this.tratamientoCtrl = new TratamientoCtrl();
         initComponents();
         this.setVisible(true);
         
@@ -50,6 +54,7 @@ public class TratamientoPanel extends javax.swing.JPanel {
 
         txt_Tratamiento.setColumns(20);
         txt_Tratamiento.setRows(5);
+        txt_Tratamiento.setAutoscrolls(false);
         jScrollPane1.setViewportView(txt_Tratamiento);
 
         btn_Guardar.setText("Guardar");
@@ -69,24 +74,22 @@ public class TratamientoPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl_MuestraId)
-                        .addGap(60, 60, 60)
-                        .addComponent(lbl_MuestraVal))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl_ResFinal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_ResFinalVal)))
-                .addContainerGap(300, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_Guardar)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_Guardar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl_MuestraId)
+                                .addGap(60, 60, 60)
+                                .addComponent(lbl_MuestraVal))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl_ResFinal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbl_ResFinalVal)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -100,16 +103,27 @@ public class TratamientoPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_ResFinal)
                     .addComponent(lbl_ResFinalVal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btn_Guardar)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
-        System.out.println("abc");
+        Tratamiento tratamiento  = new Tratamiento();
+        
+        tratamiento.setIdMuestra(muestra.getIdMuestra());
+        tratamiento.setIdPaciente(muestra.getIdPaciente());
+        tratamiento.setIdDoctor("aBC");
+        tratamiento.setDescripcion(txt_Tratamiento.getText());
+        
+        if (tratamientoCtrl.guardarTratamiento(tratamiento)) {
+            setEditarTratamientos(false);
+        } else {
+        
+        }
     }//GEN-LAST:event_btn_GuardarActionPerformed
 
 

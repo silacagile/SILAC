@@ -34,11 +34,6 @@ public enum Rol {
         
         return res;
     }
-    
-    public static boolean logeable(Rol value) {
-        System.out.println(value);
-        return value.getValue() != Rol.NA.getValue() && value.getValue() != Rol.DOCTOR.getValue();
-    }
 
     /**
      * @return the value

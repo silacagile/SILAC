@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.AutentificacionCtrl;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -61,11 +62,6 @@ public class Login extends javax.swing.JFrame {
         txt_Login.setToolTipText("");
 
         btn_Log.setText("Login");
-        btn_Log.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_LogMouseClicked(evt);
-            }
-        });
         btn_Log.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_LogActionPerformed(evt);
@@ -148,57 +144,46 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_LogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LogMouseClicked
+    private void loginLogic() throws HeadlessException {
         Usuario usuario = autentificacionCtrl.autentificar(txt_Login.getText(), txt_Password.getPassword());
         if (usuario != null) {
             Rol rol = usuario.getPersona().getRol();
-            if (Rol.logeable(rol)) {
-                if(rol.SECRETARIA == usuario.getPersona().getRol())
-                    new RegistroPaciente().setVisible(true);
-                else
-                    new Principal(usuario).setVisible(true);
-               // this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
-                        "ERROR", JOptionPane.ERROR_MESSAGE);
-
-                cleanPassword();
+                 
+            switch (rol) {
+                case SECRETARIA:
+                    new PrincipalSecretaria(usuario).setVisible(true);
+                    break;
+                case DOCTOR:
+                    break;
+                case ANALISTA:
+                    break;
+                case ADMINISTRADOR:
+                case NA:
+                    JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
+                    break;
             }
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
 
+            cleanPassword();
+        }
+        
         cleanPassword();
-    }//GEN-LAST:event_btn_LogMouseClicked
+    }
 
     private void txt_PasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_PasswordKeyPressed
         int key=evt.getKeyCode();
         if(key==KeyEvent.VK_ENTER)
         { 
-            btn_LogMouseClicked(null);
+            loginLogic();
         }
     }//GEN-LAST:event_txt_PasswordKeyPressed
 
     private void btn_LogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LogActionPerformed
-        Usuario usuario = autentificacionCtrl.autentificar(txt_Login.getText(), txt_Password.getPassword());
-        if (usuario != null) {
-            Rol rol = usuario.getPersona().getRol();
-            if (Rol.logeable(rol)) {
-                new Principal(usuario).setVisible(true);
-                // this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
-                        "ERROR", JOptionPane.ERROR_MESSAGE);
-
-                cleanPassword();
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Credenciales incorrectas intente otra vez.",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-
-        cleanPassword();
+        loginLogic();
     }//GEN-LAST:event_btn_LogActionPerformed
 
     /**
@@ -251,16 +236,11 @@ public class Login extends javax.swing.JFrame {
         txt_Password.setText("");
     }
     
-     private void addButtonFocus() {
+    private void addButtonFocus() {
         btn_Log.registerKeyboardAction(btn_Log.getActionForKeyStroke(
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
                 JComponent.WHEN_FOCUSED);
-
-      
-
-     
-
     }
     
 }

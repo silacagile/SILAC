@@ -157,7 +157,7 @@ public class HistorialPaciente extends javax.swing.JFrame {
                         .addComponent(lbl_CI)
                         .addGap(49, 49, 49)
                         .addComponent(lbl_CIV)
-                        .addContainerGap(207, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panel_PacienteLayout.createSequentialGroup()
                         .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_PacienteLayout.createSequentialGroup()
@@ -187,11 +187,12 @@ public class HistorialPaciente extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_NombreV)
-                            .addComponent(lbl_CI)
                             .addComponent(lbl_CIV)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_PacienteLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_Nombre)))
+                        .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_Nombre)
+                            .addComponent(lbl_CI))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_PacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_PacienteLayout.createSequentialGroup()
@@ -233,7 +234,7 @@ public class HistorialPaciente extends javax.swing.JFrame {
         );
         ipanel_TratamientosLayout.setVerticalGroup(
             ipanel_TratamientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 254, Short.MAX_VALUE)
+            .addGap(0, 271, Short.MAX_VALUE)
         );
 
         panel_Tratamientos.setViewportView(ipanel_Tratamientos);
@@ -250,7 +251,8 @@ public class HistorialPaciente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel_Paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_Tratamientos, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                .addComponent(panel_Tratamientos, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
