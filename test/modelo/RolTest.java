@@ -58,18 +58,5 @@ public class RolTest {
         Rol expResult = Rol.ADMINISTRADOR;
         Rol result = Rol.fromValue(value);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of logeable method, of class Rol.
-     */
-    @Test
-    public void testLogeable() {
-        System.out.println("logeable");
-        Rol value = Rol.ADMINISTRADOR;
-        boolean expResult = true;
-        boolean result = Rol.logeable(value);
-        assertEquals(expResult, result);
-    }
-    
+    }  
 }

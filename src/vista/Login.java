@@ -154,8 +154,10 @@ public class Login extends javax.swing.JFrame {
                     new PrincipalSecretaria(usuario).setVisible(true);
                     break;
                 case DOCTOR:
+                    new PrincipalDoctor(usuario).setVisible(true);
                     break;
                 case ANALISTA:
+                    new PrincipalAnalista(usuario).setVisible(true);
                     break;
                 case ADMINISTRADOR:
                 case NA:
