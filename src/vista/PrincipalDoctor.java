@@ -99,7 +99,7 @@ public class PrincipalDoctor extends javax.swing.JFrame {
     }// </editor-fold>                                                                     
 
     private void btn_NuevoPacienteActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        new HistorialPaciente().setVisible(true);
+        new HistorialPaciente(usuario).setVisible(true);
     }                                                 
 
     // Variables declaration - do not modify                     

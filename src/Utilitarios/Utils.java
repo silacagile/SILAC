@@ -5,6 +5,8 @@
  */
 package Utilitarios;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +22,9 @@ import vista.RegistrarResultado;
  * @author Jorge Aguirre
  */
 public class Utils {
+    
+    private static SecureRandom random = new SecureRandom();
+    public static DateFormat df = new SimpleDateFormat(Constantes.DATEFORMAT);
 
     public static boolean esDouble(String entrada) {
         boolean respuesta;
@@ -36,7 +41,6 @@ public class Utils {
 
     public static Calendar formatoFecha(String fecha) {
         Calendar cal = new GregorianCalendar();
-        DateFormat df = new SimpleDateFormat(Constantes.DATEFORMAT);
         
         try {
             Date date = df.parse(fecha);
@@ -46,5 +50,9 @@ public class Utils {
         }
 
         return cal;
+    }
+    
+    public static String nextSessionId() {
+        return new BigInteger(130, random).toString(32);
     }
 }

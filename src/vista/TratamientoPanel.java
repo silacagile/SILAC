@@ -5,9 +5,13 @@
  */
 package vista;
 
+import Utilitarios.Utils;
 import controlador.TratamientoCtrl;
+import java.text.DateFormat;
+import java.util.Date;
 import modelo.Muestra;
 import modelo.Tratamiento;
+import modelo.Usuario;
 
 /**
  *
@@ -15,6 +19,7 @@ import modelo.Tratamiento;
  */
 public class TratamientoPanel extends javax.swing.JPanel {
 
+    private final Usuario usuario;
     private final TratamientoCtrl tratamientoCtrl;
     private final Muestra muestra;
 
@@ -22,7 +27,8 @@ public class TratamientoPanel extends javax.swing.JPanel {
      * Creates new form TratamientoPanel
      * @param muestra
      */
-    public TratamientoPanel(Muestra muestra) {
+    public TratamientoPanel(Usuario usuario, Muestra muestra) {
+        this.usuario = usuario;
         this.muestra = muestra;
         this.tratamientoCtrl = new TratamientoCtrl();
         initComponents();
@@ -114,9 +120,12 @@ public class TratamientoPanel extends javax.swing.JPanel {
     private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
         Tratamiento tratamiento  = new Tratamiento();
         
+        tratamiento.setIdTratamiento(Utils.nextSessionId());
         tratamiento.setIdMuestra(muestra.getIdMuestra());
         tratamiento.setIdPaciente(muestra.getIdPaciente());
-        tratamiento.setIdDoctor("aBC");
+        tratamiento.setIdDoctor(usuario.getPersona().getIdPersona());
+        Date date = new Date();
+        tratamiento.setFechaTratamiento(Utils.df.format(date));
         tratamiento.setDescripcion(txt_Tratamiento.getText());
         
         if (tratamientoCtrl.guardarTratamiento(tratamiento)) {
