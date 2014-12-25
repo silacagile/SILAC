@@ -1006,6 +1006,10 @@ jPanel2Layout.setHorizontalGroup(
     }
 
 
+    /**
+     * Permite buscar un paciente en la BD y habilitar las muestras de ese paciente
+     * @param evt 
+     */
     private void btn_buscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarPacienteActionPerformed
 
         Paciente paciente = pacienteCtrl.buscarPaciente(cmb_Pacientes.getSelectedItem().toString());
@@ -1129,6 +1133,10 @@ jPanel2Layout.setHorizontalGroup(
         updateVistaEnsayo();
     }//GEN-LAST:event_rbtn_ensayo5ActionPerformed
 
+    /**
+     * Resetea todos los campos de paciente para poder cambiar de paciente
+     * @param evt 
+     */
     private void btn_cambiarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarPacienteActionPerformed
         int opcion = JOptionPane.showConfirmDialog(new Frame(),
                 "¿Seguro que desea cambiar de Paciente?\n"
@@ -1145,6 +1153,10 @@ jPanel2Layout.setHorizontalGroup(
 
     }//GEN-LAST:event_btn_cambiarPacienteActionPerformed
 
+    /**
+     * Resetea todos los campos de la muestra para poder cambiar de muestra
+     * @param evt 
+     */
     private void btn_cambiarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarMuestraActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this,
                 "¿Seguro que desea cambiar de muestra?\n"
@@ -1217,6 +1229,11 @@ jPanel2Layout.setHorizontalGroup(
         }
     }//GEN-LAST:event_btn_buscarMuestraActionPerformed
     int limit_ftxt = 0; //controla que el input sea max de 5 digitos
+    
+    /**
+     * Validaciones de longitud y tipo de caracter para los campos
+     * @param evt 
+     */
     private void ftxt_numExtraccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxt_numExtraccionKeyTyped
         limit_ftxt = ftxt_numExtraccion.getText().length();
         if (!Character.isDigit(evt.getKeyChar()) || !(limit_ftxt < 5)) {
@@ -1281,6 +1298,10 @@ jPanel2Layout.setHorizontalGroup(
         }
     }//GEN-LAST:event_txtF_volumenMuestraKeyPressed
 
+    /**
+     * Valida el campo de tipoGel 3 números como máximo
+     * @param evt 
+     */
     private void txtF_volumenMuestraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_volumenMuestraKeyTyped
         lim = txtF_volumenMuestra.getText().length();
         if (!Character.isDigit(evt.getKeyChar()) || !(lim < 3)) {
@@ -1297,6 +1318,10 @@ jPanel2Layout.setHorizontalGroup(
         }
     }//GEN-LAST:event_txtF_codMuestraKeyPressed
 
+    /**
+     * Valida el campo de codMuestra 5 caracteres Alfanuméricos
+     * @param evt 
+     */
     private void txtF_codMuestraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_codMuestraKeyTyped
         limMuestra = txtF_codMuestra.getText().length();
         if (!Character.isLetterOrDigit(evt.getKeyChar()) || !(limMuestra < 5)) {
@@ -1306,6 +1331,10 @@ jPanel2Layout.setHorizontalGroup(
         limMuestra++;
     }//GEN-LAST:event_txtF_codMuestraKeyTyped
 
+    /**
+     * Valida el campo de Resultado de Ensayo 20 caracteres Alfanuméricos
+     * @param evt 
+     */
     private void txtF_ResultadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_ResultadoKeyTyped
         limResultado = txtF_Resultado.getText().length();
         if (!Character.isLetterOrDigit(evt.getKeyChar()) || !(limResultado < 20)) {
@@ -1315,6 +1344,11 @@ jPanel2Layout.setHorizontalGroup(
         limResultado++;
     }//GEN-LAST:event_txtF_ResultadoKeyTyped
 
+    
+    /**
+     * Valida el campo de tipoExtracción 15 caracteres Alfanuméricos
+     * @param evt 
+     */
     private void txtF_tipoExtraccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_tipoExtraccionKeyTyped
         limTipoExt = txtF_tipoExtraccion.getText().length();
         if (!Character.isLetterOrDigit(evt.getKeyChar()) || !(limTipoExt < 15)) {
@@ -1324,6 +1358,10 @@ jPanel2Layout.setHorizontalGroup(
         limTipoExt++;
     }//GEN-LAST:event_txtF_tipoExtraccionKeyTyped
 
+    /**
+     * Valida el campo de tipoGel 15 caracteres Alfanuméricos
+     * @param evt 
+     */
     private void txtF_tipoGelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_tipoGelKeyTyped
         limTipoGel = txtF_tipoGel.getText().length();
         if (!Character.isLetterOrDigit(evt.getKeyChar()) || !(limTipoGel < 15)) {
