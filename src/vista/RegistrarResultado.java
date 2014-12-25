@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * RegistrarResultado
+ *
  */
 package vista;
 
@@ -28,11 +27,7 @@ import modelo.Ensayo;
 import modelo.Muestra;
 import modelo.Paciente;
 
-/**
- *
- * @author Machis
- */
-public class RegistrarResultado extends JFrame implements Printable {
+public class RegistrarResultado extends JFrame {
 
     private final MuestraCtrl muestraCtrl;
     private final PacienteCtrl pacienteCtrl;
@@ -41,7 +36,7 @@ public class RegistrarResultado extends JFrame implements Printable {
     private DefaultComboBoxModel pacientes;
 
     /**
-     * Creates new form RegistrarResultado
+     * Constructor Inicializa componentes y crea los controladores
      */
     public RegistrarResultado() {
         initComponents();
@@ -55,32 +50,48 @@ public class RegistrarResultado extends JFrame implements Printable {
         setComboBoxPacientes();
     }
 
+    /**
+     * Habilita el comboboz y boton de buscar paciente
+     */
     private void enableIDPaciente() {
-        //txtF_idPaciente.setEnabled(true);
         cmb_Pacientes.setEnabled(true);
         btn_buscarPaciente.setEnabled(true);
     }
 
+    /**
+     * Desabilita el boton cambiarPaciente
+     */
     private void enableCambiarPaciente() {
         btn_cambiarPaciente.setEnabled(true);
     }
 
+    /**
+     * Deshabilita el comboBox y boton de buscar Paciente
+     */
     private void disableIDPaciente() {
-        //txtF_idPaciente.setEnabled(false);
         cmb_Pacientes.setEnabled(false);
         btn_buscarPaciente.setEnabled(false);
     }
 
+    /**
+     * Habilita el textField y el boton de muestra
+     */
     private void enableIDMuestra() {
         txtF_codMuestra.setEnabled(true);
         btn_buscarMuestra.setEnabled(true);
     }
 
+    /**
+     * Deshabilita el textField y el botón de muestra
+     */
     private void disableIDMuestra() {
         txtF_codMuestra.setEnabled(false);
         btn_buscarMuestra.setEnabled(false);
     }
 
+    /**
+     * Resetea los comboBox
+     */
     private void resetCombos() {
         cmb_instrumento.setSelectedIndex(0);
         cmb_solBuffer.setSelectedIndex(0);
@@ -88,6 +99,9 @@ public class RegistrarResultado extends JFrame implements Printable {
         cmb_tipoTest.setSelectedIndex(0);
     }
 
+    /**
+     * Habilita los campos de la muestra
+     */
     private void enableMuestra() {
         txtF_codMuestra.setEnabled(true);
         btn_buscarMuestra.setEnabled(true);
@@ -102,6 +116,9 @@ public class RegistrarResultado extends JFrame implements Printable {
         btn_guardarMuestra.setEnabled(true);
     }
 
+    /**
+     * Deshabilita los campos de la muestra
+     */
     private void disableMuestra() {
         txtF_codMuestra.setEnabled(false);
         btn_buscarMuestra.setEnabled(false);
@@ -116,6 +133,9 @@ public class RegistrarResultado extends JFrame implements Printable {
         btn_guardarMuestra.setEnabled(false);
     }
 
+    /**
+     * Habilita los campos de los ensayos y los radioButtons
+     */
     private void enableEnsayos() {
         rbtn_ensayo1.setEnabled(true);
         rbtn_ensayo2.setEnabled(true);
@@ -133,6 +153,9 @@ public class RegistrarResultado extends JFrame implements Printable {
         btn_guardarEnsayo.setEnabled(true);
     }
 
+    /**
+     * Limpia el contenido de los cmapos del ensayo
+     */
     private void cleanEnsayos() {
         ftxt_numExtraccion.setText("");
         txtF_Resultado.setText("");
@@ -142,6 +165,9 @@ public class RegistrarResultado extends JFrame implements Printable {
         txtF_tipoGel.setText("");
     }
 
+    /**
+     * Limpia el contenido de los campos de muestra
+     */
     private void cleanMuestras() {
         txtF_codMuestra.setText("");
         txtF_volumenMuestra.setText("");
@@ -149,6 +175,9 @@ public class RegistrarResultado extends JFrame implements Printable {
         txtF_resultadoFinal.setText("");
     }
 
+    /**
+     * Deshabilita los campos y radioButtons de los ensayos
+     */
     private void disableEnsayos() {
         rbtn_ensayo1.setEnabled(false);
         rbtn_ensayo2.setEnabled(false);
@@ -166,6 +195,9 @@ public class RegistrarResultado extends JFrame implements Printable {
         btn_guardarEnsayo.setEnabled(false);
     }
 
+    /**
+     * Habilita Componentes de la interfaz
+     */
     private void enableComponents() {
         txtF_codMuestra.setEnabled(true);
         cmb_tipoMuestra.setEnabled(true);
@@ -222,7 +254,10 @@ public class RegistrarResultado extends JFrame implements Printable {
         txtA_observaciones.setEnabled(false);
         btn_guardarMuestra.setEnabled(false);
     }
-    
+
+    /**
+     * Define el comboBox Pacientes
+     */
     private void setComboBoxPacientes() {
 
         pacientes = new DefaultComboBoxModel();
@@ -339,6 +374,14 @@ public class RegistrarResultado extends JFrame implements Printable {
                 txtF_codMuestraActionPerformed(evt);
             }
         });
+        txtF_codMuestra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtF_codMuestraKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtF_codMuestraKeyTyped(evt);
+            }
+        });
 
         label_solBuffer.setText("Solución Buffer : ");
 
@@ -452,11 +495,17 @@ public class RegistrarResultado extends JFrame implements Printable {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtF_tipoGelKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtF_tipoGelKeyTyped(evt);
+            }
         });
 
         txtF_tipoExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtF_tipoExtraccionKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtF_tipoExtraccionKeyTyped(evt);
             }
         });
 
@@ -473,6 +522,9 @@ public class RegistrarResultado extends JFrame implements Printable {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtF_ResultadoKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtF_ResultadoKeyTyped(evt);
+            }
         });
 
         ftxt_numExtraccion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
@@ -487,38 +539,38 @@ public class RegistrarResultado extends JFrame implements Printable {
 
         date_extraccion.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
             new datechooser.view.appearance.ViewAppearance("custom",
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(0, 0, 255),
                     true,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(0, 0, 255),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(128, 128, 128),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(222, 222, 222),
                     new java.awt.Color(255, 0, 0),
                     false,
                     false,
@@ -526,42 +578,41 @@ public class RegistrarResultado extends JFrame implements Printable {
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
-    date_extraccion.setFormat(2);
 
     date_gel.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
         new datechooser.view.appearance.ViewAppearance("custom",
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(0, 0, 0),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(222, 222, 222),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(0, 0, 0),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(222, 222, 222),
                 new java.awt.Color(0, 0, 255),
                 true,
                 true,
                 new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                 new java.awt.Color(0, 0, 255),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
                 new java.awt.Color(128, 128, 128),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.LabelPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(0, 0, 0),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(222, 222, 222),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.LabelPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(0, 0, 0),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(222, 222, 222),
                 new java.awt.Color(255, 0, 0),
                 false,
                 false,
@@ -598,7 +649,7 @@ jPanel2Layout.setHorizontalGroup(
                 .addComponent(ftxt_numExtraccion, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btn_guardarEnsayo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label_extraccion)
                     .addComponent(label_gel))
@@ -888,9 +939,15 @@ jPanel2Layout.setHorizontalGroup(
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_instrumentoActionPerformed
 
+    /**
+     * Hace un update de los datos del ensayo seleccionado
+     *
+     * @param evt
+     */
     private void rbtn_ensayo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ensayo1ActionPerformed
         updateVistaEnsayo();
     }//GEN-LAST:event_rbtn_ensayo1ActionPerformed
+
 
     private void rbtn_ensayo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ensayo2ActionPerformed
         updateVistaEnsayo();
@@ -900,6 +957,11 @@ jPanel2Layout.setHorizontalGroup(
         // TODO add your handling code here:
     }//GEN-LAST:event_txtF_resultadoFinalActionPerformed
 
+    /**
+     * Permite guardar una muestra con los datos de los campos de muestra
+     *
+     * @param evt
+     */
     private void btn_guardarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarMuestraActionPerformed
         if (validarCamposMuestra()) {
             Muestra muestra = new Muestra();
@@ -934,6 +996,11 @@ jPanel2Layout.setHorizontalGroup(
 
     }//GEN-LAST:event_btn_guardarMuestraActionPerformed
 
+    /**
+     * Valida que el volumen sea de tipo double
+     *
+     * @return True si el número es double
+     */
     private boolean validarCamposMuestra() {
         return Utils.esDouble(txtF_volumenMuestra.getText());
     }
@@ -958,87 +1025,79 @@ jPanel2Layout.setHorizontalGroup(
     private void cmb_tipoMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_tipoMuestraActionPerformed
 
     }//GEN-LAST:event_cmb_tipoMuestraActionPerformed
-datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserCombo();
-    private boolean validarFechaExtrac()
-    {
+    datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserCombo();
+
+    private boolean validarFechaExtrac() {
         boolean res = false;
         int todayYear = Integer.valueOf(today.getText().substring(6)) + 2000;
         int todayMonth = Integer.valueOf(today.getText().substring(3, 5));
         int todayDay = Integer.valueOf(today.getText().substring(0, 2));
-        
+
         int selectYear = Integer.valueOf(date_extraccion.getText().substring(6));
         int selectMonth = Integer.valueOf(date_extraccion.getText().substring(3, 5));
         int selectDay = Integer.valueOf(date_extraccion.getText().substring(0, 2));
-        System.out.println("selected " + selectDay  + " " + selectMonth + " " + selectYear);
+        System.out.println("selected " + selectDay + " " + selectMonth + " " + selectYear);
         System.out.println("Today " + todayDay + " " + todayMonth + " " + todayYear);
-        
-        if(selectYear <= todayYear)
-        {
-            if(selectYear == todayYear)
-            {
-                if(selectMonth <= todayMonth)
-                {
-                    if(selectMonth == todayMonth)
-                    {
-                        if(selectDay <= todayDay)
-                        {
+
+        if (selectYear <= todayYear) {
+            if (selectYear == todayYear) {
+                if (selectMonth <= todayMonth) {
+                    if (selectMonth == todayMonth) {
+                        if (selectDay <= todayDay) {
                             res = true;
                         }
-                    }
-                    else{
+                    } else {
                         res = true;
                     }
                 }
-            }
-            else{
+            } else {
                 res = true;
             }
         }
         return res;
     }
-    
-    private boolean validarFechaGel()
-    {
+
+    private boolean validarFechaGel() {
         boolean res = false;
         int todayYear = Integer.valueOf(today.getText().substring(6)) + 2000;
         int todayMonth = Integer.valueOf(today.getText().substring(3, 5));
         int todayDay = Integer.valueOf(today.getText().substring(0, 2));
-        
+
         int selectYear = Integer.valueOf(date_gel.getText().substring(6));
         int selectMonth = Integer.valueOf(date_gel.getText().substring(3, 5));
         int selectDay = Integer.valueOf(date_gel.getText().substring(0, 2));
-        System.out.println("selected " + selectDay  + " " + selectMonth + " " + selectYear);
+        System.out.println("selected " + selectDay + " " + selectMonth + " " + selectYear);
         System.out.println("Today " + todayDay + " " + todayMonth + " " + todayYear);
-        
-        if(selectYear <= todayYear)
-        {
-            if(selectYear == todayYear)
-            {
-                if(selectMonth <= todayMonth)
-                {
-                    if(selectMonth == todayMonth)
-                    {
-                        if(selectDay <= todayDay)
-                        {
+
+        if (selectYear <= todayYear) {
+            if (selectYear == todayYear) {
+                if (selectMonth <= todayMonth) {
+                    if (selectMonth == todayMonth) {
+                        if (selectDay <= todayDay) {
                             res = true;
                         }
-                    }
-                    else{
+                    } else {
                         res = true;
                     }
                 }
-            }
-            else{
+            } else {
                 res = true;
             }
         }
         return res;
     }
+
+    /**
+     * Método que permite guardar un ensayo en la BD con los datos del
+     * formulario
+     *
+     * @param evt
+     */
     private void btn_guardarEnsayoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarEnsayoActionPerformed
 
         String id_ensayo = getId_Ensayo();
         if (!camposEmpty()) {
-            if(validarFechaExtrac() && validarFechaGel()){
+            if (validarFechaExtrac() && validarFechaGel()) {
                 Ensayo ensayo = getEnsayo();
                 ensayo.setIdEnsayo(id_ensayo);
                 limit_ftxt = 0;
@@ -1050,8 +1109,9 @@ datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserComb
                     ensayoCtrl.insertarEnsayo(ensayo);
                     JOptionPane.showMessageDialog(this, "Se ha guardado el Ensayo : " + id_ensayo + " \ncorrectamente");
                 }
-            }else
+            } else {
                 JOptionPane.showMessageDialog(this, "Por Favor, Ingrese una Fecha Valida", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Por Favor ingrese todos los campos", "Error de Formulario", JOptionPane.ERROR_MESSAGE);
         }
@@ -1101,7 +1161,12 @@ datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserComb
         }
     }//GEN-LAST:event_btn_cambiarMuestraActionPerformed
 
-
+    /**
+     * Método que permite buscar en la BD una muestra En caso de no existir
+     * permite guardar la muestra
+     *
+     * @param evt
+     */
     private void btn_buscarMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarMuestraActionPerformed
 
         if (txtF_codMuestra.getText().equals("")) {
@@ -1156,6 +1221,7 @@ datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserComb
         limit_ftxt = ftxt_numExtraccion.getText().length();
         if (!Character.isDigit(evt.getKeyChar()) || !(limit_ftxt < 5)) {
             evt.consume();
+
             return;
         }
         limit_ftxt++;
@@ -1168,17 +1234,30 @@ datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserComb
         }
         ftxt_numExtraccion.setBackground(Color.white);
     }//GEN-LAST:event_ftxt_numExtraccionKeyPressed
-
+    int limResultado = 0;
     private void txtF_ResultadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_ResultadoKeyPressed
         txtF_Resultado.setBackground(Color.white);
+        if (evt.getKeyCode() == 8 && limResultado != 0) //el cod 8 es delete
+        {
+            limResultado -= 1;
+        }
     }//GEN-LAST:event_txtF_ResultadoKeyPressed
-
+    int limTipoExt = 0;
     private void txtF_tipoExtraccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_tipoExtraccionKeyPressed
         txtF_tipoExtraccion.setBackground(Color.white);
-    }//GEN-LAST:event_txtF_tipoExtraccionKeyPressed
+        if (evt.getKeyCode() == 8 && limTipoExt != 0) //el cod 8 es delete
+        {
+            limTipoExt -= 1;
+        }
 
+    }//GEN-LAST:event_txtF_tipoExtraccionKeyPressed
+    int limTipoGel = 0;
     private void txtF_tipoGelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_tipoGelKeyPressed
         txtF_tipoGel.setBackground(Color.white);
+        if (evt.getKeyCode() == 8 && limTipoGel != 0) //el cod 8 es delete
+        {
+            limTipoGel -= 1;
+        }
     }//GEN-LAST:event_txtF_tipoGelKeyPressed
 
     private void txtF_volumenMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_volumenMuestraActionPerformed
@@ -1194,9 +1273,9 @@ datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserComb
     private void txtF_idPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_idPacienteActionPerformed
 
     }//GEN-LAST:event_txtF_idPacienteActionPerformed
-int lim = 0;
+    int lim = 0;
     private void txtF_volumenMuestraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_volumenMuestraKeyPressed
-         if (evt.getKeyCode() == 8 && lim != 0) //el cod 8 es delete
+        if (evt.getKeyCode() == 8 && lim != 0) //el cod 8 es delete
         {
             lim -= 1;
         }
@@ -1210,6 +1289,49 @@ int lim = 0;
         }
         lim++;
     }//GEN-LAST:event_txtF_volumenMuestraKeyTyped
+    int limMuestra = 0;
+    private void txtF_codMuestraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_codMuestraKeyPressed
+        if (evt.getKeyCode() == 8 && limMuestra != 0) //el cod 8 es delete
+        {
+            limMuestra -= 1;
+        }
+    }//GEN-LAST:event_txtF_codMuestraKeyPressed
+
+    private void txtF_codMuestraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_codMuestraKeyTyped
+        limMuestra = txtF_codMuestra.getText().length();
+        if (!Character.isLetterOrDigit(evt.getKeyChar()) || !(limMuestra < 5)) {
+            evt.consume();
+            return;
+        }
+        limMuestra++;
+    }//GEN-LAST:event_txtF_codMuestraKeyTyped
+
+    private void txtF_ResultadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_ResultadoKeyTyped
+        limResultado = txtF_Resultado.getText().length();
+        if (!Character.isLetterOrDigit(evt.getKeyChar()) || !(limResultado < 20)) {
+            evt.consume();
+            return;
+        }
+        limResultado++;
+    }//GEN-LAST:event_txtF_ResultadoKeyTyped
+
+    private void txtF_tipoExtraccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_tipoExtraccionKeyTyped
+        limTipoExt = txtF_tipoExtraccion.getText().length();
+        if (!Character.isLetterOrDigit(evt.getKeyChar()) || !(limTipoExt < 15)) {
+            evt.consume();
+            return;
+        }
+        limTipoExt++;
+    }//GEN-LAST:event_txtF_tipoExtraccionKeyTyped
+
+    private void txtF_tipoGelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtF_tipoGelKeyTyped
+        limTipoGel = txtF_tipoGel.getText().length();
+        if (!Character.isLetterOrDigit(evt.getKeyChar()) || !(limTipoGel < 15)) {
+            evt.consume();
+            return;
+        }
+        limTipoGel++;
+    }//GEN-LAST:event_txtF_tipoGelKeyTyped
 
     /**
      * @param args the command line arguments
@@ -1308,27 +1430,8 @@ int lim = 0;
     // End of variables declaration//GEN-END:variables
 
     /**
-     *
-     * @param graphics
-     * @param pageFormat
-     * @param pageIndex
-     * @return
-     * @throws PrinterException
-     */
-    @Override
-    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-        if (pageIndex == 0) {
-            Graphics2D g2d = (Graphics2D) graphics;
-            g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-            this.printAll(graphics);
-            return PAGE_EXISTS;
-        } else {
-            return NO_SUCH_PAGE;
-        }
-    }
-
-    /**
-     * Devuelve el id del ensayo que esta seleccionado en el radiobutton
+     * Método que devuelve el id del ensayo que esta seleccionado en el
+     * radiobutton
      *
      * @return
      */
@@ -1349,6 +1452,11 @@ int lim = 0;
         return res;
     }
 
+    /**
+     * Método que obtiene un ensayo a partir de los campos del formulario
+     *
+     * @return Ensayo con datos válidos
+     */
     private Ensayo getEnsayo() {
         Ensayo res = new Ensayo();
         res.setIdMuestra(txtF_codMuestra.getText());
@@ -1362,6 +1470,9 @@ int lim = 0;
         return res;
     }
 
+    /**
+     * Método que permite accionar los botones con la tecla "enter"
+     */
     private void addButtonFocus() {
         btn_buscarPaciente.registerKeyboardAction(btn_buscarPaciente.getActionForKeyStroke(
                 KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
@@ -1425,6 +1536,9 @@ int lim = 0;
 
     }
 
+    /**
+     * Recupera la información de los ensayos de la BD
+     */
     private void updateVistaEnsayo() {
 
         setBackgroundCampos();
@@ -1445,6 +1559,11 @@ int lim = 0;
         }
     }
 
+    /**
+     * Método que permite saber si algún campo de los ensayos está vació
+     *
+     * @return True - si algún campo está vació
+     */
     private boolean camposEmpty() {
         boolean res = false;
         if (ftxt_numExtraccion.getText().trim().isEmpty()) {
@@ -1466,6 +1585,9 @@ int lim = 0;
         return res;
     }
 
+    /**
+     * Define el background de los campos del ensayo
+     */
     private void setBackgroundCampos() {
         ftxt_numExtraccion.setBackground(Color.white);
         txtF_Resultado.setBackground(Color.white);
