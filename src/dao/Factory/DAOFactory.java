@@ -21,16 +21,42 @@ public abstract class DAOFactory {
     public static int POSTGRESQL = 1;
     public static int SQLITE = 2;
 
+    
+    /**
+     * Devuelve el DAO para un ensayo
+     * @return 
+     */
     public abstract EnsayoDAO getEnsayoDAO();
 
+    
+    /**
+     * Devuelve el DAO para una muestra
+     * @return 
+     */
     public abstract MuestraDAO getMuestraDAO();
 
+    /**
+     * Devuelve el DAO para un paciente
+     * @return 
+     */
     public abstract PacienteDAO getPacienteDAO();
     
+    /**
+     * Devuelve el DAO para una autentificacion
+     * @return 
+     */
     public abstract AutentificacionDAO getAutentificacionDAO();
     
+    /**
+     * Devuelve el DAO para una persona
+     * @return 
+     */
     public abstract PersonaDAO getPersonaDAO();
     
+    /**
+     * Devuelve el DAO para un tratamiento
+     * @return 
+     */
     public abstract TratamientoDAO getTratamientoDAO();
 
     public static DAOFactory getDAOFactory(int factory) {

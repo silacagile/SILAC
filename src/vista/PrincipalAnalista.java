@@ -114,7 +114,7 @@ public class PrincipalAnalista extends javax.swing.JFrame {
     }                                              
 
     private void btn_BuscarHistorialActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        new BuscarHistorial().setVisible(true);
+        //new BuscarHistorial().setVisible(true);
     }                                                 
 
 

@@ -32,6 +32,10 @@ public class SqliteDAOFactory extends DAOFactory {
     public static final String DRIVER = Constantes.SQLITE_DRIVER;
     public static final String DBURL = Constantes.SQLITE_DBURL;
 
+    /**
+     * Método que realiza la conexión con la BD
+     * @return Connection - una conexion con la BD
+     */
     public static Connection createConnection() {
         Connection connection = null;
         try {

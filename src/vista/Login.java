@@ -49,6 +49,7 @@ public class Login extends javax.swing.JFrame {
         lbl_SilacName = new javax.swing.JLabel();
         txt_Password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,18 +80,16 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
 
+        jLabel3.setText("Bienvenido al Sistema de Información de Análisis Clínico");
+
         javax.swing.GroupLayout pn_LoginPanelLayout = new javax.swing.GroupLayout(pn_LoginPanel);
         pn_LoginPanel.setLayout(pn_LoginPanelLayout);
         pn_LoginPanelLayout.setHorizontalGroup(
             pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_LoginPanelLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pn_LoginPanelLayout.createSequentialGroup()
-                        .addComponent(lbl_SilacName, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60))
+                .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pn_LoginPanelLayout.createSequentialGroup()
                         .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btn_Log, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -98,11 +97,21 @@ public class Login extends javax.swing.JFrame {
                                 .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lbl_Password)
                                     .addComponent(lbl_Login))
-                                .addGap(104, 104, 104)
+                                .addGap(38, 38, 38)
                                 .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txt_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txt_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(38, 38, 38)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pn_LoginPanelLayout.createSequentialGroup()
+                .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn_LoginPanelLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(lbl_SilacName, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pn_LoginPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pn_LoginPanelLayout.setVerticalGroup(
             pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,17 +121,19 @@ public class Login extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(lbl_SilacName, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_Login)
                     .addComponent(txt_Login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pn_LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_Password)
                     .addComponent(txt_Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_Log)
-                .addGap(34, 34, 34))
+                .addGap(28, 28, 28))
         );
 
         lbl_Login.getAccessibleContext().setAccessibleName("login");
@@ -151,13 +162,13 @@ public class Login extends javax.swing.JFrame {
                  
             switch (rol) {
                 case SECRETARIA:
-                    new PrincipalSecretaria(usuario).setVisible(true);
+                    new SecretariaPrincipal().setVisible(true);
                     break;
                 case DOCTOR:
-                    new PrincipalDoctor(usuario).setVisible(true);
+                    new DoctorPrincipal(usuario).setVisible(true);
                     break;
                 case ANALISTA:
-                    new PrincipalAnalista(usuario).setVisible(true);
+                    new AnalistaPrincipal().setVisible(true);
                     break;
                 case ADMINISTRADOR:
                 case NA:
@@ -226,6 +237,7 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Log;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lbl_Login;
     private javax.swing.JLabel lbl_Password;
     private javax.swing.JLabel lbl_SilacName;
