@@ -10,12 +10,7 @@ import controlador.MuestraCtrl;
 import controlador.PacienteCtrl;
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -34,6 +29,7 @@ public class RegistrarResultado extends JFrame {
     private final EnsayoCtrl ensayoCtrl;
     private List<Paciente> listaPacientes;
     private DefaultComboBoxModel pacientes;
+    public static datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserCombo();
 
     /**
      * Constructor Inicializa componentes y crea los controladores
@@ -46,6 +42,12 @@ public class RegistrarResultado extends JFrame {
         setLocationRelativeTo(null);
         disableComponents();
         date_gel.setFormat(2);
+        date_extraccion.setFormat(2);
+        int todayYear = Integer.valueOf(today.getText().substring(6)) + 2000;
+        int todayMonth = Integer.valueOf(today.getText().substring(3, 5));
+        int todayDay = Integer.valueOf(today.getText().substring(0, 2));
+        date_gel.setMaxDate(new java.util.GregorianCalendar(todayYear, todayMonth - 1, todayDay + 1));
+        date_extraccion.setMaxDate(new java.util.GregorianCalendar(todayYear, todayMonth - 1, todayDay + 1));
         addButtonFocus();
         setComboBoxPacientes();
     }
@@ -374,14 +376,6 @@ public class RegistrarResultado extends JFrame {
                 txtF_codMuestraActionPerformed(evt);
             }
         });
-        txtF_codMuestra.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtF_codMuestraKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtF_codMuestraKeyTyped(evt);
-            }
-        });
 
         label_solBuffer.setText("Solución Buffer : ");
 
@@ -495,17 +489,11 @@ public class RegistrarResultado extends JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtF_tipoGelKeyPressed(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtF_tipoGelKeyTyped(evt);
-            }
         });
 
         txtF_tipoExtraccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtF_tipoExtraccionKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtF_tipoExtraccionKeyTyped(evt);
             }
         });
 
@@ -522,9 +510,6 @@ public class RegistrarResultado extends JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtF_ResultadoKeyPressed(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtF_ResultadoKeyTyped(evt);
-            }
         });
 
         ftxt_numExtraccion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
@@ -539,38 +524,38 @@ public class RegistrarResultado extends JFrame {
 
         date_extraccion.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
             new datechooser.view.appearance.ViewAppearance("custom",
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(222, 222, 222),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(222, 222, 222),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
                     new java.awt.Color(0, 0, 255),
                     true,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(0, 0, 255),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
                     new java.awt.Color(128, 128, 128),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(222, 222, 222),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
                     new java.awt.Color(0, 0, 255),
                     false,
                     true,
                     new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(222, 222, 222),
+                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                    new java.awt.Color(0, 0, 0),
                     new java.awt.Color(255, 0, 0),
                     false,
                     false,
@@ -581,38 +566,38 @@ public class RegistrarResultado extends JFrame {
 
     date_gel.setCurrentView(new datechooser.view.appearance.AppearancesList("Light",
         new datechooser.view.appearance.ViewAppearance("custom",
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(222, 222, 222),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(0, 0, 0),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(222, 222, 222),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(0, 0, 0),
                 new java.awt.Color(0, 0, 255),
                 true,
                 true,
                 new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
                 new java.awt.Color(0, 0, 255),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.ButtonPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
                 new java.awt.Color(128, 128, 128),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.LabelPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(222, 222, 222),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(0, 0, 0),
                 new java.awt.Color(0, 0, 255),
                 false,
                 true,
                 new datechooser.view.appearance.swing.LabelPainter()),
-            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11),
-                new java.awt.Color(222, 222, 222),
+            new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
+                new java.awt.Color(0, 0, 0),
                 new java.awt.Color(255, 0, 0),
                 false,
                 false,
@@ -620,6 +605,7 @@ public class RegistrarResultado extends JFrame {
             (datechooser.view.BackRenderer)null,
             false,
             true)));
+date_gel.setWeekStyle(datechooser.view.WeekDaysStyle.SHORT);
 
 javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
 jPanel2.setLayout(jPanel2Layout);
@@ -1029,8 +1015,7 @@ jPanel2Layout.setHorizontalGroup(
     private void cmb_tipoMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_tipoMuestraActionPerformed
 
     }//GEN-LAST:event_cmb_tipoMuestraActionPerformed
-    datechooser.beans.DateChooserCombo today = new datechooser.beans.DateChooserCombo();
-
+    
     private boolean validarFechaExtrac() {
         boolean res = false;
         int todayYear = Integer.valueOf(today.getText().substring(6)) + 2000;
@@ -1592,6 +1577,8 @@ jPanel2Layout.setHorizontalGroup(
             date_extraccion.setSelectedDate(Utils.
                     formatoFecha(ensayo.getFechaExtraccion()));
             date_gel.setSelectedDate(Utils.formatoFecha(ensayo.getFechaGel()));
+            System.out.println(ensayo.getFechaExtraccion());
+            System.out.println(ensayo.getFechaGel());
         } else {
             cleanEnsayos();
         }

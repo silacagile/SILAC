@@ -216,8 +216,8 @@ public class BuscadorPaciente extends javax.swing.JFrame {
            Paciente paciente = pacienteCtrl.buscarPaciente(id);
            RegistroPaciente rp =  new RegistroPaciente();
           rp.setVisible(true);
-           rp.modificarPaciente(paciente);
-           
+          rp.setTitle("Actualizar Paciente");
+           rp.modificarPaciente(paciente);   
         }
     }//GEN-LAST:event_btn_ModificarActionPerformed
 
