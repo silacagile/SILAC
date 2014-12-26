@@ -61,7 +61,7 @@ public class BuscadorPaciente extends javax.swing.JFrame {
         btn_Eliminar = new javax.swing.JButton();
         btn_Modificar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Buscador Paciente");
 
