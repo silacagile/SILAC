@@ -31,7 +31,7 @@ public class Convention {
      *
      * @return Retorna 0
      */
-    public int method1() {
+    public int cualquierCosa() {
         return 0;
 
     }
